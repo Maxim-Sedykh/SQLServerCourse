@@ -10,6 +10,8 @@ namespace SQLServerCourse.Domain.ViewModels.Teaching
 {
     public class QuestionViewModel
     {
+        public int Number { get; set; }
+
         public string Content { get; set; }
 
         public List<PageAnswer>? VariantsOfAnswer { get; set; }
