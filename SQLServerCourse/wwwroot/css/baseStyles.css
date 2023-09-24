@@ -1,0 +1,40 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+:root {
+    --color-darkblue1: #061c42;
+    --color-darkblue2: #001f5e;
+    --color-blue: #1469c2;
+    --color-darkaqua: #0f6270;
+    --color-aqua: #1ab1c9;
+    --color-sea: #15c488;
+    --color-green: #30b318;
+}
+
+body {
+    margin-bottom:0px;
+}
+
+.wrapper {
+    min-height: calc(100vh - 80px);
+}
+
+.longrow {
+    height: 800px;
+}
+
+.wordwrap {
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.footer, .push {
+    height: 142px; 
+}

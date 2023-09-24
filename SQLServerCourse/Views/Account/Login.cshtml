@@ -1,0 +1,55 @@
+﻿@model SQLServerCourse.Domain.ViewModels.Account.LoginViewModel
+
+@{
+    ViewData["Title"] = "Вход | SQLCourse";
+}
+
+<div class="container-fluid">
+    <div class="container">
+        <div class="row" style="height:800px;">
+            <div class="col-md-4 col-sm-3">
+            </div>
+            <div class="col-md-4 col-sm-6 main-content-login">
+                <p class="mt-5" align="center" style="font-size:30px;">
+                    <b>Войти в SQLCourse</b>
+                </p>
+                <div class="login-panel">
+                    <div class="login-panel-content py-5 mb-1">
+                        <div class="login-panel-content-label">
+                            <h2 class="text-white" align="center">
+                                Вход | SQLCourse
+                            </h2>
+                        </div>
+                        <div class="login-panel-content-form">
+                            <form id="login-panel-content-form" autocomplete="on" method="post" asp-controller="Account" asp-action="Login">
+                                <div asp-validation-summary="All" style="font-size:20px;margin-bottom: 10px; min-height:20px; " class="text-black text-center "></div>
+                                <div class="login-form-part">
+                                    <input asp-for="Login" type="text" class="inputs-in-login" placeholder="Логин" id="login-form-part-login">
+                                </div>
+                                <div class="login-form-part">
+                                    <input autocomplete="new-password" asp-for="Password" type="password" class="inputs-in-login" placeholder="Пароль" id="login-form-part-password">
+                                </div>
+                                <div class="text-center">
+                                    <button class="login-form-part-subminfo-button">
+                                        Войти
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div align="center" style="margin-top:60px;">
+                            <p class="login-panel-content-footer-parag" style="color:white; font-size:18px; font-weight:400;">
+                                У вас нет аккаунта SQLCourse? <br />
+                            </p>
+                            <a asp-controller="Account" asp-action="Register" style="color:white; font-size:20px; font-weight:400;">
+                                Зарегистрируйтесь Бесплатно!
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-3">
+            </div>
+        </div>
+    </div>
+</div>
+

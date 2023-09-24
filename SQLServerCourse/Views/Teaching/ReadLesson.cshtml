@@ -1,0 +1,44 @@
+﻿@model SQLServerCourse.Domain.ViewModels.Teaching.LessonLectureViewModel
+
+@{
+    ViewData["Title"] = "Результат | SQLServerCourse";
+}
+
+<div class="container-fluid">
+    <div class="container">
+        <br />
+        <h1 align="center">@Model.LessonName</h1>
+        <br />
+        <div class="row">
+            <div class="col-md-6 col-sm-12 text-center">
+                <a class="btn btn-gradient text-white text-center" asp-controller="PersonalProfile"
+                   asp-action="GetPersonalProfile" style="background: #41cdd1; width:150px;">
+                    Назад
+                </a>
+            </div>
+            <div class="col-md-6 col-sm-12 text-center">
+                <a class="btn btn-gradient text-white text-center" asp-controller="Teaching"
+                   asp-action="PassLesson" asp-route-id="@Model.Id">
+                    Перейти к практике
+                </a>
+            </div>
+        </div>
+        @Model.LessonMarkup
+        <br /><br />
+        <div class="row">
+            <div class="col-md-6 col-sm-12 text-center">
+                <a class="btn btn-gradient text-white text-center" asp-controller="PersonalProfile"
+                   asp-action="GetPersonalProfile" style="background: #41cdd1; width:150px;">
+                    Назад
+                </a>
+            </div>
+            <div class="col-md-6 col-sm-12 text-center">
+                <a class="btn btn-gradient text-white text-center" asp-controller="Teaching"
+                   asp-action="PassLesson" asp-route-id="@Model.Id">
+                    Перейти к практике
+                </a>
+            </div>
+        </div>
+        <br />
+    </div>
+</div>

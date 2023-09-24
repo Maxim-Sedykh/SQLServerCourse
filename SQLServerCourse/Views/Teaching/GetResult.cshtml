@@ -1,0 +1,147 @@
+﻿@model SQLServerCourse.Domain.ViewModels.Lesson.ResultViewModel
+
+@{
+    ViewData["Title"] = "Результат | SQLServerCourse";
+}
+
+<div class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-3">
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="congratulation-panel text-center">
+                    Поздравляем ! ! !
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 text-center">
+                <div class="result-panel">
+                    <div align="center" class="text-center mx-auto">
+                        Уважаемый @Model.Name @Model.Surname, Ваш окончательный результат:
+                        <br />
+                        <p style="font-size:30px;  font-weight:700;">@Model.FinalGrade баллов из 100 !!!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-6 text-center">
+                <button class="btn btn-gradient text-white mx-auto darkblue" id="but1" type="submit" onclick="showExamResult();">Результаты экзамена</button>
+                <button class="btn btn-gradient text-white mx-auto darkblue" id="but2" type="submit" onclick="hideExamResult();" style="display:none;">Скрыть результаты экзамена</button>
+            </div>
+            <div class="col-md-6 text-center">
+                <button class="btn btn-gradient text-white mx-auto darkblue" id="but3" type="submit" onclick="showAnalysis();">Анализ прохождения</button>
+                <button class="btn btn-gradient text-white mx-auto darkblue" id="but4" type="submit" onclick="hideAnalysis();" style="display:none;">Скрыть анализ прохождения</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div align="justify" id="exam" class="lesson-container" style="display:none;">
+                    <h4 class="text-center text-white">Начальный уровень</h4>
+                    <br />
+                    <p><b>1.</b> Как кратко называется средство администрирования для MS SQL Server?</p>
+                    <div align="center" style="display: none;" id="firsttaskUNRIGHT" class="answrunright">Неправильно! Правильный ответ: SSMS</div>
+                    <div align="center" style="display: none;" id="firsttaskRIGHT" class="answrright">Правильно! </div>
+                    @*................................*@
+                    <p> <b>2.</b> Какая системная база данных используется в качестве шаблона для всех баз данных, которые будут создаваться в экземпляре SQL Server?</p>
+                    <div align="center" style="display: none;" id="secondtaskUNRIGHT" class="answrunright">Неправильно! Правильный ответ: model</div>
+                    <div align="center" style="display: none;" id="secondtaskRIGHT" class="answrright">Правильно! </div>
+                    @*................................*@
+                    <p><b>3.</b> Какая из этих команд выполняет процедуру или скалярную функцию?</p>
+                    <div align="center" style="display: none;" id="thirdtaskUNRIGHT" class="answrunright">Неправильно! Правильный ответ: EXECUTE</div>
+                    <div align="center" style="display: none;" id="thirdtaskRIGHT" class="answrright">Правильно! </div>
+                    @*................................*@
+                    <p><b>4.</b> Какая из этих функций возвращает строку, возникающую в результате объединения двух или более строковых значений в сквозной форме?</p>
+                    <div align="center" style="display: none;" id="fourthtaskUNRIGHT" class="answrunright">Неправильно! Правильный ответ: CONCAT</div>
+                    <div align="center" style="display: none;" id="fourthtaskRIGHT" class="answrright">Правильно! </div>
+                    @*................................*@
+                    <p><b>5.</b> Продолжите фразу: транзакция — это группа инструкций одной или нескольких баз данных, которые ...........</p>
+                    <div align="center" style="display: none;" id="fifthtaskUNRIGHT" class="answrunright">Неправильно! Правильный ответ: Transaction</div>
+                    <div align="center" style="display: none;" id="fifthtaskRIGHT" class="answrright">Правильно! </div>
+                    @*................................*@
+                    <p><b>6.</b> Как можно создать резервную копию базы данных? </p>
+                    <div align="center" style="display: none;" id="sixthtaskUNRIGHT" class="answrunright">Неправильно! Правильный ответ: с помощью графического интерфейса</div>
+                    <div align="center" style="display: none;" id="sixthtaskRIGHT" class="answrright">Правильно! </div>
+                    @*................................*@
+                    <br />
+                    <h4 class="text-center text-white">Средний уровень</h4>
+                    <br />
+                    <p><b>7.</b> С помощью каких двух ключевых слов создается база данных?</p>
+                    <div align="center" style="display: none;" id="SevenAnsUnRight" class="answrunright">Неправильно! Правильный ответ: CREATE DATABASE</div>
+                    <div align="center" style="display: none;" id="SevenAnsRight" class="answrright">Правильно!</div>
+                    <p><b>8.</b> С помощью какого ключевого слова объявляется переменная?</p>
+                    <div align="center" style="display: none;" id="EightAnsUnRight" class="answrunright">Неправильно! Правильный ответ: DECLARE</div>
+                    <div align="center" style="display: none;" id="EightAnsRight" class="answrright">Правильно! </div>
+                    <p><b>9.</b> Вставьте пропущенное слово: в операторе IF Необязательное ключевое слово ..... позволяет указать альтернативную инструкцию Transact-SQL, выполняемую в случае, если значение выражения Boolean_expression равно FALSE или NULL.</p>
+                    <div align="center" style="display: none;" id="NineAnsUnRight" class="answrunright">Неправильно! Правильный ответ: ELSE</div>
+                    <div align="center" style="display: none;" id="NineAnsRight" class="answrright">Правильно! </div>
+                    <p><b>10.</b> С помощью каких двух ключевых слов создается триггер</p>
+                    <div align="center" style="display: none;" id="TenAnsUnRight" class="answrunright">Неправильно! Правильный ответ: CREATE TRIGGER</div>
+                    <div align="center" style="display: none;" id="TenAnsRight" class="answrright">Правильно! </div>
+                    <p><b>11.</b> Назовите "X": X является единственной единицей работы, если X выполнена успешно, все модификации данных, сделанные в течение X, принимаются и становятся постоянной частью базы данных.</p>
+                    <div align="center" style="display: none;" id="ElevenAnsUnRight" class="answrunright">Неправильно! Правильный ответ: Transaction</div>
+                    <div align="center" style="display: none;" id="ElevenAnsRight" class="answrright">Правильно! </div>
+                    <p><b>12.</b> Какими двумя ключевыми словами можно создать хранимую процедуру, помимо CREATE PROCEDURE</p>
+                    <div align="center" style="display: none;" id="TvelfthAnsUnRight" class="answrunright">Неправильно! Правильный ответ: CREATE PROC</div>
+                    <div align="center" style="display: none;" id="TvelfthAnsRight" class="answrright">Правильно! </div>
+                </div>
+                <div class="PersonalArea-analysis-text mx-auto my-3" id="analys" align="justify" style="display:none;">
+                    @Model.UserAnalys
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://kit.fontawesome.com/1e1acde3d7.js" crossorigin="anonymous"></script>
+<script>
+
+    function showExamResult() { 
+        $('#but1').hide();
+        $('#exam').show();
+        $('#but2').show();
+        $('#analys').hide();
+        $('#but3').show();
+        $('#but4').hide();
+
+        var tasksCorrectness = @Json.Serialize(Model.TasksCorrectness);
+
+        var unrightAnswers = document.getElementsByClassName('answrunright');
+        var rightAnswers = document.getElementsByClassName('answrright');
+
+        for (let i = 0; i < tasksCorrectness.length; i++) {
+            if (tasksCorrectness[i]) {
+                rightAnswers[i].style.display = 'block';
+            }
+            else {
+                unrightAnswers[i].style.display = 'block';
+            }
+        }
+    }
+
+    function hideExamResult() {
+        $('#but1').show();
+        $('#exam').hide();
+        $('#but2').hide();
+    }
+    function showAnalysis() {
+        $('#but3').hide();
+        $('#analys').show();
+        $('#but4').show();
+        $('#exam').hide();
+        $('#but2').hide();
+        $('#but1').show();
+    }
+    function hideAnalysis() {
+        $('#but3').show();
+        $('#analys').hide();
+        $('#but4').hide();
+    }
+</script>
+

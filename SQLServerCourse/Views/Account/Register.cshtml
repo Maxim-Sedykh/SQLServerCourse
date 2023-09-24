@@ -1,0 +1,61 @@
+﻿@model SQLServerCourse.Domain.ViewModels.Account.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Регистрация | SQLCourse";
+}
+
+<div class="container-fluid">
+    <div class="container">
+        <div class="row" style="height:880px;">
+            <div class="col-md-4 col-sm-3">
+            </div>
+            <div class="col-md-4 col-sm-6  main-content-login" style=" margin: 50px 0px 50px 0px;">
+                <p align="center" style="font-size:30px;">
+                    <b>Регистрация в SQLCourse</b>
+                </p>
+                <div class="login-panel">
+                    <div class="login-panel-content py-5">
+                        <div class="login-panel-content-label">
+                            <h2 class="text-white" align="center">
+                                Регистрация аккаунта | SQLCourse
+                            </h2>
+                        </div>
+                        <div class="login-panel-content-form">
+                            <form asp-controller="Account" asp-action="Register" id="reg-panel-content-form">
+                                <div asp-validation-summary="All" style="font-size:20px;margin-bottom: 10px; min-height:20px; " class="text-black text-center "></div>
+                                <div class="login-form-part">
+                                    <input asp-for="Login" class="inputs-in-login" placeholder="Логин" id="registration-form-part-name" type="text">
+                                </div>
+                                <div class="login-form-part">
+                                    <input autocomplete="new-password" asp-for="Password" class="inputs-in-login" placeholder="Пароль" id="registration-form-part-surname" type="password">
+                                </div>
+                                <div class="login-form-part">
+                                    <input asp-for="Name" class="inputs-in-login" placeholder="Имя" id="registration-form-part-password" type="text">
+                                </div>
+                                <div class="login-form-part">
+                                    <input asp-for="Surname" class="inputs-in-login" placeholder="Фамилия" id="registration-form-part-password" type="text">
+                                </div>
+                                <div class="login-form-part-subminfo text-center">
+                                    <button class="login-form-part-subminfo-button" type="submit">
+                                        Зарегистрироваться
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div align="center" style="margin-top:60px;">
+                            <p class="login-panel-content-footer-parag" style="color:white; font-size:18px; font-weight:400;">
+                                У вас есть аккаунт в SQLCourse? <br />
+                            </p>
+                            <a asp-controller="Account" asp-action="Login" style="color:white; font-size:20px; font-weight:400;">
+                                Войдите в аккаунт!
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-3">
+            </div>
+        </div>
+    </div>
+</div>
+

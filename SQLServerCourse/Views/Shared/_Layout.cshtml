@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/account.css" />
+    <link rel="stylesheet" href="~/css/baseStyles.css" />
+    <link rel="stylesheet" href="~/css/courseLessons.css" />
+    <link rel="stylesheet" href="~/css/documentation.css" />
+    <link rel="stylesheet" href="~/css/main.css" />
+    <link rel="stylesheet" href="~/css/pageForAnotherCourses.css" />
+    <link rel="stylesheet" href="~/css/personalAccount.css" />
+    <link rel="stylesheet" href="~/css/review.css" />
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-dark" style="background:#001f5e;">
+                <div class="container">
+                    <a class="navbar-brand" href="/">SQLCourse MSSQL</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <a class="nav-link active text-white px-0" aria-current="page" href="/">На главную</a>
+                        <div class="navItemRight" style="margin-left:auto;">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-white">
+                                <li class="nav-item">
+                                    <a class="nav-link text-white my-auto" asp-controller="Review" asp-action="GetReviews">Отзывы</a>
+                                </li>
+                                <li class="nav-item">
+                                    <button type="button" align="center" class="nav-link text-white my-auto bg-transparent" style="border:none;"
+                                    data-bs-toggle="modal" data-bs-target="#docunentaryModal">
+                                        Документация
+                                    </button>
+                                </li>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link my-auto" style="color:#868da5; font-size:14px;">@User.Identity.Name</a>
+                                    </li>
+                                }
+                                <li class="nav-item dropdown navItemRight">
+
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                            <a class="nav-link dropdown-toggle text-white my-auto" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Аккаунт
+                                            </a>
+                                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                                                <li><a class="dropdown-item" asp-controller="PersonalProfile" asp-action="GetPersonalProfile">Личный кабинет</a>
+                                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Index">Админ</a></li>
+                                                <li>
+                                                    <form method="post" asp-controller="Account" asp-action="Logout">
+                                                        <button class="btn btn-primary">Выйти</button>
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        }
+                                        else
+                                        {
+                                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Аккаунт
+                                            </a>
+                                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                                                <li><a class="dropdown-item" asp-controller="PersonalProfile" asp-action="GetPersonalProfile">Личный кабинет</a>
+                                                <li>
+                                                    <form method="post" asp-controller="Account" asp-action="Logout">
+                                                        <button class="dropdown-item">Выйти</button>
+                                                    </form>
+                                                </li>
+                                            </ul>
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <a class="nav-link text-white" asp-controller="Account" asp-action="Login">Войти</a>
+                                    }
+
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main>
+            @RenderBody()
+        </main>
+    </div>
+
+    @*сoursePlan Modal*@
+
+    <div class="modal fade" id="coursePlanModal" tabindex="-1" aria-labelledby="coursePlanModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="background: #073985; border-radius:20px; color:white; border: 1px solid white;">
+                    <div class="modal-header" style="background:#2190a6; border-radius:20px;">
+                    <h5 class="modal-title" style="margin-left:175px;" id="exampleModalLabel">План курса</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*сoursePlan Modal*@
+
+    @*documentary Modal*@
+
+    <div class="modal fade" id="docunentaryModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="background: #073985; border-radius:20px; color:white; border: 1px solid white;">
+                <div class="modal-header" style="background:#2190a6; border-radius:20px 20px 0px 0px">
+                    <h5 class="modal-title" style="margin-left:100px; color:white;" id="exampleModalLabel">Ссылки на документацию</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body color-white text-center" style="font-size:16px; background:white; border-radius:0px 0px 20px 20px">
+                    <a href="https://habr.com/ru/articles/193136/">Хабр | Руководство по проектированию реляционных баз данных</a><br /><br />
+                    <a href="https://habr.com/ru/articles/440556/">Хабр | Учимся программированию Entity Relationship – диаграмм</a><br /><br />
+                    <a href="https://plantuml.com/ru/ie-diagram">Ezoic | Диаграмма взаимосвязи сущностей</a><br /><br />
+                    <a href="https://habr.com/ru/articles/254773/">Хабр | Нормализация отношений. Шесть нормальных форм</a><br /><br />
+                    <a href="https://falconspace.ru/list/sqlserver/sozdanie-bazy-dannykh--tablic-i-svyazey-mezhdu-nimi---489">Falcon Space | SQL Server. Создание базы данных, таблиц и связей между ними</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*documentary Modal*@
+
+    @*lessonRecords Modal*@
+
+    <div class="modal fade" id="lessonRecordsModal" tabindex="-1" aria-labelledby="lessonRecordsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="min-width:40%;">
+            <div class="modal-content" style="background: #073985; border-radius:20px; color:white; border: 1px solid white;">
+                <div class="modal-header" style="background:#2190a6; border-radius:20px;">
+                    <h5 class="modal-title" style="margin-left:250px;">Пройденные занятия</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*lessonRecords Modal*@
+
+    <footer id="footer" class="footer">
+        <div class="container-fluid h100perc text-white">
+            <div class="row text-center">
+                <div class="col-md-6 col-sm-12 h100perc">
+                    SQLCourse In MSSQL©
+                    SQLCourse In MSSQL©
+                </div>
+                <div class="col-md-6 col-sm-12  h100perc">
+                    2022-2023
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://kit.fontawesome.com/1e1acde3d7.js" crossorigin="anonymous"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/checkCommonLesson.js" asp-append-version="true"></script>
+    <script src="~/js/modal.js"></script>
+
+    @await RenderSectionAsync("pageScripts", required: false)
+</body>
+</html>

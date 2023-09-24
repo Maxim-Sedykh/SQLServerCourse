@@ -1,0 +1,59 @@
+﻿@using SQLServerCourse.Domain.ViewModels.Review;
+
+@model IEnumerable<ReviewViewModel>
+@{
+    ViewData["Title"] = "Отзывы | SQLCourse";
+}
+
+<div class="container-fluid">
+    <div class="container px-0">
+        <div class="reviewdiv">
+            <div class="row w-100 m-0">
+                <div class="col-md-12 col-sm-12 reviewdiv-text text-center px-1 text-white mt-3">
+                    Ниже находятся отзывы учеников, прошедших весь курс. <br />Оставьте свой отзыв после прохождения
+                    полного курса MS SQL и T-SQL<br />
+                </div>
+            </div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="row m-0">
+                    <div class="col-md-12 col-sm-12 text-center">
+                        <a id="anothercourse" class="btn btn-createreview"
+                       asp-controller="PersonalAreaFinalExam" asp-action="CreateReview">
+                            Оставить отзыв
+                        </a>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row m-0">
+                    <div class="col-md-12 col-sm-12 text-center">
+                        <a id="anothercourse" class="btn btn-createreview"
+                       asp-controller="Account" asp-action="Login">
+                            Войдите чтобы оставить отзыв
+                        </a>
+                    </div>
+                </div>
+            }
+            @foreach (var review in Model)
+            {
+                <table align="center" class="table-review mb-5" bordercolor="grey">
+                    <tr class="tr">
+
+                        <th class="th-rev-log px-3">@review.UsersLogin</th>
+                        <th class="th-rev-text">
+                            <div class="reviewdiv-rev-text wordwrap">
+                                @review.ReviewText
+                            </div>
+                        </th>
+                    <tr>
+                </table>
+                <br />
+            }
+        </div>
+    </div>
+</div>
+
+
+
