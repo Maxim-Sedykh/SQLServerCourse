@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SQLServerCourse.Domain.Entity
 {
-    public class PageAnswer
+    public class TestVariant
     {
         public int Id { get; set; }
 
@@ -17,5 +17,7 @@ namespace SQLServerCourse.Domain.Entity
         public int VariantNumber { get; set; }
 
         public string Content { get; set; }
+
+        public bool IsRight { get; set; }
     }
 }

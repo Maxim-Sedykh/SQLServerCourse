@@ -11,11 +11,10 @@ namespace SQLServerCourse.Initializer
     {
         public static void InitializeRepositories(this IServiceCollection services)
         {
-            services.AddScoped<IBaseRepository<Lesson>, LessonRepository>();// во втором случае поставь просто названия репозитиориев додик
+            services.AddScoped<IBaseRepository<Lesson>, LessonRepository>();
             services.AddScoped<IBaseRepository<User>, UserRepository>();
             services.AddScoped<IBaseRepository<Question>, QuestionRepository>();
-            services.AddScoped<IBaseRepository<PageAnswer>, PageAnswerRepository>();
-            services.AddScoped<IBaseRepository<TaskAnswer>, TaskAnswerRepository>();
+            services.AddScoped<IBaseRepository<TestVariant>, TestVariantRepository>();
             services.AddScoped<IBaseRepository<Review>, ReviewRepository>();
             services.AddScoped<IBaseRepository<PracticalTask>, PracticalTaskRepository>();
             services.AddScoped<IBaseRepository<LessonRecord>, LessonRecordRepository>();

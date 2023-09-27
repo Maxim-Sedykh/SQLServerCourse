@@ -14,84 +14,42 @@
                 <h2 class="text-center text-white">Практическая часть занятия</h2>
                 <div class="tasks">
                     <form autocomplete="off" asp-controller="Teaching" asp-action="PassFirstLesson">
-                        <h4 class="text-white" align="center">Начальный уровень</h4>
+                        <h4 class="text-white mt-4" align="center">Начальный уровень</h4>
                         <br />
-                        @for (int i = 0; Model.Questions[i].QuestionType == TaskType.Test; i++)
+                        @for (int i = 0; i < Model.TestQuestions.Count; i++)
                         {
-                            <p><b>@i + 1.</b>@Model.Questions[i].Content</p>
-                            <div align="center" style="display: none;" class="answrunright">Неправильно! Правильный ответ: возможность использовать сетевую модель данных для организации БД</div>
+                            <p><b>@Model.TestQuestions[i].Number</b>. @Model.TestQuestions[i].DisplayQuestion</p>
+                            <div align="center" style="display: none;" class="answrunright">Неправильно! Правильный ответ: @Model.TestQuestions[i].RightPageAnswer</div>
                             <div align="center" style="display: none;" class="answrright">Правильно!</div>
+                            for (int j = 0; j < Model.TestQuestions[i].VariantsOfAnswer.Count; j++)
+                            {
+                                <input type="radio" asp-for="UserAnswers" value="v_@j" name="ques_@i"/>
+                                <label>@Model.TestQuestions[i].VariantsOfAnswer[j].Content</label>
+                                <br />
+                            }
+                            <br />
                         } 
                         <br />
                         <h4 class="text-white" align="center">Средний уровень</h4>
                         <br />
-                        @for (int i = 0; Model.Questions[i].QuestionType == TaskType.Test; i++)
+                        @for (int i = 0; i < Model.OpenQuestions.Count; i++)
                         {
-
+                            <p>
+                                <b>@Model.OpenQuestions[i].Number</b>. @Model.OpenQuestions[i].DisplayQuestion
+                                <br />
+                            </p>
+                            <input class="form-control" style="border-radius:20px; max-width:275px;"type="text" asp-for="UserAnswers" placeholder="Ответ...">
+                            <div align="center" style="display: none;" class="answrunright">Неправильно! Правильный ответ: @Model.OpenQuestions[i].Answers[0]</div>
+                            <div align="center" style="display: none;" class="answrright">Правильно!</div>
+                            <br />
                         }
                         <button type="submit" id="sendanswers" class="btn btn-gradient btn-submit-answers">Завершить</button>
                     </form>
-                        <b>1.</b> Выберите то, что <b>не является</b> дополнительной возможностью в расширении T-SQL для языка SQL.<br />
-                        <div align="center" style="display: none;" id="firsttaskUNRIGHT" class="answrunright">Неправильно! Правильный ответ: возможность использовать сетевую модель данных для организации БД</div>
-                        <div align="center" style="display: none;" id="firsttaskRIGHT" class="answrright">Правильно!</div>
-                        <input id="ioneone" type="radio" asp-for="Answers[0]" value="v1" /><label class="variants_ofanswers" for="ioneone">Управляющие операторы</label>
-                        <br />
-                        <input id="ionetwo" type="radio" asp-for="Answers[0]" value="v2" /><label class="variants_ofanswers" for="ionetwo">Различные дополнительные функции для обработки строк, дат, математики и т. п.,</label>
-                        <br />
-                        <input id="ionethree" type="radio" asp-for="Answers[0]" value="v3" /><label class="variants_ofanswers" for="ionethree">Локальные и глобальные переменные,</label>
-                        <br />
-                        <input id="ionefour" type="radio" asp-for="Answers[0]" value="v4" /><label class="variants_ofanswers" for="ionefour">Возможность использовать сетевую модель данных для организации БД</label>
-                        <br />
-                        <b>2.</b>  Как называется средство администрирования для SQL Server?<br />
-                        <div align="center" style="display: none;" id="secondtaskUNRIGHT" class="answrunright">Неправильно! Правильный ответ: SQL Server Management Studio</div>
-                        <div align="center" style="display: none;" id="secondtaskRIGHT" class="answrright">Правильно!</div>
-                        <input id="itwoone" type="radio" asp-for="Answers[1]" value="v1" /><label class="variants_ofanswers" for="itwoone">Sybase</label>
-                        <br />
-                        <input id="itwotwo" type="radio" asp-for="Answers[1]" value="v2" /><label class="variants_ofanswers" for="itwotwo">SQL Server Management Studio</label>
-                        <br />
-                        <input id="itwothree" type="radio" asp-for="Answers[1]" value="v3" /><label class="variants_ofanswers" for="itwothree">MS SQL Server Enterprise</label>
-                        <br />
-                        <input id="itwofour" type="radio" asp-for="Answers[1]" value="v4" /><label class="variants_ofanswers" for="itwofour">LocalDB</label>
-                        <br />
-                        <b>3.</b> Где ещё используется T-SQL?<br />
-                        <div align="center" style="display: none;" id="thirdtaskUNRIGHT" class="answrunright">Неправильно! Правильный ответ: СУБД Sybase</div>
-                        <div align="center" style="display: none;" id="thirdtaskRIGHT" class="answrright">Правильно!</div>
-                        <input id="ithreeone" type="radio" asp-for="Answers[2]" name="first" value="v1" /><label class="variants_ofanswers" for="ithreeone">MySQL</label>
-                        <br />
-                        <input id="ithreetwo" type="radio" asp-for="Answers[2]" name="first" value="v2" /><label class="variants_ofanswers" for="ithreetwo">Sybase</label>
-                        <br />
-                        <input id="ithreethree" type="radio" asp-for="Answers[2]" name="first" value="v3" /><label class="variants_ofanswers" for="ithreethree">PostgreSQL</label>
-                        <br />
-                        <input id="ithreefour" type="radio" asp-for="Answers[2]" name="first" value="v4" /><label class="variants_ofanswers" for="ithreefour">Oracle Database</label>
-                        <br />
-                        <br />
-                        <h4 class="text-white" align="center">Средний уровень</h4>
-                        <br />
-                        <b>4.</b> Укажите полностью на английском первое слово аббревиатуры TSQL.
-                        <br />
-                        <input asp-for="Answers[3]" placeholder="Ответ..." class="input-for-lessons">
-                        <div align="center" style="display: none;" id="FourAnsUnRight" class="answrunright">Неправильно! Правильный ответ: Transact</div>
-                        <div align="center" style="display: none;" id="FourAnsRight" class="answrright">Правильно!</div>
-                        <br />
-                        <b>5.</b> Вставьте пропущенное слово: для организации баз данных MS SQL Server использует .............. модель данных.
-                        <br />
-                        <input asp-for="Answers[4]" placeholder="Ответ..." class="input-for-lessons">
-                        <div align="center" style="display: none;" id="FiveAnsUnRight" class="answrunright">Неправильно! Правильный ответ: реляционную</div>
-                        <div align="center" style="display: none;" id="FiveAnsRight" class="answrright">Правильно!</div>
-                        <br />
-                        <b>6.</b> В каком году вышла первая версия SQL Server? (укажите 4 арабские цифры)
-                        <br />
-                        <input asp-for="Answers[5]" placeholder="Ответ..." class="input-for-lessons">
-                        <div align="center" style="display: none;" id="SixAnsUnRight" class="answrunright">Неправильно! Правильный ответ: в 1987м году</div>
-                        <div align="center" style="display: none;" id="SixAnsRight" class="answrright">Правильно!</div>
-                        <br />
-                        <button type="submit" id="sendanswers" class="btn btn-gradient btn-submit-answers">Завершить</button>
-
                     <div class="text-center">
                         @if (User.Identity.IsAuthenticated)
-                        {
+                        {   
                             <a id="returnonlistoflessons" class="btn btn-gradient"
-                           asp-controller="Teaching" asp-action="GetListOfFirstThemeLessons">Выйти на список занятий</a>
+                           asp-controller="PersonalProfile" asp-action="GetPersonalProfile">Выйти на список занятий</a>
                         }
                         else
                         {

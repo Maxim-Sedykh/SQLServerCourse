@@ -46,13 +46,11 @@ namespace SQLServerCourse.DAL
 
         public DbSet<PracticalTask> PracticalTasks { get; set; }
 
-        public DbSet<TaskAnswer> TaskAnswers { get; set; }
-
         public DbSet<FrequentRemark> FrequentRemarks { get; set; }
 
         public DbSet<Question> Questions { get; set; }
 
-        public DbSet<PageAnswer> PageAnswers { get; set; }
+        public DbSet<TestVariant> TestVariants { get; set; }
 
         //Ниже таблицы для практических занятий курса, чтобы делать по ним запросы:
 
@@ -119,13 +117,6 @@ namespace SQLServerCourse.DAL
                 builder.Property(x => x.Surname).HasMaxLength(25).IsRequired();
             });
 
-            modelBuilder.Entity<TaskAnswer>(builder =>
-            {
-                builder.ToTable("TaskAnswers").HasKey(x => new { x.Id });
-
-                builder.Property(x => x.Id).ValueGeneratedOnAdd();
-            });
-
             modelBuilder.Entity<Review>(builder =>
             {
                 builder.ToTable("Reviews").HasKey(x => x.Id);
@@ -162,9 +153,9 @@ namespace SQLServerCourse.DAL
                 builder.Property(x => x.Id).ValueGeneratedOnAdd();
             });
 
-            modelBuilder.Entity<PageAnswer>(builder =>
+            modelBuilder.Entity<TestVariant>(builder =>
             {
-                builder.ToTable("PageAnswers").HasKey(x => x.Id);
+                builder.ToTable("TestVariants").HasKey(x => x.Id);
 
                 builder.Property(x => x.Id).ValueGeneratedOnAdd();
             });

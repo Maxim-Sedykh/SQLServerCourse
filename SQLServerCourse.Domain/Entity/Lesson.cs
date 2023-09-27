@@ -18,7 +18,7 @@ namespace SQLServerCourse.Domain.Entity
 
         public string LectureMaterial { get; set; }
 
-        public List<TaskAnswer> TaskAnswers { get; set; }
+        public List<Question> Questions { get; set; }
 
         public List<PracticalTask> Evaluations { get; set; }
 

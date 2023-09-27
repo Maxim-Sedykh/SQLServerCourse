@@ -34,19 +34,6 @@ namespace SQLServerCourse.Controllers
         {
             var response = await _teachingService.GetQuestions(id);
 
-            var result = new LessonPassViewModel { Questions = response.Data.ToList(), LessonId = id };
-
-            if (response.StatusCode == Domain.Enum.StatusCode.OK)
-            {
-                return View(result);
-            }
-            return View("Error", $"{response.Description}");
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> PassLesson(LessonPassViewModel model)
-        {
-            var response = await _teachingService.PassLesson(model, User.Identity.Name);
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
                 return View(response.Data);
@@ -54,16 +41,27 @@ namespace SQLServerCourse.Controllers
             return View("Error", $"{response.Description}");
         }
 
-        [HttpPost]
-        public async Task<IActionResult> GetResult(LessonPassViewModel model)
-        {
-            var response = await _teachingService.PassExam(model, User.Identity.Name);
-            if (response.StatusCode == Domain.Enum.StatusCode.OK)
-            {
-                return View(response.Data);
-            }
-            return View("Error", $"{response.Description}");
-        }
+        //[HttpPost]
+        //public async Task<IActionResult> PassLesson(LessonPassViewModel model)
+        //{
+        //    var response = await _teachingService.PassLesson(model, User.Identity.Name);
+        //    if (response.StatusCode == Domain.Enum.StatusCode.OK)
+        //    {
+        //        return View(response.Data);
+        //    }
+        //    return View("Error", $"{response.Description}");
+        //}
+
+        //[HttpPost]
+        //public async Task<IActionResult> GetResult(LessonPassViewModel model)
+        //{
+        //    var response = await _teachingService.PassExam(model, User.Identity.Name);
+        //    if (response.StatusCode == Domain.Enum.StatusCode.OK)
+        //    {
+        //        return View(response.Data);
+        //    }
+        //    return View("Error", $"{response.Description}");
+        //}
 
         
     }

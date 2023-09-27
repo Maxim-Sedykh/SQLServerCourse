@@ -11,14 +11,18 @@ namespace SQLServerCourse.Domain.Entity
     {
         public int Id { get; set; }
 
-        public int Number { get; set; }
-
         public int LessonId { get; set; }
 
         public Lesson Lesson { get; set; }
 
+        public byte Number { get; set; }
+
         public TaskType Type { get; set; }
 
-        public string Content { get; set; }
+        public string DisplayQuestion { get; set; }
+
+        public string Answer { get; set; }
+
+        public List<TestVariant> TestVariants { get; set; }
     }
 }

@@ -14,12 +14,15 @@ namespace SQLServerCourse.Domain.ViewModels.Lesson
     {
         public int LessonId { get; set; }
 
-        public List<QuestionViewModel> Questions { get; set; }
+        public List<TestQuestionViewModel> TestQuestions { get; set; }
+ 
+        public List<OpenQuestionViewModel> OpenQuestions { get; set; }
 
         public List<bool>? TasksCorrectness { get; set; }
 
         [MaxLength(500, ErrorMessage = "Ответ должен быть меньше 500 символов!")]
-        public List<string>? Answers { get; set; }
+
+        public List<string> UserAnswers { get; set; }
 
         //public PracticalTaskEvaluationHelper[]? PracticalTasks { get; set; }
     }

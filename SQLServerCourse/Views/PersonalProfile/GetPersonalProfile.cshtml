@@ -16,7 +16,7 @@
                 Личный кабинет
             </h2>
         </div>
-        <div class="row personalArea-userinfo text-white p-3 pt-4 me-0 my-5" style="font-size:20px; border-radius:40px;">
+        <div class="row personalArea-userinfo text-white p-3 pt-4 me-0 my-3" style="font-size:20px; border-radius:40px;">
             <div class="col-md-6 col-sm-12 ps-5">
                 Логин:      <b>@Model.Login</b>
                 <br />
@@ -44,19 +44,19 @@
                 Лекций пройдено: @Model.LessonsCompleted
             </div>
         </div>
-        <div class="row mb-4">
+        <div class="row mb-4 mt-5">
             @for (int i = 1; i < 5; i++)
             {
                 @if (Model.LessonsCompleted < i)
                 {
-                    <a class="btn btn-gradient btn-lg disabled text-white mb-4 p-0 mx-auto" style="height:75px; width:55%; line-height:75px;">
+                    <a class="btn btn-gradient btn-lg disabled text-white mb-4 p-0 mx-auto" style="height:60px; width:55%; line-height:60px;">
                         @i. @Model.LessonNames[i - 1]
                     </a>
                 }
                 else
                 {
-                    <a class="btn btn-gradient btn-lg text-white mb-4 p-0 mx-auto" style="height:75px;  width:55%; line-height:75px;" 
-                        asp-controller="Teaching" asp-action="ReadLesson" asp-route-id="@i">
+                    <a class="btn btn-gradient btn-lg text-white mb-4 p-0 mx-auto" style="height:60px;  width:55%; line-height:60px;"
+               asp-controller="Teaching" asp-action="ReadLesson" asp-route-id="@i">
                         @i. @Model.LessonNames[i - 1]
                     </a>
                 }
