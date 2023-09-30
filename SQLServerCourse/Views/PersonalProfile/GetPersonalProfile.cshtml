@@ -47,16 +47,17 @@
         <div class="row mb-4 mt-5">
             @for (int i = 1; i < 5; i++)
             {
-                @if (Model.LessonsCompleted < i)
+                @if ((Model.LessonsCompleted + 1) >= i)
                 {
-                    <a class="btn btn-gradient btn-lg disabled text-white mb-4 p-0 mx-auto" style="height:60px; width:55%; line-height:60px;">
+                    <a class="btn btn-gradient btn-lg text-white mb-4 p-0 mx-auto" style="height:75px;  width:55%; line-height:75px;"
+                    asp-controller="BasicTeaching" asp-action="ReadLesson" asp-route-id="@i">
                         @i. @Model.LessonNames[i - 1]
                     </a>
+                    
                 }
                 else
                 {
-                    <a class="btn btn-gradient btn-lg text-white mb-4 p-0 mx-auto" style="height:60px;  width:55%; line-height:60px;"
-               asp-controller="Teaching" asp-action="ReadLesson" asp-route-id="@i">
+                    <a class="btn btn-gradient btn-lg disabled text-white mb-4 p-0 mx-auto" style="height:75px; width:55%; line-height:75px;">
                         @i. @Model.LessonNames[i - 1]
                     </a>
                 }
@@ -75,7 +76,7 @@
                 }
                 else
                 {
-                    <a class="btn btn-gradient text-white text-center" style="width: 200px;" asp-controller="Teaching" asp-action="PassExam">
+                    <a class="btn btn-gradient text-white text-center" style="width: 200px;" asp-controller="BasicTeaching" asp-action="PassExam">
                         <div class="personalArea-final-exam-div">
                             Экзамен
                         </div>

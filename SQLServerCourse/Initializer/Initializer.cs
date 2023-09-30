@@ -4,6 +4,7 @@ using SQLServerCourse.DAL.Repositories;
 using SQLServerCourse.Domain.Entity;
 using SQLServerCourse.Service.Implementations;
 using SQLServerCourse.Service.Interfaces;
+using SQLServerCourse.Service.Interfaces.TeachingInterfaces;
 
 namespace SQLServerCourse.Initializer
 {
@@ -26,7 +27,7 @@ namespace SQLServerCourse.Initializer
             services.AddScoped<IPersonalProfileService, PersonalProfileService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IReviewService, ReviewService>();
-            services.AddScoped<ITeachingService, TeachingService>();
+            services.AddScoped<IBasicTeachingService, BasicTeachingService>();
             services.AddScoped<IHomeService, HomeService>();
         }
     }

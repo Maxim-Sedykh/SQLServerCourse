@@ -7,16 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SQLServerCourse.Service.Interfaces
+namespace SQLServerCourse.Service.Interfaces.TeachingInterfaces
 {
-    public interface ITeachingService
+    public interface IBasicTeachingService
     {
         public IBaseResponse<LessonLectureViewModel> GetLecture(int lessonId);
 
         public Task<IBaseResponse<LessonPassViewModel>> GetQuestions(int lessonId);
 
-        //public Task<IBaseResponse<ResultViewModel>> PassExam(LessonPassViewModel model, string userName);
-
-        //public Task<IBaseResponse<LessonPassViewModel>> PassLesson(LessonPassViewModel model, string userName);
+        public Task<IBaseResponse<LessonPassViewModel>> PassLesson(LessonPassViewModel model, string userName);
     }
 }
