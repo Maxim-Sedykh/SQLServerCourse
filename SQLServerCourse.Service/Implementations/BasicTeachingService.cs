@@ -16,8 +16,10 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace SQLServerCourse.Service.Implementations
 {
@@ -79,29 +81,7 @@ namespace SQLServerCourse.Service.Implementations
         {
             try
             {
-                var response = new LessonPassViewModel
-                {
-                    LessonId = lessonId,
-                    TestQuestions = await (from question in _questionRepository.GetAll()
-                                           where question.LessonId == lessonId
-                                           where question.Type == TaskType.Test
-                                           orderby question.Number
-                                           select new TestQuestionViewModel
-                                           {
-                                               Number = question.Number,
-                                               DisplayQuestion = question.DisplayQuestion,
-                                               VariantsOfAnswer = (from testVariant in _testVariantRepository.GetAll()
-                                                                   where testVariant.QuestionId == question.Id
-                                                                   select testVariant).ToList(),
-                                               InnerAnswer = question.Answer,
-                                               RightPageAnswer = (from testVariant in _testVariantRepository.GetAll()
-                                                                  where testVariant.QuestionId == question.Id && testVariant.IsRight
-                                                                  select testVariant.Content).FirstOrDefault(),
-                                           }).ToListAsync(),
-                    OpenQuestions = QuestionExstension.CreateDifferentValuesList((from question in _questionRepository.GetAll()
-                                                                                  where question.Type == TaskType.Open && question.LessonId == lessonId
-                                                                                  select question).ToList())
-                };
+                var response = ITask.GetQuestions(lessonId, _questionRepository.GetAll().ToList(), _testVariantRepository.GetAll().ToList());
                 if (response is null)
                 {
                     return new BaseResponse<LessonPassViewModel>()
@@ -126,12 +106,24 @@ namespace SQLServerCourse.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<LessonPassViewModel>> PassLesson(LessonPassViewModel model, string userName) // Прохождение практической части уроков
+        public async Task<IBaseResponse<LessonPassViewModel>> PassLesson(LessonPassViewModel  userAnswersModel, string userName) // Прохождение практической части уроков
         {
             try
             {
+                var generalModel = ITask.GetQuestions(userAnswersModel.LessonId, _questionRepository.GetAll().ToList(), _testVariantRepository.GetAll().ToList());
+                for (int i = 0; i < generalModel.TestQuestions.Count; i++)
+                {
+                    generalModel.TestQuestions[i].UserAnswer = userAnswersModel.TestQuestions[i].UserAnswer;
+                }
+                for (int i = 0; i < generalModel.OpenQuestions.Count; i++)
+                {
+                    if (userAnswersModel.OpenQuestions[i].UserAnswer is not null)
+                    {
+                        generalModel.OpenQuestions[i].UserAnswer = Regex.Replace(userAnswersModel.OpenQuestions[i].UserAnswer, @"\s+", " ")?.ToLower()?.Trim();
+                    } 
+                }
+                    
                 var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.Login == userName);
-
                 if (user is null)
                 {
                     return new BaseResponse<LessonPassViewModel>()
@@ -141,23 +133,22 @@ namespace SQLServerCourse.Service.Implementations
                     };
                 }
 
-                Tuple<float, List<bool>> tasksEvaluations = ITask.CheckTasks(model); //Проверка ответов пользователя
+                Tuple<float, List<bool>> tasksEvaluations = ITask.CheckTasks(generalModel); //Проверка ответов пользователя
 
                 user.FinalGrade = +tasksEvaluations.Item1;
-                
+                user.LessonsCompleted++;
+
                 await _userRepository.Update(user);
                 await _lessonRecordRepository.Create(new LessonRecord
                 {
-                    LessonId = model.LessonId,
+                    LessonId = generalModel.LessonId,
                     UserId = user.Id,
                     Mark = tasksEvaluations.Item1
                 });
 
-                model.TasksCorrectness = tasksEvaluations.Item2;
-
                 return new BaseResponse<LessonPassViewModel>()
                 {
-                    Data = model,
+                    Data = generalModel,
                     StatusCode = StatusCode.OK
                 };
             }
@@ -170,7 +161,5 @@ namespace SQLServerCourse.Service.Implementations
                 };
             }
         }
-
-        
     }
 }

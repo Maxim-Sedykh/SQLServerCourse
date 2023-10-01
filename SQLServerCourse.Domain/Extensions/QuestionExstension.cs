@@ -21,7 +21,7 @@ namespace SQLServerCourse.Domain.Extensions
                 {
                     if (questions[i - 1].Number == questions[i].Number)
                     {
-                        resultList[j - 1].Answers.Add(questions[i].Answer);
+                        resultList[j - 1].InnerAnswers.Add(questions[i].Answer);
                         continue;
                     }
                     goto CreateViewModel;
@@ -32,7 +32,7 @@ namespace SQLServerCourse.Domain.Extensions
                 {
                     Number = questions[i].Number,
                     DisplayQuestion = questions[i].DisplayQuestion,
-                    Answers = new List<string> { questions[i].Answer },
+                    InnerAnswers = new List<string> { questions[i].Answer },
                 });
                 j++;
             }

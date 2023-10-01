@@ -17,13 +17,5 @@ namespace SQLServerCourse.Domain.ViewModels.Lesson
         public List<TestQuestionViewModel> TestQuestions { get; set; }
  
         public List<OpenQuestionViewModel> OpenQuestions { get; set; }
-
-        public List<bool>? TasksCorrectness { get; set; }
-
-        [MaxLength(500, ErrorMessage = "Ответ должен быть меньше 500 символов!")]
-
-        public List<string> UserAnswers { get; set; }
-
-        //public PracticalTaskEvaluationHelper[]? PracticalTasks { get; set; }
     }
 }
