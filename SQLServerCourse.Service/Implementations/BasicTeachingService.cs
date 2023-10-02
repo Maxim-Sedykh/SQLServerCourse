@@ -111,15 +111,12 @@ namespace SQLServerCourse.Service.Implementations
             try
             {
                 var generalModel = ITask.GetQuestions(userAnswersModel.LessonId, _questionRepository.GetAll().ToList(), _testVariantRepository.GetAll().ToList());
-                for (int i = 0; i < generalModel.TestQuestions.Count; i++)
+
+                for (int i = 0; i < generalModel.Questions.Count; i++)
                 {
-                    generalModel.TestQuestions[i].UserAnswer = userAnswersModel.TestQuestions[i].UserAnswer;
-                }
-                for (int i = 0; i < generalModel.OpenQuestions.Count; i++)
-                {
-                    if (userAnswersModel.OpenQuestions[i].UserAnswer is not null)
+                    if (userAnswersModel.Questions[i].UserAnswer is not null)
                     {
-                        generalModel.OpenQuestions[i].UserAnswer = Regex.Replace(userAnswersModel.OpenQuestions[i].UserAnswer, @"\s+", " ")?.ToLower()?.Trim();
+                        generalModel.Questions[i].UserAnswer = Regex.Replace(userAnswersModel.Questions[i].UserAnswer, @"\s+", " ")?.ToLower()?.Trim();
                     } 
                 }
                     
@@ -135,16 +132,24 @@ namespace SQLServerCourse.Service.Implementations
 
                 Tuple<float, List<bool>> tasksEvaluations = ITask.CheckTasks(generalModel); //Проверка ответов пользователя
 
-                user.FinalGrade = +tasksEvaluations.Item1;
-                user.LessonsCompleted++;
-
-                await _userRepository.Update(user);
-                await _lessonRecordRepository.Create(new LessonRecord
+                if (generalModel.LessonId > user.LessonsCompleted)
                 {
-                    LessonId = generalModel.LessonId,
-                    UserId = user.Id,
-                    Mark = tasksEvaluations.Item1
-                });
+                    user.FinalGrade = +tasksEvaluations.Item1;
+                    user.LessonsCompleted++;
+
+                    await _userRepository.Update(user);
+                    await _lessonRecordRepository.Create(new LessonRecord
+                    {
+                        LessonId = generalModel.LessonId,
+                        UserId = user.Id,
+                        Mark = tasksEvaluations.Item1
+                    });
+                }
+
+                for (int i = 0; i < generalModel.Questions.Count; i++)
+                {
+                    generalModel.Questions[i].Task // ВОЗМОЖНО СТОИТ ЭТО ДЕЛАТЬ В МЕТОДЕ?
+                }
 
                 return new BaseResponse<LessonPassViewModel>()
                 {

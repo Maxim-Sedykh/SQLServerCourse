@@ -13,6 +13,6 @@ namespace SQLServerCourse.Domain.ViewModels.Teaching
 
         public string LessonName { get; set; }
 
-        public HtmlString LessonMarkup { get; set; }
+        public HtmlString? LessonMarkup { get; set; }
     }
 }

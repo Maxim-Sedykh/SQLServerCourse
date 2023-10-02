@@ -1,4 +1,5 @@
 ﻿using SQLServerCourse.Domain.Entity;
+using SQLServerCourse.Domain.Enum;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,17 +10,19 @@ using System.Threading.Tasks;
 
 namespace SQLServerCourse.Domain.ViewModels.Teaching
 {
-    public class TestQuestionViewModel
+    public class QuestionViewModel
     {
         public int Number { get; set; }
 
         public string DisplayQuestion { get; set; }
 
-        public List<TestVariant> VariantsOfAnswer { get; set; }
+        public TaskType QuestionType { get; set; }
+
+        public List<TestVariant>? VariantsOfAnswer { get; set; }
 
         public string RightPageAnswer { get; set; }
 
-        public string InnerAnswer { get; set; }
+        public List<string> InnerAnswers { get; set; }
 
         public string UserAnswer { get; set; }
 

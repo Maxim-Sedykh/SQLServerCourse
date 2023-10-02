@@ -21,40 +21,33 @@
                         <h4 class="text-white mt-5" align="center">Начальный уровень</h4>
                         <br />
                         <div align="justify">
-                            @for (int i = 0; i < Model.TestQuestions.Count; i++)
+                            @for (int i = 0; i < Model.Questions.Count; i++)
                             {
-                                <p><b>@Model.TestQuestions[i].Number</b>. @Model.TestQuestions[i].DisplayQuestion</p>
-                                <div align="center" style="display: none;" class="answrunright">Неправильно! Правильный ответ: @Model.TestQuestions[i].RightPageAnswer</div>
+                                <input type="hidden" asp-for="Questions[i].Number" value="@Model.Questions[i].Number" />
+                                <p><b>@Model.Questions[i].Number</b>. @Model.Questions[i].DisplayQuestion</p>
+                                <div align="center" style="display: none;" class="answrunright">Неправильно! Правильный ответ: @Model.Questions[i].RightPageAnswer</div>
                                 <div align="center" style="display: none;" class="answrright">Правильно!</div>
-                                <input type="hidden" asp-for="TestQuestions[i].Number" value="@Model.TestQuestions[i].Number" />
-                                for (int j = 1; j <= Model.TestQuestions[i].VariantsOfAnswer.Count; j++)
+                                if (Model.Questions[i].QuestionType == TaskType.Test)
                                 {
-                                    <input id="input-pointer-@j-@i" type="radio" asp-for="TestQuestions[i].UserAnswer" value="v_@j" />
-                                    <label for="input-pointer-@j-@i">@Model.TestQuestions[i].VariantsOfAnswer[j - 1].Content</label>
-                                    <br />
+                                    for (int j = 1; j <= Model?.Questions[i]?.VariantsOfAnswer.Count; j++)
+                                    {
+                                        <input id="input-pointer-@j-@i" type="radio" asp-for="Questions[i].UserAnswer" value="v_@j" />
+                                        <label for="input-pointer-@j-@i">@Model?.Questions[i]?.VariantsOfAnswer[j - 1].Content</label>
+                                        <br />
+                                    }
+                                }
+                                else
+                                {
+                                    if (Model.Questions[i - 1].QuestionType == TaskType.Test)
+                                    {
+                                        <h4 class="text-white mt-5" align="center">Средний уровень</h4>
+                                        <br />
+                                    }
+                                    <input class="form-control" style="border-radius:20px; max-width:275px;" type="text" asp-for="Questions[i].UserAnswer" placeholder="Ответ...">
                                 }
                                 <br />
                             }
                         </div>
-                        <br />
-                        <h4 class="text-white" align="center">Средний уровень</h4>
-                        <br />
-                        <div align="justify">
-                            @for (int i = 0; i < Model.OpenQuestions.Count; i++)
-                            {
-                                <p>
-                                    <b>@Model.OpenQuestions[i].Number</b>. @Model.OpenQuestions[i].DisplayQuestion
-                                    <br />
-                                </p>
-                                <input type="hidden" asp-for="OpenQuestions[i].Number" value="@Model.OpenQuestions[i].Number" />
-                                <input class="form-control" style="border-radius:20px; max-width:275px;" type="text" 
-                                asp-for="OpenQuestions[i].UserAnswer" placeholder="Ответ...">
-                                <div align="center" style="display: none;" class="answrunright">Неправильно! Правильный ответ: @Model.OpenQuestions[i].InnerAnswers[0]</div>
-                                <div align="center" style="display: none;" class="answrright">Правильно!</div>
-                                <br />
-                            }
-                        </div>
-                        
                         <button type="submit" id="sendanswers" class="btn btn-gradient btn-submit-answers">Завершить</button>
                     </form>
                     <div class="text-center">
