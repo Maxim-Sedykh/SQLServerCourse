@@ -10,23 +10,29 @@
 <div class="container-fluid">
     <div class="container">
         <div class="row">
-            <div class="col-12 lesson-container">
+            <div class="col-12 lesson-container my-3">
                 <h2 class="text-center text-white">Практическая часть занятия</h2>
                 <div class="tasks" align="justify">
                     <form autocomplete="off" asp-controller="BasicTeaching" asp-action="PassLesson">
                         <div>
                             <input type="hidden"
                                    asp-for="LessonId" value="@Model.LessonId" />
+                                   
                         </div>
-                        <h4 class="text-white mt-5" align="center">Начальный уровень</h4>
+                        <h4 class="text-white mt-4" align="center">Начальный уровень</h4>
                         <br />
                         <div align="justify">
                             @for (int i = 0; i < Model.Questions.Count; i++)
                             {
                                 <input type="hidden" asp-for="Questions[i].Number" value="@Model.Questions[i].Number" />
+                                if (Model.Questions[i].QuestionType == TaskType.Open && Model.Questions[i - 1].QuestionType == TaskType.Test)
+                                {
+                                    <h4 class="text-white mt-3" align="center">Средний уровень</h4>
+                                    <br />
+                                }
                                 <p><b>@Model.Questions[i].Number</b>. @Model.Questions[i].DisplayQuestion</p>
-                                <div align="center" style="display: none;" class="answrunright">Неправильно! Правильный ответ: @Model.Questions[i].RightPageAnswer</div>
-                                <div align="center" style="display: none;" class="answrright">Правильно!</div>
+                                <div align="center" style="display: none;" class="answrunright my-3">Неправильно! Правильный ответ: @Model.Questions[i].RightPageAnswer</div>
+                                <div align="center" style="display: none;" class="answrright my-3">Правильно!</div>
                                 if (Model.Questions[i].QuestionType == TaskType.Test)
                                 {
                                     for (int j = 1; j <= Model?.Questions[i]?.VariantsOfAnswer.Count; j++)
@@ -38,17 +44,15 @@
                                 }
                                 else
                                 {
-                                    if (Model.Questions[i - 1].QuestionType == TaskType.Test)
-                                    {
-                                        <h4 class="text-white mt-5" align="center">Средний уровень</h4>
-                                        <br />
-                                    }
                                     <input class="form-control" style="border-radius:20px; max-width:275px;" type="text" asp-for="Questions[i].UserAnswer" placeholder="Ответ...">
                                 }
                                 <br />
                             }
                         </div>
-                        <button type="submit" id="sendanswers" class="btn btn-gradient btn-submit-answers">Завершить</button>
+                        @if (Context.Request.Method == "GET")
+                        {
+                            <button type="submit" id="sendanswers" class="btn btn-gradient btn-submit-answers mt-4">Завершить</button>
+                        }
                     </form>
                     <div class="text-center">
                         @if (User.Identity.IsAuthenticated)
@@ -68,18 +72,29 @@
     </div>
 </div>
 
-@*<script>
-    var tasksCorrectness = @Json.Serialize(Model.TasksCorrectness);
-
-    var unrightAnswers = document.getElementsByClassName('answrunright');
-    var rightAnswers = document.getElementsByClassName('answrright');
-
-    for (let i = 0; i < tasksCorrectness.length; i++) {
-        if (tasksCorrectness[i]) {
-            rightAnswers[i].style.display = 'block';
+@{
+    @if (Context.Request.Method == "POST")
+    {
+        var taskCorrectness = new List<bool>();
+        for (int i = 0; i < Model.Questions.Count; i++)
+        {
+            taskCorrectness.Add(Model.Questions[i].AnswerCorrectness);
         }
-        else {
-            unrightAnswers[i].style.display = 'block';
-        }
+
+        <script>
+            var taskCorrectness = @Json.Serialize(taskCorrectness);
+            
+            var unrightAnswers = document.getElementsByClassName('answrunright');
+            var rightAnswers = document.getElementsByClassName('answrright');
+
+            for (let i = 0; i < taskCorrectness.length; i++) {
+                if (taskCorrectness[i]) {
+                    rightAnswers[i].style.display = 'block';
+                }
+                else {
+                    unrightAnswers[i].style.display = 'block';
+                }
+            }
+        </script>
     }
-</script>*@
+}

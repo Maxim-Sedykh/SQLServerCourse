@@ -45,16 +45,24 @@ namespace SQLServerCourse.Service.Interfaces.TeachingInterfaces
             return new Tuple<float, List<bool>>(grade, tasksCorrectness);
         }
 
-        public static LessonPassViewModel GetQuestions(int lessonId, List<Question> questions, List<TestVariant> testVariants)
+        public static LessonPassViewModel GetQuestions(int lessonId, List<Question> allQuestions, List<TestVariant> allTestVariants)
         {
+            List<Question> lessonQuestions = (from question in allQuestions
+                                              where question.LessonId == lessonId
+                                              select question).ToList();
+            List<TestVariant> lessonTestVariants = (from question in allQuestions
+                                                    where question.LessonId == lessonId && question.Type == TaskType.Test
+                                                    join testVariant in allTestVariants on question.Id equals testVariant.QuestionId
+                                                    select testVariant).ToList();
             List<QuestionViewModel> questionViewModels = new List<QuestionViewModel>();
-            for (int i = 0, j = 0; i < questions.Count; i++)
+            for (int i = 0, j = 0; i < lessonQuestions.Count; i++)
             {
                 if (i > 0)
                 {
-                    if (questions[i - 1].Number == questions[i].Number)
+                    if (lessonQuestions[i - 1].Number == lessonQuestions[i].Number)
                     {
-                        questionViewModels[j - 1].InnerAnswers.Add(questions[i].Answer);
+                        questionViewModels[j - 1].InnerAnswers.Add(lessonQuestions[i].Answer);
+
                         continue;
                     }
                     goto CreateViewModel;
@@ -63,15 +71,15 @@ namespace SQLServerCourse.Service.Interfaces.TeachingInterfaces
             CreateViewModel:
                 questionViewModels.Add(new QuestionViewModel
                 {
-                    Number = questions[i].Number,
-                    DisplayQuestion = questions[i].DisplayQuestion,
-                    QuestionType = questions[i].Type,
-                    VariantsOfAnswer = questions[i].Type == TaskType.Test ? (from testVariant in testVariants
-                                                                             where testVariant.QuestionId == questions[i].Id
+                    Number = lessonQuestions[i].Number,
+                    DisplayQuestion = lessonQuestions[i].DisplayQuestion,
+                    QuestionType = lessonQuestions[i].Type,
+                    VariantsOfAnswer = lessonQuestions[i].Type == TaskType.Test ? (from testVariant in lessonTestVariants
+                                                                                   where testVariant.QuestionId == lessonQuestions[i].Id
                                                                              select testVariant).ToList() : null,
-                    InnerAnswers = new List<string> { questions[i].Answer },
-                    RightPageAnswer = questions[i].Type == TaskType.Open ? questions[i].Answer : (from testVariant in testVariants
-                                                                                                  where testVariant.QuestionId == questions[i].Id
+                    InnerAnswers = new List<string> { lessonQuestions[i].Answer },
+                    RightPageAnswer = lessonQuestions[i].Type == TaskType.Open ? lessonQuestions[i].Answer : (from testVariant in lessonTestVariants
+                                                                                                              where testVariant.QuestionId == lessonQuestions[i].Id
                                                                                                   where testVariant.IsRight
                                                                                                   select testVariant.Content).First(),
                 });

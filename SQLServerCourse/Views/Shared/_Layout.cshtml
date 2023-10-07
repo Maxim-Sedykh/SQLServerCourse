@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="~/css/pageForAnotherCourses.css" />
     <link rel="stylesheet" href="~/css/personalAccount.css" />
     <link rel="stylesheet" href="~/css/review.css" />
+    <link href="~/css/bootstrap-darkly.min.css" rel="stylesheet" />
 </head>
 <body>
     <div class="wrapper">
@@ -92,7 +93,7 @@
                 </div>
             </nav>
         </header>
-        <main>
+        <main data-bs-theme="light">
             @RenderBody()
         </main>
     </div>
@@ -158,7 +159,6 @@
             <div class="row text-center">
                 <div class="col-md-6 col-sm-12 h100perc">
                     SQLCourse In MSSQL©
-                    SQLCourse In MSSQL©
                 </div>
                 <div class="col-md-6 col-sm-12  h100perc">
                     2022-2023
@@ -170,7 +170,7 @@
     <script src="https://kit.fontawesome.com/1e1acde3d7.js" crossorigin="anonymous"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/checkCommonLesson.js" asp-append-version="true"></script>
+    <script src="~/js/checkCommonLesson.js"></script>
     <script src="~/js/modal.js"></script>
 
     @await RenderSectionAsync("pageScripts", required: false)

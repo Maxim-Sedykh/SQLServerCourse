@@ -31,12 +31,11 @@
     }
 
 .answrright {
-    height: 40px;
+    min-height: 40px;
     background: #05bb12;
     padding: 5px;
     font-size: 20px;
     border-radius: 20px;
-    margin-top: 10px;
 }
 
 .answrunright {
@@ -45,7 +44,6 @@
     padding: 5px;
     font-size: 20px;
     border-radius: 20px;
-    margin-top: 10px;
 }
 
 .variants_ofanswers {

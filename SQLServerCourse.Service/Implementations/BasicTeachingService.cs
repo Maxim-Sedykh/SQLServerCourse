@@ -62,7 +62,7 @@ namespace SQLServerCourse.Service.Implementations
                     {
                         Id = lessonId,
                         LessonName = lesson.Name,
-                        LessonMarkup = new HtmlString($"{lesson.LectureMaterial}")
+                        LessonMarkup = new HtmlString($"{lesson.LectureMarkup}")
             },
                     StatusCode = StatusCode.OK
                 };
@@ -148,7 +148,7 @@ namespace SQLServerCourse.Service.Implementations
 
                 for (int i = 0; i < generalModel.Questions.Count; i++)
                 {
-                    generalModel.Questions[i].Task // ВОЗМОЖНО СТОИТ ЭТО ДЕЛАТЬ В МЕТОДЕ?
+                    generalModel.Questions[i].AnswerCorrectness = tasksEvaluations.Item2[i];
                 }
 
                 return new BaseResponse<LessonPassViewModel>()
