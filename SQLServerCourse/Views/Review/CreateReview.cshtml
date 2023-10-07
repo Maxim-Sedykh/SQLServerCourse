@@ -1,0 +1,15 @@
+﻿@model SQLServerCourse.Domain.ViewModels.Review.CreateReviewViewModel
+
+<form method="post" asp-controller="Review" asp-action="CreateReview">
+    <div class="form-review d-flex justify-content-between">
+        <div class="text-center text-white" style="color:white; font-size:18px;">
+            <button class="btn btn-review-submit" type="submit">Отправить</button>
+        </div>
+        <div class="div-review-text text-center text-white" style="color:white; font-size:18px;">
+            <textarea asp-for="ReviewText" type="text" class="textarea-review-text" placeholder="Напишите ваш отзыв..."></textarea>
+        </div>
+        <div class="text-center text-white" style="color:white; font-size:18px;">
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+    </div>
+</form>

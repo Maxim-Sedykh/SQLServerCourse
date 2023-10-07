@@ -18,10 +18,10 @@
             {
                 <div class="row m-0">
                     <div class="col-md-12 col-sm-12 text-center">
-                        <a id="anothercourse" class="btn btn-createreview"
-                       asp-controller="PersonalAreaFinalExam" asp-action="CreateReview">
-                            Оставить отзыв
-                        </a>
+                        <button type="button" align="center" class="btn btn-gradient btn-main mt-4 text-white" onclick="openModal({ url: '/Review/CreateReview', modalId: 'createReviewModal'})"
+                                data-toggle="ajax-modal" data-target="Modal">
+                            Создать отзыв
+                        </button>
                     </div>
                 </div>
             }
@@ -38,7 +38,7 @@
             }
             @foreach (var review in Model)
             {
-                <table align="center" class="table-review mb-5" bordercolor="grey">
+                <table align="center" class="table-review my-4" bordercolor="grey">
                     <tr class="tr">
 
                         <th class="th-rev-log px-3">@review.UsersLogin</th>
@@ -49,7 +49,6 @@
                         </th>
                     <tr>
                 </table>
-                <br />
             }
         </div>
     </div>

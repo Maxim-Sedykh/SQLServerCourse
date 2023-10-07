@@ -131,19 +131,9 @@ namespace SQLServerCourse.Service.Implementations
                 }
 
                 Tuple<float, List<bool>> tasksEvaluations = ITask.CheckTasks(generalModel); //Проверка ответов пользователя
-
                 if (generalModel.LessonId > user.LessonsCompleted)
                 {
-                    user.FinalGrade = +tasksEvaluations.Item1;
-                    user.LessonsCompleted++;
-
-                    await _userRepository.Update(user);
-                    await _lessonRecordRepository.Create(new LessonRecord
-                    {
-                        LessonId = generalModel.LessonId,
-                        UserId = user.Id,
-                        Mark = tasksEvaluations.Item1
-                    });
+                    await CommitPassageChanges(user, tasksEvaluations, generalModel.LessonId);
                 }
 
                 for (int i = 0; i < generalModel.Questions.Count; i++)
@@ -164,6 +154,20 @@ namespace SQLServerCourse.Service.Implementations
                     Description = $"Внутренняя ошибка: {ex.Message}",
                     StatusCode = StatusCode.InternalServerError,
                 };
+            }
+
+            async Task CommitPassageChanges(User user, Tuple<float, List<bool>> tasksEvaluations, int lessonId)
+            {
+                user.FinalGrade =+ tasksEvaluations.Item1;
+                user.LessonsCompleted++;
+
+                await _userRepository.Update(user);
+                await _lessonRecordRepository.Create(new LessonRecord
+                {
+                    LessonId = lessonId,
+                    UserId = user.Id,
+                    Mark = tasksEvaluations.Item1
+                });
             }
         }
     }

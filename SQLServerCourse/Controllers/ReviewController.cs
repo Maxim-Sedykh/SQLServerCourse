@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SQLServerCourse.Domain.ViewModels.Review;
+using SQLServerCourse.Service.Implementations;
 using SQLServerCourse.Service.Interfaces;
 
 namespace SQLServerCourse.Controllers
@@ -6,16 +8,16 @@ namespace SQLServerCourse.Controllers
     public class ReviewController : Controller
     {
         private readonly IReviewService _reviewService;
-        
+
         public ReviewController(IReviewService reviewService)
         {
             _reviewService = reviewService;
         }
 
         [HttpGet]
-        public IActionResult GetReviews()
+        public async Task<IActionResult> GetReviews()
         {
-            var response = _reviewService.GetReviews();
+            var response = await _reviewService.GetReviews();
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
                 return View(response.Data);
@@ -23,10 +25,18 @@ namespace SQLServerCourse.Controllers
             return View("Error", $"{response.Description}");
         }
 
+        [HttpGet]
+        public IActionResult CreateReview() => PartialView();
+
         [HttpPost]
-        public IActionResult CreateReview()
+        public async Task<IActionResult> CreateReview(CreateReviewViewModel review, string userName)
         {
-            return View();
+            var response = await _reviewService.CreateReview(review, User.Identity.Name);
+            if (response.StatusCode == Domain.Enum.StatusCode.OK)
+            {
+                return View(response.Data);
+            }
+            return View("Error", $"{response.Description}");
         }
     }
 }

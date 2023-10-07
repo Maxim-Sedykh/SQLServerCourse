@@ -10,8 +10,8 @@ namespace SQLServerCourse.Service.Interfaces
 {
     public interface IReviewService
     {
-        IBaseResponse<IEnumerable<ReviewViewModel>> GetReviews();
+        Task<IBaseResponse<List<ReviewViewModel>>> GetReviews();
 
-        Task<IBaseResponse<bool>> CreateReview(CreateReviewViewModel model, int userId);
+        Task<IBaseResponse<bool>> CreateReview(CreateReviewViewModel model, string userName);
     }
 }

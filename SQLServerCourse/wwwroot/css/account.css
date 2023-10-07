@@ -3,7 +3,7 @@
 }
 
 .login-panel {
-    margin: 0 auto;
+    margin: 100px auto 50px auto;
     min-height: 450px;
     align-items: center;
     background: linear-gradient(#00c0fc,#00aacc);

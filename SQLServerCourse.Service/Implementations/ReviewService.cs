@@ -4,6 +4,7 @@ using SQLServerCourse.DAL.Repositories;
 using SQLServerCourse.Domain.Entity;
 using SQLServerCourse.Domain.Enum;
 using SQLServerCourse.Domain.Responce;
+using SQLServerCourse.Domain.ViewModels.PersonalProfile;
 using SQLServerCourse.Domain.ViewModels.Review;
 using SQLServerCourse.Service.Interfaces;
 using System;
@@ -18,20 +19,33 @@ namespace SQLServerCourse.Service.Implementations
     public class ReviewService : IReviewService
     {
         private readonly IBaseRepository<Review> _reviewRepository;
-        
-        public ReviewService(IBaseRepository<Review> reviewRepository)
+        private readonly IBaseRepository<User> _userRepository;
+
+        public ReviewService(IBaseRepository<Review> reviewRepository, IBaseRepository<User> userRepository)
         {
             _reviewRepository = reviewRepository;
+            _userRepository = userRepository;
         }
 
-        public async Task<IBaseResponse<bool>> CreateReview(CreateReviewViewModel model, int userId)
+        public async Task<IBaseResponse<bool>> CreateReview(CreateReviewViewModel model, string userName)
         {
             try
             {
+                var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.Login == userName);
+                if (user == null)
+                {
+                    return new BaseResponse<bool>
+                    {
+                        Description = "Пользователь не найден",
+                        StatusCode = StatusCode.UserNotFound
+                    };
+                }
+
                 var review = new Review()
                 {
-                    UserId = userId,
+                    UserId = user.Id,
                     ReviewText = model.ReviewText,
+                    ReviewTime = DateTime.Now,
                 };
 
                 await _reviewRepository.Create(review);
@@ -52,20 +66,19 @@ namespace SQLServerCourse.Service.Implementations
             }
         }
 
-        public IBaseResponse<IEnumerable<ReviewViewModel>> GetReviews()
+        public async Task<IBaseResponse<List<ReviewViewModel>>> GetReviews()
         {
             try
             {
-                var reviews = _reviewRepository.GetAll()
+                var reviews = await _reviewRepository.GetAll()
                     .Include(x => x.User)
                     .Select(x => new ReviewViewModel()
                     {
                         UsersLogin = x.User.Login,
                         ReviewText = x.ReviewText,
-                    })
-                    .ToList();
+                    }).ToListAsync();
 
-                return new BaseResponse<IEnumerable<ReviewViewModel>>()
+                return new BaseResponse<List<ReviewViewModel>>()
                 {
                     Data = reviews,
                     StatusCode = StatusCode.OK
@@ -73,7 +86,7 @@ namespace SQLServerCourse.Service.Implementations
             }
             catch (Exception ex)
             {
-                return new BaseResponse<IEnumerable<ReviewViewModel>>()
+                return new BaseResponse<List<ReviewViewModel>>()
                 {
                     Description = $"Внутренняя ошибка: {ex.Message}",
                     StatusCode = StatusCode.InternalServerError,

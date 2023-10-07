@@ -20,5 +20,7 @@ namespace SQLServerCourse.Domain.Entity
         public User User { get; set; }
 
         public string ReviewText { get; set; }
+
+        public DateTime ReviewTime { get; set; }
     }
 }

@@ -93,7 +93,7 @@ namespace SQLServerCourse.DAL
                     Password = HashPasswordHelper.HashPassword("1234567"),
                     Role = Role.User,
                     FinalGrade = 0,
-                    LessonsCompleted = 10,
+                    LessonsCompleted = 0,
                     IsExamCompleted = false,
                 },
                 new User

@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" @*data-bs-theme="light"*@>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="~/css/personalAccount.css" />
     <link rel="stylesheet" href="~/css/review.css" />
     <link href="~/css/bootstrap-darkly.min.css" rel="stylesheet" />
+    @*<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">*@
 </head>
 <body>
     <div class="wrapper">
@@ -33,7 +34,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <button type="button" align="center" class="nav-link text-white my-auto bg-transparent" style="border:none;"
-                                    data-bs-toggle="modal" data-bs-target="#docunentaryModal">
+                                            data-bs-toggle="modal" data-bs-target="#documentaryModal" onclick="openModal({ url: '/Home/Documentary', modalId: 'documentaryModal'})">
                                         Документация
                                     </button>
                                 </li>
@@ -93,7 +94,7 @@
                 </div>
             </nav>
         </header>
-        <main data-bs-theme="light">
+        <main>
             @RenderBody()
         </main>
     </div>
@@ -103,8 +104,8 @@
     <div class="modal fade" id="coursePlanModal" tabindex="-1" aria-labelledby="coursePlanModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="background: #073985; border-radius:20px; color:white; border: 1px solid white;">
-                    <div class="modal-header" style="background:#2190a6; border-radius:20px;">
-                    <h5 class="modal-title" style="margin-left:175px;" id="exampleModalLabel">План курса</h5>
+                <div class="modal-header" style="background:#2190a6; border-radius:20px 20px 0px 0px;">
+                    <h5 class="modal-title" style="margin-left:175px;">План курса</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                 </div>
                 <div class="modal-body">
@@ -117,19 +118,14 @@
 
     @*documentary Modal*@
 
-    <div class="modal fade" id="docunentaryModal" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="documentaryModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="background: #073985; border-radius:20px; color:white; border: 1px solid white;">
+            <div class="modal-content" style="border-radius:20px; color:white; border: 1px solid white;">
                 <div class="modal-header" style="background:#2190a6; border-radius:20px 20px 0px 0px">
-                    <h5 class="modal-title" style="margin-left:100px; color:white;" id="exampleModalLabel">Ссылки на документацию</h5>
+                    <h5 class="modal-title" style="margin-left:100px; color:white;">Ссылки на документацию</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                 </div>
-                <div class="modal-body color-white text-center" style="font-size:16px; background:white; border-radius:0px 0px 20px 20px">
-                    <a href="https://habr.com/ru/articles/193136/">Хабр | Руководство по проектированию реляционных баз данных</a><br /><br />
-                    <a href="https://habr.com/ru/articles/440556/">Хабр | Учимся программированию Entity Relationship – диаграмм</a><br /><br />
-                    <a href="https://plantuml.com/ru/ie-diagram">Ezoic | Диаграмма взаимосвязи сущностей</a><br /><br />
-                    <a href="https://habr.com/ru/articles/254773/">Хабр | Нормализация отношений. Шесть нормальных форм</a><br /><br />
-                    <a href="https://falconspace.ru/list/sqlserver/sozdanie-bazy-dannykh--tablic-i-svyazey-mezhdu-nimi---489">Falcon Space | SQL Server. Создание базы данных, таблиц и связей между ними</a>
+                <div class="modal-body">
                 </div>
             </div>
         </div>
@@ -154,6 +150,20 @@
 
     @*lessonRecords Modal*@
 
+    @*createReview Modal*@
+
+    <div class="modal fade" id="createReviewModal" tabindex="-1" aria-labelledby="createReviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="min-width:40%;">
+            <div class="modal-content" style="background: #073985; border-radius:50px; color:white; border: 1px solid white;">
+                <div class="modal-body">
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*createReview Modal*@
+
     <footer id="footer" class="footer">
         <div class="container-fluid h100perc text-white">
             <div class="row text-center">
@@ -172,6 +182,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/checkCommonLesson.js"></script>
     <script src="~/js/modal.js"></script>
+    @*<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>*@
 
     @await RenderSectionAsync("pageScripts", required: false)
 </body>

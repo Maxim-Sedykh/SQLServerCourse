@@ -21,6 +21,8 @@ namespace SQLServerCourse.Controllers
 
         public IActionResult Index() => View();
 
+        public IActionResult Documentary() => PartialView();
+
         [HttpGet]
         public IActionResult GetCoursePlan()
         {

@@ -109,3 +109,9 @@ h5 {
     max-height: 600px;
     margin-bottom: 20px;
 }
+
+.documentary {
+    font-size: 16px;
+    background: white;
+    border-radius: 0px 0px 20px 20px;
+}

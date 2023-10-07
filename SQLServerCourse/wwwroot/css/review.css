@@ -14,7 +14,6 @@
     margin: auto;
     min-height: 823px;
     width: 100%;
-    background: #8ce3fa;
 }
 
 .reviewdiv-text {
@@ -51,12 +50,15 @@
 
 .reviewdiv-rev-text {
     height: 100%;
-    padding: 5px 15px;
+    padding: 10px 15px;
     border-radius: 40px;
     background: white;
-    font-size: 17px;
+    font-size: 18px;
     vertical-align: top;
     min-height: 130px;
+    font-weight: 400;
+    color: white;
+    background: #333;
 }
 
 .w-100 {
@@ -76,6 +78,8 @@
     vertical-align: top;
     text-align: center;
     padding-top: 17px;
+    font-size:18px;
+    font-weight:700;
 }
 
 .th-rev-text {
@@ -97,3 +101,36 @@
     background: var(--color-sea);
     color:white;
 }
+
+.records-div {
+    background: #333;
+    padding: 40px 0px;
+    margin-top:20px 0px;
+}
+
+.div-review-text{
+    width:80%;
+}
+
+.textarea-review-text {
+    min-height: 150px;
+    border: none;
+    border-radius: 40px;
+    padding: 15px;
+    width: 100%;
+    outline: none;
+    vertical-align: top;
+    resize: none;
+}
+
+.btn-review-submit {
+    margin-top: 7px;
+    background: var(--color-aqua);
+    border-radius:20px;
+    color:white;
+}
+
+    .btn-review-submit:hover {
+        background: var(--color-darkblue1);
+        color:white;
+    }
