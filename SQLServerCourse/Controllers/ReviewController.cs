@@ -34,7 +34,7 @@ namespace SQLServerCourse.Controllers
             var response = await _reviewService.CreateReview(review, User.Identity.Name);
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
-                return View(response.Data);
+                return RedirectToAction("GetReviews", "Review");
             }
             return View("Error", $"{response.Description}");
         }

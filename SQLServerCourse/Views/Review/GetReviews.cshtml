@@ -41,7 +41,7 @@
                 <table align="center" class="table-review my-4" bordercolor="grey">
                     <tr class="tr">
 
-                        <th class="th-rev-log px-3">@review.UsersLogin</th>
+                        <th class="th-rev-log px-3">@review.UsersLogin <br /> <text style="font-weight:500;">@review.ReviewDateTime.ToString("dd.MM.yyyy HH:mm")</text></th>
                         <th class="th-rev-text">
                             <div class="reviewdiv-rev-text wordwrap">
                                 @review.ReviewText

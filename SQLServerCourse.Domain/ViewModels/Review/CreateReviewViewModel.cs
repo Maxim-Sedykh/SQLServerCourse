@@ -15,7 +15,5 @@ namespace SQLServerCourse.Domain.ViewModels.Review
         [MinLength(10, ErrorMessage = "Длина отзыва должна быть больше десяти символов")]
         [MaxLength(150, ErrorMessage = "Длина отзыва должна быть меньше 150 символов")]
         public string ReviewText { get; set; }
-
-        public DateTime ReviewDateTime { get; set; }
     }
 }

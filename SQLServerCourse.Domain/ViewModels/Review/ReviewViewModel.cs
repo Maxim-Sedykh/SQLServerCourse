@@ -13,5 +13,7 @@ namespace SQLServerCourse.Domain.ViewModels.Review
         public string UsersLogin { get; set; }
 
         public string ReviewText { get; set; }
+
+        public DateTime ReviewDateTime { get; set; }
     }
 }

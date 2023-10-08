@@ -76,6 +76,7 @@ namespace SQLServerCourse.Service.Implementations
                     {
                         UsersLogin = x.User.Login,
                         ReviewText = x.ReviewText,
+                        ReviewDateTime = x.ReviewTime,
                     }).ToListAsync();
 
                 return new BaseResponse<List<ReviewViewModel>>()
