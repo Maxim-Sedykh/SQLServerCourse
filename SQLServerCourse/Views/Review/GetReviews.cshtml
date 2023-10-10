@@ -14,30 +14,26 @@
                     полного курса MS SQL и T-SQL<br />
                 </div>
             </div>
-            @if (User.Identity.IsAuthenticated)
-            {
-                <div class="row m-0">
-                    <div class="col-md-12 col-sm-12 text-center">
+            <div class="row m-0">
+                <div class="col-md-12 col-sm-12 text-center">
+                    @if (User.Identity.IsAuthenticated)
+                    {
                         <button type="button" align="center" class="btn btn-gradient btn-createreview mt-4 text-white" onclick="openModal({ url: '/Review/CreateReview', modalId: 'createReviewModal'})"
                                 data-toggle="ajax-modal" data-target="Modal">
                             Создать отзыв
                         </button>
-                    </div>
-                </div>
-            }
-            else
-            {
-                <div class="row m-0">
-                    <div class="col-md-12 col-sm-12 text-center">
+                    }
+                    else
+                    {
                         <a id="anothercourse" class="btn btn-createreview"
-                       asp-controller="Account" asp-action="Login">
+                        asp-controller="Account" asp-action="Login">
                             Войдите чтобы оставить отзыв
                         </a>
-                    </div>
+                    }
                 </div>
-            }
-            <div class="sort-div">
-                <p style="font-size:20px;">Сортировать: <button class="btn btn-sort" onclick="sortByNewest()">Сначала новые</button> 
+            </div>
+            <div class="sort-div border-bottom">
+                <p style="font-size:20px;">Сортировать: <button class="btn btn-sort border-bottom" onclick="sortByNewest()">Сначала новые</button> 
                     <button class="btn btn-sort" onclick="sortByOwn()">Сначала свои</button>
                 </p>
             </div>

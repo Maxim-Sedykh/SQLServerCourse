@@ -19,21 +19,21 @@
 <body>
     <div class="wrapper">
         <header>
-            <nav class="navbar navbar-expand-lg navbar-dark" style="background:#001f5e;">
-                <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light text-black">
+                <div class="container" style="max-width:1600px;">
                     <a class="navbar-brand" href="/">SQLCourse MSSQL</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <a class="nav-link active text-white px-0" aria-current="page" href="/">На главную</a>
+                        <a class="nav-link active text-black px-0" aria-current="page" href="/">На главную</a>
                         <div class="navItemRight" style="margin-left:auto;">
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-white">
                                 <li class="nav-item">
-                                    <a class="nav-link text-white my-auto" asp-controller="Review" asp-action="GetReviews">Отзывы</a>
+                                    <a class="nav-link text-black my-auto text-black" asp-controller="Review" asp-action="GetReviews">Отзывы</a>
                                 </li>
                                 <li class="nav-item">
-                                    <button type="button" align="center" class="nav-link text-white my-auto bg-transparent" style="border:none;"
+                                    <button type="button" align="center" class="nav-link text-black my-auto bg-transparent" style="border:none;"
                                             data-bs-toggle="modal" data-bs-target="#documentaryModal" onclick="openModal({ url: '/Home/Documentary', modalId: 'documentaryModal'})">
                                         Документация
                                     </button>
@@ -48,12 +48,12 @@
 
                                     @if (User.Identity.IsAuthenticated)
                                     {
-                                        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <a class="nav-link dropdown-toggle text-black" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             Аккаунт
                                         </a>
-                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
 
-                                            <li><a class="dropdown-item" asp-controller="PersonalProfile" asp-action="GetPersonalProfile">Личный кабинет</a>
+                                            <li><a class="dropdown-item " asp-controller="PersonalProfile" asp-action="GetPersonalProfile">Личный кабинет</a>
                                             @if (User.IsInRole("Admin"))
                                             {
                                                 <li><a class="dropdown-item" asp-controller="Home" asp-action="Index">Админ</a></li>
@@ -67,7 +67,7 @@
                                     }
                                     else
                                     {
-                                        <a class="nav-link text-white" asp-controller="Account" asp-action="Login">Войти</a>
+                                        <a class="nav-link text-black" asp-controller="Account" asp-action="Login">Войти</a>
                                     }
                                 </li>
                             </ul>
@@ -91,7 +91,7 @@
                     <h5 class="modal-title" style="margin-left:175px;">План курса</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="background:#333; border-radius: 0px 0px 20px 20px;">
                 </div>
             </div>
         </div>
@@ -108,7 +108,7 @@
                     <h5 class="modal-title" style="margin-left:100px; color:white;">Ссылки на документацию</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="background:#333333; border-radius: 0px 0px 20px 20px;">
                 </div>
             </div>
         </div>
@@ -148,13 +148,15 @@
     @*createReview Modal*@
 
     <footer id="footer" class="footer">
-        <div class="container-fluid h100perc text-white">
-            <div class="row text-center">
-                <div class="col-md-6 col-sm-12 h100perc">
-                    SQLCourse In MSSQL©
-                </div>
-                <div class="col-md-6 col-sm-12  h100perc">
-                    2022-2023
+        <div class="container-fluid h100perc text-black">
+            <div class="container border-top">
+                <div class="row text-center">
+                    <div class="col-md-6 col-sm-12 h100perc">
+                        SQLCourse In MSSQL© +79493597126
+                    </div>
+                    <div class="col-md-6 col-sm-12  h100perc">
+                        m.sedykh@mail.ru 2023-2024
+                    </div>
                 </div>
             </div>
         </div>
