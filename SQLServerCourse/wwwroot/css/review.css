@@ -10,13 +10,13 @@
     font-size: 25px;
 }
 
-.reviewdiv {
+.review-container {
     margin: auto;
     min-height: 823px;
     width: 100%;
 }
 
-.reviewdiv-text {
+.review-container-text {
     background-color: #076f8b;
     min-height: 110px;
     display: flex;
@@ -29,7 +29,7 @@
     margin: auto;
 }
 
-.reviewdiv-rev {
+.review-container-rev {
     display: inline-block;
     width: 99%;
     background: #d0dbde;
@@ -40,7 +40,7 @@
     margin-top: 30px;
 }
 
-.reviewdiv-rev-login {
+.review-container-rev-login {
     display: inline-block;
     text-align: center;
     font-size: 20px;
@@ -48,7 +48,7 @@
     vertical-align: top;
 }
 
-.reviewdiv-rev-text {
+.review-container-rev-text {
     height: 100%;
     padding: 10px 15px;
     border-radius: 40px;
@@ -91,16 +91,16 @@
 }
 
 .btn-createreview {
-    border-radius: 20px;
+    border-radius: 15px;
     margin-top: 25px;
-    background: var(--color-darkblue1);
+    background: var(--color-darkblue2);
     color: white;
 }
 
-.btn-createreview:hover {
-    background: var(--color-sea);
-    color:white;
-}
+    .btn-createreview:hover {
+        background: var(--color-blue);
+        color: white;
+    }
 
 .records-div {
     background: #333;
@@ -134,3 +134,25 @@
         background: var(--color-darkblue1);
         color:white;
     }
+
+.btn-sort {
+    height: 40px;
+    font-size: 17px;
+    color: black;
+    background: var(--color-darkaqua);
+    border-radius:15px;
+    color:white;
+}
+
+    .btn-sort:hover {
+        color: white;
+        background: var(--color-aqua);
+    }
+
+.sort-div {
+    margin-top: 20px;
+    margin-left: 85px;
+    height: 50px;
+    border-bottom: 1px solid black;
+    width: 50%;
+}
