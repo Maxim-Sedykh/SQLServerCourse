@@ -1,15 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using ServiceStack.Script;
 
 namespace SQLServerCourse.Controllers
 {
-    public class FinalExamController : Controller
+    public class FinalResultController : Controller
     {
-        [HttpGet]
-        public IActionResult PassExam()
-        {
-            return View();
-        }
-
         public IActionResult GetLearningResult()
         {
             return View();
@@ -19,10 +15,8 @@ namespace SQLServerCourse.Controllers
         {
             return PartialView();
         }
-
-        public IActionResult GetExamResult()
-        {
-            return PartialView();
-        }
     }
 }
+
+
+

@@ -16,6 +16,8 @@ namespace SQLServerCourse.Domain.Entity
 
         public string Name { get; set; }
 
+        public LessonType LessonType { get; set; }
+
         public string? LectureMarkup { get; set; }
 
         public List<Question> Questions { get; set; }

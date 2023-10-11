@@ -81,7 +81,18 @@ namespace SQLServerCourse.Service.Implementations
         {
             try
             {
-                var response = ITask.GetQuestions(lessonId, _questionRepository.GetAll().ToList(), _testVariantRepository.GetAll().ToList());
+                var currentLesson = _lessonRepository.GetAll().FirstOrDefault(x => x.Id == lessonId);
+                if (currentLesson is null)
+                {
+                    return new BaseResponse<LessonPassViewModel>()
+                    {
+                        StatusCode = StatusCode.LessonNotFound,
+                        Description = "Урок не найден"
+                    };
+                }
+
+                var response = ITask.GetQuestions(currentLesson, _questionRepository.GetAll().ToList(), _testVariantRepository.GetAll().ToList());
+
                 if (response is null)
                 {
                     return new BaseResponse<LessonPassViewModel>()
@@ -110,7 +121,17 @@ namespace SQLServerCourse.Service.Implementations
         {
             try
             {
-                var generalModel = ITask.GetQuestions(userAnswersModel.LessonId, _questionRepository.GetAll().ToList(), _testVariantRepository.GetAll().ToList());
+                var currentLesson = _lessonRepository.GetAll().FirstOrDefault(x => x.Id == userAnswersModel.LessonId);
+                if (currentLesson is null)
+                {
+                    return new BaseResponse<LessonPassViewModel>()
+                    {
+                        StatusCode = StatusCode.LessonNotFound,
+                        Description = "Урок не найден"
+                    };
+                }
+
+                var generalModel = ITask.GetQuestions(currentLesson, _questionRepository.GetAll().ToList(), _testVariantRepository.GetAll().ToList());
 
                 for (int i = 0; i < generalModel.Questions.Count; i++)
                 {

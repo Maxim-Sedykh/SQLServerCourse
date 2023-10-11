@@ -29,11 +29,11 @@ namespace SQLServerCourse.Service.Interfaces.TeachingInterfaces
                         tasksCorrectness.Add(true);
                         if (model.Questions[i].QuestionType == TaskType.Test)
                         {
-                            grade = +1.5f;
+                            grade += 1.5f;
                         }
                         else
                         {
-                            grade = +3.5f;
+                            grade += 3.5f;
                         }
                         goto LoopEnd;
                     }
@@ -45,13 +45,15 @@ namespace SQLServerCourse.Service.Interfaces.TeachingInterfaces
             return new Tuple<float, List<bool>>(grade, tasksCorrectness);
         }
 
-        public static LessonPassViewModel GetQuestions(int lessonId, List<Question> allQuestions, List<TestVariant> allTestVariants)
+        public static LessonPassViewModel GetQuestions(Lesson currentLesson, List<Question> allQuestions, List<TestVariant> allTestVariants)
         {
+
+
             List<Question> lessonQuestions = (from question in allQuestions
-                                              where question.LessonId == lessonId
+                                              where question.LessonId == currentLesson.Id
                                               select question).ToList();
             List<TestVariant> lessonTestVariants = (from question in allQuestions
-                                                    where question.LessonId == lessonId && question.Type == TaskType.Test
+                                                    where question.LessonId == currentLesson.Id && question.Type == TaskType.Test
                                                     join testVariant in allTestVariants on question.Id equals testVariant.QuestionId
                                                     select testVariant).ToList();
             List<QuestionViewModel> questionViewModels = new List<QuestionViewModel>();
@@ -82,13 +84,15 @@ namespace SQLServerCourse.Service.Interfaces.TeachingInterfaces
                                                                                                               where testVariant.QuestionId == lessonQuestions[i].Id
                                                                                                   where testVariant.IsRight
                                                                                                   select testVariant.Content).First(),
+                    
                 });
                 j++;
             }
             return new LessonPassViewModel
             {
-                LessonId = lessonId,
-                Questions = questionViewModels
+                LessonId = currentLesson.Id,
+                Questions = questionViewModels,
+                LessonType = currentLesson.LessonType
             };
         }
     }

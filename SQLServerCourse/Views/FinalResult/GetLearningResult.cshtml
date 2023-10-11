@@ -1,0 +1,89 @@
+﻿@model SQLServerCourse.Domain.ViewModels.Lesson.ResultViewModel
+
+@{
+    ViewData["Title"] = "Результат | SQLServerCourse";
+}
+
+<div class= "container-fluid">
+    <div class= "container">
+        <div class= "row">
+            <div class= "col-md-3 col-sm-3">
+            </div>
+            <div class= "col-md-6 col-sm-6">
+                <div class= "congratulation-panel text-center">
+                    Поздравляем!!!
+                </div>
+            </div>
+            <div class= "col-md-3 col-sm-3">
+            </div>
+        </div>
+        <div class= "row">
+            <div class= "col-md-12 col-sm-12 text-center">
+                <div class= "result-panel">
+                    <div align = "center" class= "text-center mx-auto">
+                        Уважаемый @Model.Name @Model.Surname, Ваш окончательный результат:
+                        <br />
+                        <p style = "font-size:30px;  font-weight:700;" > @Model.FinalGrade баллов из 100 !!!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*<div class="row mt-5">
+    < div class= "col-md-6 text-center" >
+    < button class= "btn btn-gradient text-white mx-auto darkblue" id = "but1" type = "submit" onclick = "showExamResult();" > Результаты экзамена </ button >
+    < button class= "btn btn-gradient text-white mx-auto darkblue" id = "but2" type = "submit" onclick = "hideExamResult();" style = "display:none;" > Скрыть результаты экзамена</button>
+</div>
+<div class="col-md-6 text-center">
+    < button class= "btn btn-gradient text-white mx-auto darkblue" id = "but3" type = "submit" onclick = "showAnalysis();" > Анализ прохождения </ button >
+    < button class= "btn btn-gradient text-white mx-auto darkblue" id = "but4" type = "submit" onclick = "hideAnalysis();" style = "display:none;" > Скрыть анализ прохождения</button>
+</div>
+        </div>
+<div class="row">
+    < div class= "col-md-12 col-sm-12" >
+    < div class= "PersonalArea-analysis-text mx-auto my-3" id = "analys" align = "justify" style = "display:none;" >
+                                        @Model.UserAnalys
+    </div>
+    </div>
+
+    </div>
+    </div>
+    </div>*@
+
+<script src = "https://kit.fontawesome.com/1e1acde3d7.js" crossorigin = "anonymous"></script>
+<script>
+
+    function showExamResult() {
+    $('#but1').hide();
+    $('#exam').show();
+    $('#but2').show();
+    $('#analys').hide();
+    $('#but3').show();
+    $('#but4').hide();
+
+    }
+
+    function hideExamResult()
+    {
+    $('#but1').show();
+    $('#exam').hide();
+    $('#but2').hide();
+    }
+    function showAnalysis()
+    {
+    $('#but3').hide();
+    $('#analys').show();
+    $('#but4').show();
+    $('#exam').hide();
+    $('#but2').hide();
+    $('#but1').show();
+    }
+    function hideAnalysis()
+    {
+    $('#but3').show();
+    $('#analys').hide();
+    $('#but4').hide();
+    }
+
+</script>

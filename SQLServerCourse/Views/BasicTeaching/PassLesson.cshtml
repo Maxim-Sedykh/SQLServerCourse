@@ -7,10 +7,18 @@
     ViewData["Title"] = "Первая тема | №1";
 }
 
+@{
+    string lessonContainerColor = "background: var(--color-blue)";
+    if (Model.LessonType == LessonType.Exam)
+    {
+        lessonContainerColor = "background: var(--color-darkblue1)";
+    }
+}
+
 <div class="container-fluid">
     <div class="container">
         <div class="row">
-            <div class="col-12 lesson-container my-3">
+            <div class="col-12 lesson-container my-3" style=" @lessonContainerColor;">
                 <h2 class="text-center text-white">Практическая часть занятия</h2>
                 <div class="tasks" align="justify">
                     <form autocomplete="off" asp-controller="BasicTeaching" asp-action="PassLesson">
@@ -55,15 +63,20 @@
                         }
                     </form>
                     <div class="text-center">
-                        @if (User.Identity.IsAuthenticated)
+                        @if (!User.Identity.IsAuthenticated)
                         {   
                             <a id="returnonlistoflessons" style="max-width: 275px; "class="btn btn-gradient btn-submit-answers"
                            asp-controller="PersonalProfile" asp-action="GetPersonalProfile">Выйти на список занятий</a>
                         }
-                        else
+                        @if ((Context.Request.Method == "POST") && (Model.LessonType == LessonType.Exam))
+                        {
+                            <a id="returnonlistoflessons" style="max-width: 275px; " class="btn btn-gradient btn-submit-answers my-4"
+                           asp-controller="FinalResult" asp-action="GetLearningResult">Завершить экзамен</a>
+                        }
+                        @if ((Context.Request.Method == "POST") && (Model.LessonType != LessonType.Exam))
                         {
                             <a id="returnonlistoflessons" style="max-width: 275px; " class="btn btn-gradient btn-submit-answers"
-                           asp-controller="Home" asp-action="Index">Выйти на главную</a>
+                           asp-controller="PersonalProfile" asp-action="GetPersonalProfile">Выйти на список занятий</a>
                         }
                     </div>
                 </div>

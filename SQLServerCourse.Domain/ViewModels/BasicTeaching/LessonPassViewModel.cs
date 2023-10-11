@@ -1,4 +1,5 @@
 ﻿using SQLServerCourse.Domain.Entity;
+using SQLServerCourse.Domain.Enum;
 using SQLServerCourse.Domain.Helpers;
 using SQLServerCourse.Domain.ViewModels.Teaching;
 using System;
@@ -14,6 +15,9 @@ namespace SQLServerCourse.Domain.ViewModels.Lesson
     {
         public int LessonId { get; set; }
 
+        public LessonType? LessonType { get; set; }
+
         public List<QuestionViewModel> Questions { get; set; }
     }
 }
+

@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace SQLServerCourse.Domain.Enum
 {
-    public enum TaskType
+    public enum LessonType
     {
-        Test = 0,
-        Open = 1,
-        Practical
+        CommonWithPractical = 0,
+        CommonWithoutPractical = 1,
+        Exam = 2, //Экзамен содержит практические
     }
 }

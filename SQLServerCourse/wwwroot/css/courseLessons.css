@@ -1,7 +1,6 @@
 ﻿.lesson-container {
     min-height: 700px;
     padding: 25px;
-    background: var(--color-blue);
     border-radius: 40px;
     color: white;
     font-size: 18px;
