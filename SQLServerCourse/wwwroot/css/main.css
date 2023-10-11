@@ -135,8 +135,13 @@ h5 {
         color:white;
     }
 
+.h-main{
+    font-size:40px;
+}
+
 .about-course-part-text {
-    padding:0px 20px 0px 20px;
+    padding: 0px 20px 0px 20px;
+    font-size:20px;
 }
 
 .about-course-part-imgdiv {
@@ -152,5 +157,83 @@ h5 {
     width: 100%;
     height: 100%;
     border-radius: 100px;
+    object-fit: cover;
+}
+
+.main-ul-willdo {
+    margin-left: 0;
+    list-style: none;
+    counter-reset: li;
+    font-size: 22px;
+    margin-top:40px;
+}
+
+    .main-ul-willdo li {
+        position: relative;
+        margin-bottom: 1.5em;
+        border: 3px solid var(--color-aqua);
+        padding: 0.6em;
+        border-radius: 4px;
+        background: #FEFEFE;
+        color: #231F20;
+        font-family: "Trebuchet MS", "Lucida Sans";
+        font-size: 22px;
+    }
+
+        .main-ul-willdo li:before {
+            position: absolute;
+            top: -0.7em;
+            padding-left: 0.4em;
+            padding-right: 0.4em;
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--color-darkaqua);
+            background: #FEFEFE;
+            border-radius: 50%;
+            counter-increment: li;
+            content: counter(li);
+        }
+
+.ul-lit {
+    font-size:20px;
+}
+
+.ul-after-teach {
+
+}
+
+    .ul-after-teach li {
+        font-size: 20px;
+        list-style-type: none;
+    }
+
+        .ul-after-teach li::before {
+            color: var(--color-aqua);
+            content: "*";
+            padding-right: 10px;
+            font-size:26px;
+        }
+
+.about-p-div {
+    height: 400px;
+    width: 100%;
+    margin: 20px;
+    border-radius: 40px;
+    border: 3px solid #e2e2e2;
+    box-shadow: 10px 5px 5px #f6f6f6;
+    padding: 130px 20px 0px 40px;
+}
+
+.about-imgdiv {
+    height: 400px;
+    width: 100%;
+    margin: 20px;
+    border-radius: 40px;
+}
+
+.about-img {
+    height: 100%;
+    width: 100%;
+    border-radius: 40px;
     object-fit: cover;
 }

@@ -4,7 +4,7 @@
 
 <div class="container-fluid">
     <div class="container px-1 pb-2 mb-0">
-        <div class="row p-4 main-bodyheader d-flex justify-content-between">
+        <div class="row p-4 main-bodyheader d-flex justify-content-between mt-4">
             <h1 align="center" style="color:#ffffff; font-size:55px;">
                 Курс по языку SQL в среде СУБД MS SQL Server
             </h1>
@@ -61,8 +61,8 @@
 </div>
 <div class="container-fluid">
     <div class="container ps-0">
-        <div class="row my-4">
-            <h2 class="text-black">
+        <div class="row mt-5">
+            <h2 class="h-main text-black">
                 Чему вы научитесь на этом курсе
             </h2>
             <div class="col-md-4 col-sm-12">
@@ -85,79 +85,80 @@
             </div>
         </div>
         <div class="row">
-            <h2 class="text-black">
+            <h2 class="h-main text-black mt-5">
                 О курсе
             </h2>
-            <p>
-                На этом курсе вы научитесь работать: с базой данных, путём создания и чтения различных запросов к базам данных
-                в системе управления базами данных (СУБД) "Microsoft SQL Server 2019" и с основами языка запросов T-SQL.
-                Данная СУБД является одной из самых популярных, востребованных и удобных систем,
-                а знания, полученные в ходе курса позволят вам значительно расширить традиционные возможности написания SQL-запросов.
-                После регистрации вам будет доступен ряд занятий, предоставляющие практические занятия для закрепления теории.
-            </p>
-            <p>
-                Благодаря тому, что автор этого расширения самым активным образом поддерживает Transact-SQL,
-                популярность и востребованность этого языка стабильно возрастает.
-            </p>
-            <p>
-                В курсе в конце почти каждого занятия присутствуют практические задания на создание T-SQL запросов.
-                На этом курсе ученик научится не только теории, но и будет работать с полученными знаниями на практике.
-            </p>
+            <div class="col-md-7 col-sm-12">
+                <div class="about-p-div">
+                    <p class="fs-5 m-auto">
+                        В этом курсе вы научитесь работать: с базой данных, путём создания и чтения различных запросов к базам данных
+                        в системе управления базами данных (СУБД) "Microsoft SQL Server 2019" и с основами языка запросов T-SQL.
+                        <div class="text-center">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a class="btn btn-mainnav margin-leftpart-mainpic fs-5" style="background: var(--color-aqua); height:45px;" asp-controller="PersonalProfile" asp-action="GetPersonalProfile">
+                                    Продолжите обучение!
+                                </a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-mainnav margin-leftpart-mainpic fs-5" style="background: var(--color-aqua); height:45px;" asp-controller="Account" asp-action="Register">
+                                    Зарегистрируйтесь и начните обучение!
+                                </a>
+                            }
+                        </div>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-5 col-sm-12">
+                <div class="about-imgdiv">
+                    <img class="about-img" src="../images/MainPagePic5.jpg" />
+                </div>
+            </div>
          </div>
         <div class="row">
-            <h2 id="section-1" class="text-black">
+            <h2 id="section-1" class="h-main text-black mt-5">
                         Для кого этот курс
             </h2>
-            <p>
+            <p class="fs-5 mt-4 lh-base">
                 Этот курс для новичков в SQL и для людей, которые имеют некоторые знания в сфере работы с данными, в частности языка SQL
-            </p>
-            <p>
                 Если вы новичок в изучении БД, то для прохождения этого курса рекомендуется ознакомиться со справочным материалом.
             </p>
-            <button type="button" align="center" class="btn btn-mainnav text-white my-3" style="border:none; max-width:200px;"
+            <button type="button" align="center" class="btn btn-mainnav text-white my-3 ms-4" style="border:none; max-width:200px;"
                     data-bs-toggle="modal" data-bs-target="#documentaryModal" onclick="openModal({ url: '/Home/Documentary', modalId: 'documentaryModal'})">
                 Документация
             </button>
         </div>
         <div class="row">
-            <h2 id="section-2" class="text-black">
+            <h2 id="section-2" class="h-main text-black mt-5">
                 После обучения вы сможете
             </h2>
-            <ul>
+            <ul class="ul-after-teach mt-3 ms-5">
                 <li>Работать в среде СУБД "MS SQL Server"</li>
-                <li>Писать сложные расширенные по возможности запросы к базам данных используя различные функции языка T-SQL</li>
+                <li>Писать сложные расширенные запросы используя различные функции языка T-SQL</li>
                 <li>Создавать запросы для выполнения операций над таблицами</li>
                 <li>Выполнять транзакции</li>
                 <li>Писать хранимые процедуры</li>
-                <li>Создавать представления</li>
-                <li>Использовать функции агрегирования для выполнения операции с набором значений</li>
                 <li>Писать запросы, используя локальные переменные</li>
             </ul>
         </div>
         <div class="row">
-            <h2 id="section-3" class="text-black">
+            <h2 id="section-3" class="h-main text-black mt-5 lh-lg">
                 В курсе вы будете
             </h2>
-            <ul>
-                <li>
-                    Работать в среде СУБД "MS SQL Server"
-                    <ul>
-                        <li>Выполнять транзакции</li>
-                        <li>Писать хранимые процедуры</li>
-                        <li>Создавать представления</li>
-                        <li>Использовать функции агрегирования для выполнения операции с набором значений</li>
-                        <li>Писать запросы, используя локальные переменные</li>
-                    </ul>
-                </li>
-                <li>Писать сложные расширенные по возможности запросы к базам данных используя различные функции языка T-SQL</li>
+            <ol class="main-ul-willdo">
+                <li>Выполнять транзакции</li>
+                <li>Писать хранимые процедуры</li>
+                <li>Использовать функции агрегирования для выполнения операции с набором значений</li>
+                <li>Писать сложные запросы используя различные функции языка T-SQL</li>
                 <li>Создавать запросы для выполнения операций над таблицами</li>
-            </ul>
+            </ol>
         </div>
         <div class="row">
-            <h2 class="text-black">
+            <h2 class="h-main text-black">
                 Дополнительная литература
             </h2>
-            <ul>
+            <ul class="ul-lit ms-5 mt-3 lh-lg">
                 <li><a href="https://learn.microsoft.com/ru-ru/sql/t-sql/language-reference?view=sql-server-ver15">Справочник по Transact-SQL | Microsoft Learn</a></li>
                 <li><a href="https://info-comp.ru/programmirovanie/412-directory-transact-sql.html">Справочник Transact-SQL – основы для новичков | info-comp.ru</a></li>
                 <li>Microsoft SQL Server 2012, основы T-SQL, Бен-Ган И., Райтман М.А., 2015.</li>

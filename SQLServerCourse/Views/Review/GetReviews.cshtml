@@ -34,7 +34,10 @@
             </div>
             <div class="sort-div border-bottom">
                 <p style="font-size:20px;">Сортировать: <button class="btn btn-sort border-bottom" onclick="sortByNewest()">Сначала новые</button> 
-                    <button class="btn btn-sort" onclick="sortByOwn()">Сначала свои</button>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <button class="btn btn-sort" onclick="sortByOwn()">Сначала свои</button>
+                    }
                 </p>
             </div>
             <div id="review-list">
