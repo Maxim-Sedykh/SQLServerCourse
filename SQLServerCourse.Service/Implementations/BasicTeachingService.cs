@@ -77,7 +77,7 @@ namespace SQLServerCourse.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<LessonPassViewModel>> GetQuestions(int lessonId)
+        public BaseResponse<LessonPassViewModel> GetQuestions(int lessonId)
         {
             try
             {

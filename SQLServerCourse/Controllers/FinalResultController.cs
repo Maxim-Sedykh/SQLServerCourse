@@ -1,18 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using ServiceStack.Script;
+using SQLServerCourse.DAL.Interfaces;
+using SQLServerCourse.DAL.Repositories;
+using SQLServerCourse.Domain.Entity;
 
 namespace SQLServerCourse.Controllers
 {
     public class FinalResultController : Controller
     {
-        public IActionResult GetLearningResult()
+
+        public FinalResultController()
         {
-            return View();
+
         }
 
         public IActionResult GetAnalys()
         {
+
             return PartialView();
         }
     }

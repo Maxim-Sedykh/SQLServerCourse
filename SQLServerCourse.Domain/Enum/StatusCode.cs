@@ -12,6 +12,7 @@ namespace SQLServerCourse.Domain.Enum
     {
         UserNotFound = 0,
         UserAlreadyExists = 1,
+        UserAnalysNotFound = 2,
 
         LessonNotFound = 10,
 

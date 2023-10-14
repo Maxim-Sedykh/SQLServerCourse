@@ -19,19 +19,6 @@ namespace SQLServerCourse.DAL
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
             Database.EnsureCreated();
-            //bool isCreated = Database.EnsureCreated();
-            //if (isCreated)
-            //{
-            //    var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"DBFilling\DBFilling.txt");
-            //    using (FileStream fstream = File.OpenRead(path))
-            //    {
-            //        byte[] buffer = new byte[fstream.Length];
-            //        fstream.Read(buffer, 0, buffer.Length);
-            //        string textFromFile = Encoding.Default.GetString(buffer);
-
-            //        Database.ExecuteSqlRaw(textFromFile);
-            //    }
-            //}
         }
 
         //Системные таблицы

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SQLServerCourse.Domain.ViewModels.Lesson
+namespace SQLServerCourse.Domain.ViewModels.FinalResult
 {
     public class ResultViewModel
     {
@@ -17,10 +17,6 @@ namespace SQLServerCourse.Domain.ViewModels.Lesson
 
         public float? FinalGrade { get; set; }
 
-        public string? Analys { get; set; }
-
         public string UserAnalys { get; set; }
-
-        public List<bool> TasksCorrectness { get; set; }
     }
 }
