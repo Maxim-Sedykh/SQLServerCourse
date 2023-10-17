@@ -34,7 +34,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <button type="button" align="center" class="nav-link text-black my-auto bg-transparent" style="border:none;"
-                                            data-bs-toggle="modal" data-bs-target="#documentaryModal" onclick="openModal({ url: '/Home/Documentary', modalId: 'documentaryModal'})">
+                                            data-bs-toggle="modal" data-bs-target="#documentaryModal" onclick="openModal({ url: '/Home/Documentary', modalId: 'modalWindow'})">
                                         Документация
                                     </button>
                                 </li>
@@ -82,70 +82,18 @@
         </main>
     </div>
 
-    @*сoursePlan Modal*@
-
-    <div class="modal fade" id="coursePlanModal" tabindex="-1" aria-labelledby="coursePlanModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalWindow" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="background: #073985; border-radius:20px; color:white; border: 1px solid white;">
-                <div class="modal-header" style="background:#2190a6; border-radius:20px 20px 0px 0px;">
-                    <h5 class="modal-title" style="margin-left:175px;">План курса</h5>
+            <div class="modal-content text-white" style="border-radius:20px; border: 1px solid white;">
+                <div class="modal-header" style="background: var(--color-darkaqua); border-radius:20px 20px 0px 0px;">
+                    <h5 class="modal-title" style="margin-left:35%;">Модальное окно</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                 </div>
-                <div class="modal-body" style="background:#333; border-radius: 0px 0px 20px 20px;">
+                <div class="modal-body" style="background:#333; border-radius:0px 0px 20px 20px;">
                 </div>
             </div>
         </div>
     </div>
-
-    @*сoursePlan Modal*@
-
-    @*documentary Modal*@
-
-    <div class="modal fade" id="documentaryModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="border-radius:20px; color:white; border: 1px solid white;">
-                <div class="modal-header" style="background:#2190a6; border-radius:20px 20px 0px 0px">
-                    <h5 class="modal-title" style="margin-left:100px; color:white;">Ссылки на документацию</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
-                </div>
-                <div class="modal-body" style="background:#333333; border-radius: 0px 0px 20px 20px;">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    @*documentary Modal*@
-
-    @*lessonRecords Modal*@
-
-    <div class="modal fade" id="lessonRecordsModal" tabindex="-1" aria-labelledby="lessonRecordsModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="min-width:40%;">
-            <div class="modal-content" style="background: #073985; border-radius:20px; color:white; border: 1px solid white;">
-                <div class="modal-header" style="background:#2190a6; border-radius:20px;">
-                    <h5 class="modal-title" style="margin-left:250px;">Пройденные занятия</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
-                </div>
-                <div class="modal-body">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    @*lessonRecords Modal*@
-
-    @*createReview Modal*@
-
-    <div class="modal fade" id="createReviewModal" tabindex="-1" aria-labelledby="createReviewModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="min-width:40%;">
-            <div class="modal-content" style="background: #073985; border-radius:50px; color:white; border: 1px solid white;">
-                <div class="modal-body">
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    @*createReview Modal*@
 
     <footer id="footer" class="footer">
         <div class="container-fluid h100perc text-black">

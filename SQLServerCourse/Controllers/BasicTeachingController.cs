@@ -30,9 +30,9 @@ namespace SQLServerCourse.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> PassLesson(int id)
+        public IActionResult PassLesson(int id)
         {
-            var response = await _basicTeachingService.GetQuestions(id); //Здесь заполняются 3 свойства у модели LessonPassViewModel
+            var response = _basicTeachingService.GetQuestions(id); //Здесь заполняются 3 свойства у модели LessonPassViewModel
 
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {

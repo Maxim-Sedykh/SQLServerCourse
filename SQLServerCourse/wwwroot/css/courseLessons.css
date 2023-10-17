@@ -81,9 +81,9 @@
 .congratulation-panel {
     height: 400px;
     line-height: 400px;
-    font-size: 40px;
+    font-size: 25px;
     color: white;
-    background: #109c12;
+    background: #990101;
     margin-top: 67px;
     border-radius: 50px;
     font-weight: 700;
@@ -94,8 +94,8 @@
     display: flex;
     align-items: center;
     margin-top: 50px;
-    height: 150px;
-    background: #5b0954;
+    height: 165px;
+    background: var(--color-darkblue1);
     color: white;
     border-radius: 50px;
     vertical-align: middle;
@@ -105,3 +105,27 @@
 .darkblue {
     background: #190d8a;
 }
+
+/*#fireworks {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    animation: fireworks 1s infinite;
+}
+
+@keyframes fireworks {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(10);
+        opacity: 0;
+    }
+}*/
+

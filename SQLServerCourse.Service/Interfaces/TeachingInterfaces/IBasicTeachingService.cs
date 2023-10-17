@@ -13,8 +13,8 @@ namespace SQLServerCourse.Service.Interfaces.TeachingInterfaces
     {
         public IBaseResponse<LessonLectureViewModel> GetLecture(int lessonId);
 
-        public Task<IBaseResponse<LessonPassViewModel>> GetQuestions(int lessonId);
+        public IBaseResponse<LessonPassViewModel> GetQuestions(int lessonId);
 
-        public IBaseResponse<LessonPassViewModel> PassLesson(LessonPassViewModel model, string userName);
+        public Task<IBaseResponse<LessonPassViewModel>> PassLesson(LessonPassViewModel model, string userName);
     }
 }

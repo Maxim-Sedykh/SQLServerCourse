@@ -10,8 +10,8 @@ namespace SQLServerCourse.Service.Interfaces
 {
     public interface IFinalResultService
     {
-        Task<BaseResponse<ResultViewModel>> GetResultModel(string userName);
+        Task<IBaseResponse<ResultViewModel>> GetResultModel(string userName);
 
-        Task<BaseResponse<string>> GetUserAnalys(string userName);
+        IBaseResponse<AnalysViewModel> GetUserAnalys(string userName);
     }
 }

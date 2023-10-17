@@ -28,6 +28,7 @@ namespace SQLServerCourse.Initializer
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IReviewService, ReviewService>();
             services.AddScoped<IBasicTeachingService, BasicTeachingService>();
+            services.AddScoped<IFinalResultService, FinalResultService>();
             services.AddScoped<IHomeService, HomeService>();
         }
     }

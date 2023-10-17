@@ -31,7 +31,7 @@
                     @if ((Context.Request.Method == "POST") && (Model.LessonType == LessonType.Exam))
                     {
                         <a id="returnonlistoflessons" style="max-width: 275px; " class="btn btn-gradient btn-submit-answers my-4"
-                       asp-controller="FinalResult" asp-action="GetLearningResult">Завершить экзамен</a>
+                       asp-controller="FinalResult" asp-action="GetFinalResult">Завершить экзамен</a>
                     }
                     @if ((Context.Request.Method == "POST") && (Model.LessonType != LessonType.Exam))
                     {
@@ -85,7 +85,7 @@
                         @if ((Context.Request.Method == "POST") && (Model.LessonType == LessonType.Exam))
                         {
                             <a id="returnonlistoflessons" style="max-width: 275px; " class="btn btn-gradient btn-submit-answers my-4"
-                           asp-controller="FinalResult" asp-action="GetLearningResult">Завершить экзамен</a>
+                           asp-controller="FinalResult" asp-action="GetFinalResult">Завершить экзамен</a>
                         }
                         @if ((Context.Request.Method == "POST") && (Model.LessonType != LessonType.Exam))
                         {

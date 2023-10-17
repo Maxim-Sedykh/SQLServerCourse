@@ -36,7 +36,7 @@
                 }
                 <br />
                 <button type="button" align="center" class="btn btn-gradient text-white"
-                        onclick="openModal({ url: '/PersonalProfile/GetLessonRecords',  modalId: 'lessonRecordsModal'})" 
+                        onclick="openModal({ url: '/PersonalProfile/GetLessonRecords',  modalId: 'modalWindow'})"
                         data-toggle="ajax-modal" data-target="Modal">   
                     Список оценок
                 </button>
@@ -45,7 +45,7 @@
             </div>
         </div>
         <div class="row mb-4 mt-5">
-            @for (int i = 1; i < 5; i++)
+            @for (int i = 1; i < Model.LessonNames.Count(); i++)
             {
                 @if ((Model.LessonsCompleted + 1) >= i)
                 {
@@ -76,10 +76,10 @@
                 }
                 else
                 {
-                    <a class="btn btn-gradient text-white text-center" style="width: 200px;" asp-controller="BasicTeaching" asp-action="PassLesson" asp-route-id="5">
+                    <a class="btn btn-gradient text-white text-center" style="width: 200px;" asp-controller="BasicTeaching" asp-action="PassLesson" asp-route-id="@Model.LessonNames.Count()">
                         <div class="personalArea-final-exam-div">
                             Экзамен
-                        </div>
+                        </div>  
                     </a>
                 }
             </div>

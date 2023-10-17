@@ -31,7 +31,7 @@ namespace SQLServerCourse.Controllers
             {
                 return PartialView(response.Data.ToList());
             }
-            return PartialView("Error", $"{response.Description}");
+            return View("Error", $"{response.Description}");
         }
     }
 }

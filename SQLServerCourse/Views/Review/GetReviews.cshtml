@@ -18,8 +18,8 @@
                 <div class="col-md-12 col-sm-12 text-center">
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <button type="button" align="center" class="btn btn-gradient btn-createreview mt-4 text-white" onclick="openModal({ url: '/Review/CreateReview', modalId: 'createReviewModal'})"
-                                data-toggle="ajax-modal" data-target="Modal">
+                        <button type="button" align="center" class="btn btn-gradient btn-createreview mt-4 text-white" 
+                        onclick="openModal({ url: '/Review/CreateReview', modalId: 'modalWindow'})" data-toggle="ajax-modal" data-target="Modal">
                             Создать отзыв
                         </button>
                     }
@@ -47,7 +47,10 @@
                         <table align="center" class="table-review my-4" bordercolor="grey">
                             <tr class="tr">
 
-                                <th class="th-rev-log px-3"><text class="review-user-name">@review.UsersLogin</text> <br /> <text class="review-date" style="font-weight:500;">@review.ReviewDateTime.ToString("dd.MM.yyyy HH:mm:ss")</text></th>
+                                <th class="th-rev-log px-3">
+                                    <text class="review-user-name">@review.UsersLogin</text> <br /> 
+                                    <text class="review-date" style="font-weight:500;">@review.ReviewDateTime.ToString("yyyy-MM-dd HH:mm:ss")</text>
+                                </th>
                                 <th class="th-rev-text">
                                     <div class="review-container-rev-text wordwrap">
                                         @review.ReviewText

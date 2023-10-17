@@ -77,7 +77,7 @@ namespace SQLServerCourse.Service.Implementations
             }
         }
 
-        public BaseResponse<LessonPassViewModel> GetQuestions(int lessonId)
+        public IBaseResponse<LessonPassViewModel> GetQuestions(int lessonId)
         {
             try
             {
