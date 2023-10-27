@@ -36,7 +36,7 @@ namespace SQLServerCourse.Service.Implementations
                 {
                     return new BaseResponse<ClaimsIdentity>
                     {
-                        Description = "Пользователь с таким логином уже зарегистрирован",
+                        Description = "Пользователь с таким логином уже зарегистрирован, выберите другой логин",
                     };
                 }
 
@@ -116,6 +116,11 @@ namespace SQLServerCourse.Service.Implementations
             };
             return new ClaimsIdentity(claims, "ApplicationCookie",
                 ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+        }
+
+        public Task<BaseResponse<bool>> ChangePassword(ChangePasswordViewModel model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

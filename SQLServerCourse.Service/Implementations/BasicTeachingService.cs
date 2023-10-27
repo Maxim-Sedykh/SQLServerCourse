@@ -8,7 +8,7 @@ using SQLServerCourse.Domain.Extensions;
 using SQLServerCourse.Domain.Responce;
 using SQLServerCourse.Domain.ViewModels.Lesson;
 using SQLServerCourse.Domain.ViewModels.Teaching;
-using SQLServerCourse.Service.Interfaces.TeachingInterfaces;
+using SQLServerCourse.Service.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -23,7 +23,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace SQLServerCourse.Service.Implementations
 {
-    public class BasicTeachingService: IBasicTeachingService, ITask
+    public class BasicTeachingService: IBasicTeachingService
     {
         private readonly IBaseRepository<User> _userRepository;
         private readonly IBaseRepository<LessonRecord> _lessonRecordRepository;
@@ -91,7 +91,7 @@ namespace SQLServerCourse.Service.Implementations
                     };
                 }
 
-                var response = ITask.GetQuestions(currentLesson, _questionRepository.GetAll().ToList(), _testVariantRepository.GetAll().ToList());
+                var response = GetLessonQuestions(currentLesson);
 
                 if (response is null)
                 {
@@ -131,8 +131,7 @@ namespace SQLServerCourse.Service.Implementations
                     };
                 }
 
-                var generalModel = ITask.GetQuestions(currentLesson, _questionRepository.GetAll().ToList(), _testVariantRepository.GetAll().ToList());
-
+                var generalModel = GetLessonQuestions(currentLesson);
                 for (int i = 0; i < generalModel.Questions.Count; i++)
                 {
                     if (userAnswersModel.Questions[i].UserAnswer is not null)
@@ -151,15 +150,10 @@ namespace SQLServerCourse.Service.Implementations
                     };
                 }
 
-                Tuple<float, List<bool>> tasksEvaluations = ITask.CheckTasks(generalModel); //Проверка ответов пользователя
+                Tuple<float, List<bool>> tasksEvaluations = CheckTasks(generalModel); //Проверка ответов пользователя
                 if (generalModel.LessonId > user.LessonsCompleted)
                 {
-                    await CommitPassageChanges(user, tasksEvaluations, generalModel.LessonId);
-                }
-
-                for (int i = 0; i < generalModel.Questions.Count; i++)
-                {
-                    generalModel.Questions[i].AnswerCorrectness = tasksEvaluations.Item2[i];
+                    await CommitPassageChanges(generalModel, user, tasksEvaluations, generalModel.LessonId);
                 }
 
                 return new BaseResponse<LessonPassViewModel>()
@@ -177,7 +171,7 @@ namespace SQLServerCourse.Service.Implementations
                 };
             }
 
-            async Task CommitPassageChanges(User user, Tuple<float, List<bool>> tasksEvaluations, int lessonId)
+            async Task CommitPassageChanges(LessonPassViewModel generalModel, User user, Tuple<float, List<bool>> tasksEvaluations, int lessonId)
             {
                 user.FinalGrade =+ tasksEvaluations.Item1;
                 user.LessonsCompleted++;
@@ -189,7 +183,89 @@ namespace SQLServerCourse.Service.Implementations
                     UserId = user.Id,
                     Mark = tasksEvaluations.Item1
                 });
+
+                for (int i = 0; i < generalModel.Questions.Count; i++)
+                {
+                    generalModel.Questions[i].AnswerCorrectness = tasksEvaluations.Item2[i];
+                }
             }
+        }   
+
+        private LessonPassViewModel GetLessonQuestions(Lesson currentLesson)
+        {
+            List<Question> lessonQuestions =  (from question in _questionRepository.GetAll().ToList()
+                                              where question.LessonId == currentLesson.Id
+                                              select question).ToList();
+            List<TestVariant> lessonTestVariants = (from question in _questionRepository.GetAll().ToList()
+                                                    where question.LessonId == currentLesson.Id && question.Type == TaskType.Test
+                                                    join testVariant in _testVariantRepository.GetAll().ToList() on question.Id equals testVariant.QuestionId
+                                                    select testVariant).ToList();
+            List<QuestionViewModel> questionViewModels = new List<QuestionViewModel>();
+            for (int i = 0, j = 0; i < lessonQuestions.Count; i++)
+            {
+                if (i > 0)
+                {
+                    if (lessonQuestions[i - 1].Number == lessonQuestions[i].Number)
+                    {
+                        questionViewModels[j - 1].InnerAnswers.Add(lessonQuestions[i].Answer);
+
+                        continue;
+                    }
+                    goto CreateViewModel;
+                }
+
+            CreateViewModel:
+                questionViewModels.Add(new QuestionViewModel
+                {
+                    Number = lessonQuestions[i].Number,
+                    DisplayQuestion = lessonQuestions[i].DisplayQuestion,
+                    QuestionType = lessonQuestions[i].Type,
+                    VariantsOfAnswer = lessonQuestions[i].Type == TaskType.Test ? (from testVariant in lessonTestVariants
+                                                                                   where testVariant.QuestionId == lessonQuestions[i].Id
+                                                                                   select testVariant).ToList() : null,
+                    InnerAnswers = new List<string> { lessonQuestions[i].Answer },
+                    RightPageAnswer = lessonQuestions[i].Type == TaskType.Open ? lessonQuestions[i].Answer : (from testVariant in lessonTestVariants
+                                                                                                              where testVariant.QuestionId == lessonQuestions[i].Id
+                                                                                                              where testVariant.IsRight
+                                                                                                              select testVariant.Content).First(),
+                });
+                j++;
+            }
+            return new LessonPassViewModel
+            {
+                LessonId = currentLesson.Id,
+                Questions = questionViewModels,
+                LessonType = currentLesson.LessonType
+            };
+        }
+
+        private Tuple<float, List<bool>> CheckTasks(LessonPassViewModel model) // Проверка заданий тестового и открытого типа
+        {
+            float grade = 0;
+            List<bool> tasksCorrectness = new List<bool>();
+
+            for (int i = 0; i < model.Questions.Count; i++) // Проверка открытых вопросов
+            {
+                for (int j = 0; j < model.Questions[i].InnerAnswers.Count; j++)
+                {
+                    if (model.Questions[i].InnerAnswers[j] == model.Questions[i].UserAnswer)
+                    {
+                        tasksCorrectness.Add(true);
+                        if (model.Questions[i].QuestionType == TaskType.Test)
+                        {
+                            grade += 1.5f;
+                        }
+                        else
+                        {
+                            grade += 3.5f;
+                        }
+                        goto LoopEnd;
+                    }
+                }
+                tasksCorrectness.Add(false);
+            LoopEnd: continue;
+            }
+            return new Tuple<float, List<bool>>(grade, tasksCorrectness);
         }
     }
 }

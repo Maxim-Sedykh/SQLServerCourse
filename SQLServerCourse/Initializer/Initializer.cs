@@ -4,7 +4,6 @@ using SQLServerCourse.DAL.Repositories;
 using SQLServerCourse.Domain.Entity;
 using SQLServerCourse.Service.Implementations;
 using SQLServerCourse.Service.Interfaces;
-using SQLServerCourse.Service.Interfaces.TeachingInterfaces;
 
 namespace SQLServerCourse.Initializer
 {

@@ -5,7 +5,7 @@ using SQLServerCourse.DAL.Repositories;
 using SQLServerCourse.Domain.Entity;
 using SQLServerCourse.Domain.ViewModels.Lesson;
 using SQLServerCourse.Service.Implementations;
-using SQLServerCourse.Service.Interfaces.TeachingInterfaces;
+using SQLServerCourse.Service.Interfaces;
 
 namespace SQLServerCourse.Controllers
 {

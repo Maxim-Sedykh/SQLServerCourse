@@ -10,10 +10,8 @@
     <link rel="stylesheet" href="~/css/courseLessons.css" />
     <link rel="stylesheet" href="~/css/documentation.css" />
     <link rel="stylesheet" href="~/css/main.css" />
-    <link rel="stylesheet" href="~/css/pageForAnotherCourses.css" />
     <link rel="stylesheet" href="~/css/personalAccount.css" />
     <link rel="stylesheet" href="~/css/review.css" />
-    <link href="~/css/bootstrap-darkly.min.css" rel="stylesheet" />
     @*<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">*@
 </head>
 <body>
@@ -85,11 +83,28 @@
     <div class="modal fade" id="modalWindow" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content text-white" style="border-radius:20px; border: 1px solid white;">
-                <div class="modal-header" style="background: var(--color-darkaqua); border-radius:20px 20px 0px 0px;">
-                    <h5 class="modal-title" style="margin-left:35%;">Модальное окно</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                <div class="modal-header d-flex" style="background: var(--color-darkaqua); border-radius:20px 20px 0px 0px;">
+                    <div class="mx-auto"><p class="fs-3 text-white">Модальное окно</p></div>
+                    <div style="float:right"><button type="button" class="btn-close btn-close-white" 
+                        data-bs-dismiss="modal" aria-label="Закрыть"></button></div>
                 </div>
                 <div class="modal-body" style="background:#333; border-radius:0px 0px 20px 20px;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="wideModalWindow" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 800px;">
+            <div class="modal-content text-white" style="border-radius:50px; border: 1px solid white;">
+                <div class="modal-header d-flex" style="background: var(--color-darkaqua); border-radius:50px 50px 0px 0px;">
+                    <div class="mx-auto"><p class="fs-3 text-white">Модальное окно</p></div>
+                    <div style="float:right">
+                        <button type="button" class="btn-close btn-close-white"
+                                data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                    </div>
+                </div>
+                <div class="modal-body" style="background:#333; border-radius:0px 0px 50px 50px;">
                 </div>
             </div>
         </div>
@@ -110,6 +125,7 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://kit.fontawesome.com/1e1acde3d7.js" crossorigin="anonymous"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

@@ -100,7 +100,7 @@ namespace SQLServerCourse.DAL
 
                 builder.Property(x => x.Password).IsRequired();
                 builder.Property(x => x.Name).HasMaxLength(25).IsRequired();
-                builder.Property(x => x.Login).HasMaxLength(12).IsRequired();
+                builder.Property(x => x.Login).HasMaxLength(12).IsRequired().IsUnicode();
                 builder.Property(x => x.Surname).HasMaxLength(25).IsRequired();
             });
 

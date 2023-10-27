@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SQLServerCourse.Service.Interfaces.TeachingInterfaces
+namespace SQLServerCourse.Service.Interfaces
 {
     public interface IBasicTeachingService
     {

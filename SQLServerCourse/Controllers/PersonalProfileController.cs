@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SQLServerCourse.Domain.ViewModels.PersonalProfile;
 using SQLServerCourse.Service.Interfaces;
 
 namespace SQLServerCourse.Controllers
@@ -24,10 +25,35 @@ namespace SQLServerCourse.Controllers
             return View("Error", $"{response.Description}");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> UpdateInfo(ProfileViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var response = await _personalProfileService.UpdateInfo(model);
+                if (response.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    return Json(new { description = response.Description });
+                }
+            }
+            return StatusCode(StatusCodes.Status500InternalServerError);
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetLessonRecords()
         {
             var response = await _personalProfileService.GetLessonRecords(User.Identity.Name);
+            if (response.StatusCode == Domain.Enum.StatusCode.OK)
+            {
+                return PartialView(response.Data);
+            }
+            return PartialView("Error", $"{response.Description}");
+        }
+
+        [HttpGet]
+        public IActionResult GetLessonList()
+        {
+            var response = _personalProfileService.GetLessonList();
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
                 return PartialView(response.Data);

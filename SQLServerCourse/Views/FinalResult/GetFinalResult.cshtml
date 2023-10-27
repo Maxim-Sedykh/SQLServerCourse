@@ -19,19 +19,23 @@
             <div class= "col-md-3 col-sm-3">
             </div>
         </div>
-        <div class= "row">
-            <div class= "col-md-12 col-sm-12 text-center">
-                <div class= "result-panel">
-                    <div align = "center" class= "text-center mx-auto">
-                        Уважаемый @Model.Name @Model.Surname, ваш окончательный результат:
-                        <br />
-                        <p style="font-size:30px;  font-weight:700;"> @Model.FinalGrade баллов из 100 !!!</p>
-                        <button type="button" class="btn-gradient text-white" style="width: 40%; background: var(--color-aqua);"
-                                onclick="openModal({ url: '/FinalResult/GetUserAnalys', modalId: 'modalWindow'})" data-toggle="ajax-modal" data-target="Modal">
-                            Просмотреть анализ
-                        </button>
-                    </div>
-                </div>
+        <div class="row result-panel text-center">
+            <div align = "center" class= "text-center mx-auto">
+                Уважаемый @Model.Name @Model.Surname, ваш окончательный результат:
+                <br />
+                <p style="font-size:30px;  font-weight:700;"> @Model.FinalGrade баллов из 100 !!!</p>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <button type="button" class="btn-gradient text-white" style="width: 50%; background: var(--color-aqua);"
+                        onclick="openModal({ url: '/FinalResult/GetUserAnalys', modalId: 'modalWindow'})" data-toggle="ajax-modal" data-target="Modal">
+                    Просмотреть анализ
+                </button>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <a class="btn btn-gradient btn-lg text-white mb-4 p-0 mx-auto" style="height:75px;  width:55%; line-height:75px;"
+                   asp-controller="Home" asp-action="Index">
+                    На главную
+                </a>
             </div>
         </div>
     </div>

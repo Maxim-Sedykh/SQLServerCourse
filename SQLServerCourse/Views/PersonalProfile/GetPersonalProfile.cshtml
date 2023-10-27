@@ -1,117 +1,183 @@
-﻿@model SQLServerCourse.Domain.ViewModels.PersonalProfile.UserInfoViewModel
+﻿@model SQLServerCourse.Domain.ViewModels.PersonalProfile.ProfileViewModel
 
 @{
     ViewData["Title"] = "Личный кабинет | SQLCourse";
 }
 
 @{
-    var buttonStyle = "col-md-12";
-    if (Model.IsExamCompleted) buttonStyle = "col-md-6";
+    var examRowStyle = "col-md-12";
+    if (Model.IsExamCompleted) examRowStyle = "col-md-6";
 }
 
 <div class="container-fluid">
     <div class="container">
-        <div align="center" class="my-3">
+        <div align="center" class="my-2">
             <h2>
                 Личный кабинет
             </h2>
         </div>
-        <div class="row personalArea-userinfo text-white p-3 pt-4 me-0 my-3" style="font-size:20px; border-radius:40px;">
-            <div class="col-md-6 col-sm-12 ps-5">
-                Логин:      <b>@Model.Login</b>
-                <br />
-                Фамилия:      <b>@Model.Surname</b>
-                <br />
-                Имя:      <b>@Model.Name</b>
-                <br />
-            </div>
-            <div class="col-md-6 col-sm-12 ps-5">
-                Окончательный результат: @if (Model.IsExamCompleted == false)
-                {
-                    <text>не получен</text>
-                }
-                else
-                {
-                    @Model.FinalGrade <text> баллов из 100</text>
-                }
-                <br />
-                <button type="button" align="center" class="btn btn-gradient text-white"
-                        onclick="openModal({ url: '/PersonalProfile/GetLessonRecords',  modalId: 'modalWindow'})"
-                        data-toggle="ajax-modal" data-target="Modal">   
-                    Список оценок
-                </button>
-                <br />
-                Лекций пройдено: @Model.LessonsCompleted
-            </div>
-        </div>
-        <div class="row mb-4 mt-5">
-            @for (int i = 1; i < Model.LessonNames.Count(); i++)
+        <div class="personalArea-userinfo text-white p-3 pt-4 me-0 my-3" style="font-size:20px; border-radius:40px;">
+            @if (Model.IsExamCompleted)
             {
-                @if ((Model.LessonsCompleted + 1) >= i)
-                {
-                    <a class="btn btn-gradient btn-lg text-white mb-4 p-0 mx-auto" style="height:75px;  width:55%; line-height:75px;"
-                    asp-controller="BasicTeaching" asp-action="ReadLesson" asp-route-id="@i">
-                        @i. @Model.LessonNames[i - 1]
-                    </a>
-                    
-                }
-                else
-                {
-                    <a class="btn btn-gradient btn-lg disabled text-white mb-4 p-0 mx-auto" style="height:75px; width:55%; line-height:75px;">
-                        @i. @Model.LessonNames[i - 1]
-                    </a>
-                }
-                <br />
+                <div class="passed-course-info mx-auto mb-3">
+                    <p class="fs-5 fst-normal text-center m-auto">Вы закончили этот курс!</p>
+                </div>
             }
-        </div>
-        <div class="row mx-auto" style="align-content:center;width: 900px; height:75px; background:#1ab1c9; border-radius:35px;">
-            <div class="@buttonStyle col-sm-12  text-center">
-                @if (Model.LessonsCompleted < 4)
-                {
-                    <a style="background: linear-gradient(#abb1b4,#93999c); width: 200px;" class="btn btn-gradient text-white">
-                        <div class="personalArea-final-exam-div">
-                            Экзамен
+            <div class="row">
+                <div class="col-md-6 col-sm-12 ps-5 text-white">
+                    <div class="personalProfileCard">
+                        <form id="personalProfileFormId">
+                            <input asp-for="Id" hidden="hidden"/>
+                            <input asp-for="IsExamCompleted" hidden="hidden"/>
+                            <input asp-for="FinalGrade" hidden="hidden"/>
+                            <div class="mb-3">
+                                Логин : <input asp-for="Login" class="personal-profile-input-disabled" type="text">
+                            </div>
+                            <div class="mb-3">
+                                Имя: <input asp-for="Name" class="form-control" type="text">
+                            </div>
+                            <div class="mb-3">
+                                Фамилия: <input asp-for="Surname" class="form-control" type="text">
+                            </div>
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between card-buttons-group">
+                                    <button class="btn btn-primary" id='updateInfoId'>Обновить информацию</button>
+                                </div>
+                            </div>
+                            <p>
+                                Окончательный результат: @if (Model.IsExamCompleted == false)
+                                {
+                                    <text>не получен</text>
+                                }
+                                else
+                                {
+                                     <text>@Model.FinalGrade баллов из 100</text>
+                                }
+                            </p>
+                            <button type="button" align="center" class="btn btn-gradient text-white"
+                                    onclick="openModal({ url: '/PersonalProfile/GetLessonRecords',  modalId: 'modalWindow'})"
+                                    data-toggle="ajax-modal" data-target="Modal">
+                                Список оценок
+                            </button>
+                            <br />
+                            <p>Лекций пройдено: <input asp-for="LessonsCompleted" class="personal-profile-input-disabled" disabled="disabled"/> </p>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 ps-5">
+                    <form id="changePasswordFormId">
+                        <div id="changeInput" style="display: none;">
+                            <input name="NewPassword" autocomplete="off" class="form-control" type="password">
                         </div>
-                    </a>
-                }
-                else
-                {
-                    <a class="btn btn-gradient text-white text-center" style="width: 200px;" asp-controller="BasicTeaching" asp-action="PassLesson" asp-route-id="@Model.LessonNames.Count()">
-                        <div class="personalArea-final-exam-div">
-                            Экзамен
-                        </div>  
-                    </a>
-                }
+                        <div class="d-flex">
+                            <button class="btn btn-primary mx-auto" id="showChangeInput">Изменить пароль</button>
+                            <button class="btn btn-primary mx-auto" id="confirmPassChanging" style="display: none;">Подтвердить изменение</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row mx-auto mb-4 mt-0" style="align-content:center;width: 80%; height:75px; background:#1ab1c9; border-radius:35px;">
+            <div class="@examRowStyle col-sm-12  text-center">
+                <button type="button" align="center" class="btn btn-gradient text-white text-center" onclick="openModal({ url: '/PersonalProfile/GetLessonList', modalId: 'wideModalWindow'})"
+                        data-toggle="ajax-modal" data-target="Modal">
+                    Перейти к урокам
+                </button>
             </div>
             @if (Model.IsExamCompleted)
             {
                 <div class="col-md-6 col-sm-12 text-center">
-                    <div class="personalArea-analys-button">
-                        <button type="submit" class="btn btn-gradient text-white" id="butshow" onclick="showAnalysis();">Посмотреть анализ прохождения</button>
-                        <button type="submit" class="btn btn-gradient text-white" id="buthide" style="display:none;" onclick="hideAnalysis();">Скрыть анализ прохождения</button>
-                    </div>
+                    <button type="button" align="center" class="btn btn-gradient text-white text-center" onclick="openModal({ url: '/FinalResult/GetUserAnalys', modalId: 'modalWindow'})"
+                            data-toggle="ajax-modal" data-target="Modal">
+                        Посмотреть анализ
+                    </button>
                 </div>
             }
-        </div>
-        <div class="row">
-            <div class="personalArea-analysis-text col-md-12 col-sm-12 mb-3 mx-auto py-1" align="justify" style="display:none;" id="analystext">
-                @Model.Analys
-            </div>
         </div>
     </div>
 </div>
 
-<script>
-    function showAnalysis() {
-        $('#analystext').show();
-        $('#buthide').show();
-        $('#butshow').hide();
-    }
-    function hideAnalysis() {
-        $('#analystext').hide();
-        $('#buthide').hide();
-        $('#butshow').show();
-    }
-</script>
+
+    <script>
+        debugger;
+        document.getElementById('updateInfoId').on('click', async function(e) {
+            e.preventDefault();
+            const profileData = $('#personalProfileFormId').serialize()
+            const requestResponseProfile = await fetch('@Url.Action("UpdateInfo", "PersonalProfile")', {
+                method: "POST",
+                body: profileData
+            });
+            if (requestResponse.ok === true) {
+                function (response) {
+                    Swal.fire({
+                        title: 'Информация',
+                        text: response.description,
+                        icon: 'success',
+                        confirmButtonText: 'Окей'
+                    })
+                }
+            }
+            else {
+                function (response) {
+                    Swal.fire({
+                        title: 'Информация',
+                        text: response.responseJSON.errorMessage,
+                        icon: 'error',
+                        confirmButtonText: 'Окей'
+                    })
+                }
+            }
+        });
+
+
+
+            //const changePasswordData = $('#personalProfileFormId').serialize()
+            //const requestResponseChangePass = await fetch('@Url.Action("Account", "ChangePassword")', {
+            //    method: "POST",
+            //    body: data
+            //});
+            //if (requestResponse.ok === true) {
+            //    function (response) {
+            //        Swal.fire({
+            //            title: 'Информация',
+            //            text: response.description,
+            //            icon: 'success',
+            //            confirmButtonText: 'Окей'
+            //        })
+            //    }
+            //}
+            //else {
+            //    function (response) {
+            //        Swal.fire({
+            //            title: 'Информация',
+            //            text: response.responseJSON.errorMessage,
+            //            icon: 'error',
+            //            confirmButtonText: 'Окей'
+            //        })
+            //    }
+            //}
+    </script>
+
+    <script>
+        document.getElementById('showChangeInput').addEventListener('click', function (event) {
+            showButton = document.getElementById('showChangeInput')
+            event.preventDefault();
+            var changeInput = document.getElementById('changeInput');
+            var confirmButton = document.getElementById('confirmPassChanging');
+            if (changeInput.style.display === 'none') {
+                changeInput.style.display = 'block';
+            } else {
+                changeInput.style.display = 'noяne';
+            }
+            if (confirmButton.style.display === 'none') {
+                confirmButton.style.display = 'block';
+            } else {
+                confirmButton.style.display = 'none';
+            }
+        });
+    </script>
+
+
+
 
 

@@ -29,3 +29,16 @@
     height:150px;
     width:500px;
 }
+
+.passed-course-info {
+    height: 40px;
+    width: 35%;
+    background: #940505;
+    line-height: 40px;
+    border-radius: 20px;
+}
+
+.personal-profile-input-disabled {
+    all: unset;
+    max-width: 200px;
+}

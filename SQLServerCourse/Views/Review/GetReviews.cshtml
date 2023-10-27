@@ -18,8 +18,8 @@
                 <div class="col-md-12 col-sm-12 text-center">
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <button type="button" align="center" class="btn btn-gradient btn-createreview mt-4 text-white" 
-                        onclick="openModal({ url: '/Review/CreateReview', modalId: 'modalWindow'})" data-toggle="ajax-modal" data-target="Modal">
+                        <button type="button" align="center" class="btn btn-gradient btn-createreview mt-4 text-white"
+                                onclick="openModal({ url: '/Review/CreateReview', modalId: 'wideModalWindow'})" data-toggle="ajax-modal" data-target="Modal">
                             Создать отзыв
                         </button>
                     }
@@ -109,5 +109,15 @@
         }
     }
 
+</script>
+
+<script>
+    document.getElementById("textarea-review")
+        .addEventListener("keyup", function (event) {
+            event.preventDefault();
+            if (event.keyCode === 13) {
+                document.getElementById("button-review").click();
+            }
+        });
 </script>
 

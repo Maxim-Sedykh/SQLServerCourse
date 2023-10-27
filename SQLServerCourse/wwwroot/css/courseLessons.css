@@ -94,38 +94,18 @@
     display: flex;
     align-items: center;
     margin-top: 50px;
-    height: 165px;
+    height: 195px;
     background: var(--color-darkblue1);
     color: white;
     border-radius: 50px;
     vertical-align: middle;
     font-size: 22px;
+    padding: 30px 0px 30px 0px;
 }
 
 .darkblue {
     background: #190d8a;
 }
 
-/*#fireworks {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 10px;
-    height: 10px;
-    background-color: red;
-    border-radius: 50%;
-    animation: fireworks 1s infinite;
-}
 
-@keyframes fireworks {
-    0% {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 1;
-    }
-
-    100% {
-        transform: translate(-50%, -50%) scale(10);
-        opacity: 0;
-    }
-}*/
 

@@ -116,10 +116,14 @@
 
             for (let i = 0; i < taskCorrectness.length; i++) {
                 if (taskCorrectness[i]) {
-                    rightAnswers[i].style.display = 'block';
+                    setTimeout(function () {
+                        rightAnswers[i].style.display = 'block';
+                    }, 0);
                 }
                 else {
-                    unrightAnswers[i].style.display = 'block';
+                    setTimeout(function () {
+                        unrightAnswers[i].style.display = 'block';
+                    }, 0);
                 }
             }
         </script>

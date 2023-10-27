@@ -36,7 +36,7 @@ namespace SQLServerCourse.Controllers
             {
                 return RedirectToAction("GetReviews", "Review");
             }
-            return View("Error", $"{response.Description}");
+            return PartialView("Error", $"{response.Description}");
         }
     }
 }

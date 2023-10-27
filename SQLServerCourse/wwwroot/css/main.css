@@ -237,3 +237,8 @@ h5 {
     border-radius: 40px;
     object-fit: cover;
 }
+
+.modal-header-d-flex {
+    width:100%;
+
+}

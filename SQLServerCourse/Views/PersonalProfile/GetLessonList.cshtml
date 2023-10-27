@@ -1,0 +1,13 @@
+﻿@model List<string>
+
+<div class="container-fluid">
+    <div class="container">
+        @for (int i = 1; i < Model.Count; i++)
+        {
+            <p>@i. <a asp-controller="BasicTeaching" asp-action="ReadLesson">@Model[i]</a></p>
+        }
+        <div class="exam mt-5">
+            <a asp-controller="BasicTeaching" asp-action="PassLesson" asp-route-id="@Model.Count">Экзамен</a>
+        </div>
+    </div>
+</div>
