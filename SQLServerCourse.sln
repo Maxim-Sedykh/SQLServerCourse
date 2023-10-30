@@ -5,17 +5,19 @@ VisualStudioVersion = 17.5.33502.453
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLServerCourse", "SQLServerCourse\SQLServerCourse.csproj", "{D8ADEA55-B2E5-44B3-86C1-437FA2183CCD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{BCDDBA6F-E7F9-41AD-875F-766BD18A9D74}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQLServerCourse.Domain", "SQLServerCourse.Domain", "{BCDDBA6F-E7F9-41AD-875F-766BD18A9D74}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{4A25F7A1-BAAE-436E-AF93-6E1EFB4B1D09}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQLServerCourse.DAL", "SQLServerCourse.DAL", "{4A25F7A1-BAAE-436E-AF93-6E1EFB4B1D09}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{E55B98DF-422D-4373-97B5-2AD20FA56BB8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQLServerCourse.Service", "SQLServerCourse.Service", "{E55B98DF-422D-4373-97B5-2AD20FA56BB8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLServerCourse.Domain", "SQLServerCourse.Domain\SQLServerCourse.Domain.csproj", "{834BE7D3-1391-4DB7-AB50-CD52A5BE7C6D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLServerCourse.DAL", "SQLServerCourse.DAL\SQLServerCourse.DAL.csproj", "{AF0442BA-3577-4DC1-9ACB-69C3D7055811}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLServerCourse.Service", "SQLServerCourse.Service\SQLServerCourse.Service.csproj", "{B2551DB4-5BBC-43E9-8663-7EBE0DB9AC56}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logs", "Logs", "{41E4767F-4F83-4297-8111-8CDFB7F0C34A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

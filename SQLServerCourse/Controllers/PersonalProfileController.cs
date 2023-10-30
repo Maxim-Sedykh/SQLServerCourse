@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Scripting;
+using ServiceStack;
 using SQLServerCourse.Domain.ViewModels.PersonalProfile;
 using SQLServerCourse.Service.Interfaces;
+using System.Text.Json;
 
 namespace SQLServerCourse.Controllers
 {
@@ -26,8 +29,9 @@ namespace SQLServerCourse.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateInfo(ProfileViewModel model)
+        public async Task<IActionResult> UpdateInfo([FromBody] ProfileViewModel model)
         {
+            //return View();
             if (ModelState.IsValid)
             {
                 var response = await _personalProfileService.UpdateInfo(model);

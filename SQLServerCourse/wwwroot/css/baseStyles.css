@@ -38,3 +38,7 @@ body {
 .footer, .push {
     height: 142px; 
 }
+
+.swal-confirm-popup-button {
+    background: red;
+}
