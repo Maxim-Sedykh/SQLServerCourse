@@ -52,7 +52,7 @@
                                         </a>
                                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
 
-                                            <li><a class="dropdown-item " asp-controller="PersonalProfile" asp-action="GetPersonalProfile">Личный кабинет</a>
+                                            <li><a class="dropdown-item " asp-controller="PersonalProfile" asp-action="GetPersonalProfile">Личный кабинет</a></li>
                                             @if (User.IsInRole("Admin"))
                                             {
                                                 <li><a class="dropdown-item" asp-controller="Home" asp-action="Index">Админ</a></li>

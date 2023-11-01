@@ -1,5 +1,10 @@
 ﻿@using SQLServerCourse.Domain.ViewModels.Review;
 
+@if (User.IsInRole("Admin"))
+{
+    Layout = "~/Views/Shared/Layouts/AdminLayout.cshtml";
+}
+
 @model IEnumerable<ReviewViewModel>
 @{
     ViewData["Title"] = "Отзывы | SQLCourse";
