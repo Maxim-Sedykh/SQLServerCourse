@@ -107,6 +107,41 @@ namespace SQLServerCourse.Service.Implementations
             }
         }
 
+        public async Task<BaseResponse<bool>> ChangePassword(ChangePasswordViewModel model, string userName)
+        {
+            try
+            {
+                var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.Login == userName);
+                if (user == null)
+                {
+                    return new BaseResponse<bool>()
+                    {
+                        StatusCode = StatusCode.UserNotFound,
+                        Description = "Пользователь не найден!"
+                    };
+                }
+
+                user.Password = HashPasswordHelper.HashPassword(model.NewPassword);
+                await _userRepository.Update(user);
+
+                return new BaseResponse<bool>()
+                {
+                    Data = true,
+                    StatusCode = StatusCode.OK,
+                    Description = "Пароль обновлен!"
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"[ChangePassword]: {ex.Message}");
+                return new BaseResponse<bool>()
+                {
+                    Description = ex.Message,
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
         private ClaimsIdentity Authenticate(User user)
         {
             var claims = new List<Claim>
@@ -116,11 +151,6 @@ namespace SQLServerCourse.Service.Implementations
             };
             return new ClaimsIdentity(claims, "ApplicationCookie",
                 ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-        }
-
-        public Task<BaseResponse<bool>> ChangePassword(ChangePasswordViewModel model)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -1,29 +1,41 @@
 ﻿@using SQLServerCourse.Domain.ViewModels.PersonalProfile;
 @model List<LessonRecordViewModel>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12 text-center text-white" style="color:white; font-size:18px;">
-            <table class="table text-white">
-                <thead>
-                    <tr>
-                        <th scope="col">Урок</th>
-                        <th scope="col">Оценка</th>
-                        <th scope="col">Дата</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for (int i = 0; i < Model.Count; i++)
-                    {
-                        <tr>
-                            <td class="align-middle">@Model[i].LessonName</td>
-                            <td class="align-middle">@Model[i].LessonMark</td>
-                            <td class="align-middle">@Model[i].DateOfReceiving</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-            
+@if (!Model.Any())
+{
+    <div class="container-fluid">
+        <div class="mx-auto my-4">
+            <p> На данный момент вы не прошли</p>
         </div>
     </div>
-</div>
+}
+else
+{
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 text-center text-white" style="color:white; font-size:18px;">
+                <table class="table text-white">
+                    <thead>
+                        <tr>
+                            <th scope="col">Урок</th>
+                            <th scope="col">Оценка</th>
+                            <th scope="col">Дата</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            <tr>
+                                <td class="align-middle">@Model[i].LessonName</td>
+                                <td class="align-middle">@Model[i].LessonMark</td>
+                                <td class="align-middle">@Model[i].DateOfReceiving</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+}
+

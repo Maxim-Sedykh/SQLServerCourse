@@ -31,7 +31,6 @@ namespace SQLServerCourse.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateInfo([FromBody] ProfileViewModel model)
         {
-            //return View();
             if (ModelState.IsValid)
             {
                 var response = await _personalProfileService.UpdateInfo(model);

@@ -65,6 +65,22 @@ namespace SQLServerCourse.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> ChangeUserPassword([FromBody] ChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var response = await _accountService.ChangePassword(model, User.Identity.Name);
+                if (response.StatusCode == Domain.Enum.StatusCode.OK && response.Data)
+                {
+                    return Json(new { description = response.Description });
+                }
+            }
+            var modelError = ModelState.Values.SelectMany(v => v.Errors);
+
+            return StatusCode(StatusCodes.Status500InternalServerError, new { modelError.FirstOrDefault().ErrorMessage });
+        }
+
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {

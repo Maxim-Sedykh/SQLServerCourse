@@ -48,6 +48,10 @@
     font-size: 20px;
     border: none;
     color: red;
+    height:40px;
+    line-height: 40px;
+    padding-top:0px;
+    padding-bottom:0px;
 }
 
     .btn-gradient:hover {

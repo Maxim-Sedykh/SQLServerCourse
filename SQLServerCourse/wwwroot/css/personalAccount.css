@@ -33,9 +33,10 @@
 .passed-course-info {
     height: 40px;
     width: 35%;
-    background: #940505;
+    background: var(--color-darkaqua);
     line-height: 40px;
     border-radius: 20px;
+    border: 1px solid white;
 }
 
 .personal-profile-input-disabled {
@@ -60,3 +61,13 @@
         color: white;
         background: #1974d3;
     }
+
+.personalProfileCard {
+    border: 1px solid white;
+    border-radius: 40px;
+    min-height:225px;
+}
+
+.profile-pass-hide {
+    display: none;
+}

@@ -15,6 +15,6 @@ namespace SQLServerCourse.Service.Interfaces
 
         Task<BaseResponse<ClaimsIdentity>> Login(LoginViewModel model);
 
-        Task<BaseResponse<bool>> ChangePassword(ChangePasswordViewModel model);
+        Task<BaseResponse<bool>> ChangePassword(ChangePasswordViewModel model, string userName);
     }
 }

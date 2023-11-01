@@ -16,7 +16,7 @@
                 Личный кабинет
             </h2>
         </div>
-        <div class="personalArea-userinfo text-white p-3 pt-4 me-0 my-3" style="font-size:20px; border-radius:40px;">
+        <div class="personalArea-userinfo text-white p-3 pt-3 me-0 my-3" style="font-size:20px; border-radius:40px;">
             @if (Model.IsExamCompleted)
             {
                 <div class="passed-course-info mx-auto mb-3">
@@ -24,8 +24,8 @@
                 </div>
             }
             <div class="row">
-                <div class="col-md-6 col-sm-12 text-white p" style="padding-left:100px;">
-                    <div class="personalProfileCard">
+                <div class="col-md-6 col-sm-12 text-white p" style="padding-left:80px;">
+                    <div class="personalProfileCard ps-4 pt-2">
                         <form id="personalProfileFormId">
                             <input class="info-user-input" asp-for="Id" hidden="hidden"/>
                             <input class="info-user-input" asp-for="IsExamCompleted" hidden="hidden" />
@@ -48,8 +48,8 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-12" style="padding-left:100px;">
-                    <form id="changePasswordFormId">
+                <div class="col-md-6 col-sm-12" style="padding-right:80px;">
+                    <div class="personalProfileCard ps-4 pt-2 pb-0">
                         <p class="mb-3">
                             Окончательный результат: @if (Model.IsExamCompleted == false)
                             {
@@ -60,20 +60,22 @@
                                 <text>@Model.FinalGrade баллов из 100</text>
                             }
                         </p>
-                        <button type="button" align="center" class="btn btn-gradient text-white mb-3"
+                        <button type="button" align="center" class="btn btn-gradient text-white mb-3 py-0"
                                 onclick="openModal({ url: '/PersonalProfile/GetLessonRecords',  modalId: 'modalWindow'})"
                                 data-toggle="ajax-modal" data-target="Modal">
                             Список оценок
                         </button>
                         <br />
                         <p >Лекций пройдено: <input asp-for="LessonsCompleted" class="personal-profile-input-disabled info-user-input" disabled="disabled" style="height:40px;"/> </p>
-                        <button class="btn btn-gradient text-white" id="showChangeButton" style="background: #0058b4; height: 40px;">Изменить пароль</button>
-                        <div class="d-flex justify-content-between mt-3 mb-2 pe-5 " style="display: none;">
-                            <input name="NewPassword" autocomplete="off" class="form-control profile-input " 
-                            id="showChangeInput" type="password" style="width: 50%; display: none; " placeholder="Введите новый пароль...">
-                            <button type="submit" class="btn btn-gradient text-white" id='changePasswordButton' style="display: none; background: #0058b4;">Обновить пароль</button>
-                        </div>
-                    </form>
+                        <button class="btn btn-gradient text-white" id="showChangeButton" style="background: #0058b4;">Изменить пароль</button>
+                        <form id="changePasswordFormId">
+                            <div class="d-flex justify-content-between mt-3 pe-5 " style="display: none;" id="changeDiv">
+                                <input name="NewPassword" autocomplete="off" class="form-control profile-input profile-pass-hide mb-3 ps-3"
+                                       id="changeInput" type="password" style="width: 50%; " placeholder="Введите новый пароль...">
+                                <button type="submit" class="btn btn-gradient text-white profile-pass-hide" id='changePasswordButton' style="background: #0058b4;">Обновить пароль</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -97,60 +99,8 @@
     </div>
 </div>
 
-<script>
-    var showChangeButton = document.getElementById("showChangeButton");
-    showChangeButton.addEventListener("click", (e) => {
-        e.preventDefault();
+<script src="~/js/changeUserInfo.js"></script>
 
-        if (showChangeInput.style.display === 'block') {
-            showChangeInput.style.display = 'none';
-            changePasswordButton.style.display = 'none';
-        }
-        else {
-            showChangeInput.style.display = 'block';
-            changePasswordButton.style.display = 'block';
-        }
-    });
-
-    document.getElementById("updateInfoId").addEventListener("click", async (event) => {
-        event.preventDefault();
-
-        var updateFormData = {
-            Id: parseInt(document.getElementById("Id").value),
-            IsExamCompleted: Boolean(document.getElementById("IsExamCompleted").value),
-            FinalGrade: parseFloat(document.getElementById("FinalGrade").value.replace(/,/g, '.')),
-            Login: document.getElementById("Login").value,
-            Name: document.getElementById("Name").value,
-            Surname: document.getElementById("Surname").value,
-            LessonsCompleted: parseInt(document.getElementById("LessonsCompleted").value)
-        };
-
-        const response = await fetch('/PersonalProfile/UpdateInfo', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(updateFormData)
-        });
-
-        const responseBody = await response.json();
-        Swal.fire({
-            title: 'Уведомление!',
-            text: responseBody.description,
-            icon: response.ok ? 'success' : 'error',
-            confirmButtonText: 'Окей',
-            background: '#333',
-            color: 'white',
-        });
-    });
-
-    document.getElementById("changePasswordButton").addEventListener("click", async (event) => {
-        event.preventDefault();
-
-        var updateFormData
-    });
-    
-
-</script>
-<script src="~/js/popupWindow.js"></script>
 
 
             
