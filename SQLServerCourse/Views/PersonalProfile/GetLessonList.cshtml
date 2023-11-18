@@ -2,12 +2,14 @@
 
 <div class="container-fluid">
     <div class="container">
+        <br />
         @for (int i = 1; i < Model.Count; i++)
         {
-            <p>@i. <a asp-controller="BasicTeaching" asp-action="ReadLesson">@Model[i]</a></p>
+            <a class="btn btn-lesson-link d-block mb-5 text-white mx-auto" asp-controller="BasicTeaching" asp-action="ReadLesson" asp-route-id="@i">@i. @Model[i - 1]</a>
+            
         }
-        <div class="exam mt-5">
-            <a asp-controller="BasicTeaching" asp-action="PassLesson" asp-route-id="@Model.Count">Экзамен</a>
+        <div class="exam-link-container mb-4">
+            <a class="btn btn-exam-link d-block text-white mx-auto border border-white" asp-controller="BasicTeaching" asp-action="PassLesson" asp-route-id="@Model.Count">Экзамен</a>
         </div>
     </div>
 </div>

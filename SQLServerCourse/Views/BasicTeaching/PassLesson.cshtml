@@ -77,18 +77,18 @@
                         </div>
                         @if (Context.Request.Method == "GET")
                         {
-                            <button type="submit" id="sendanswers" class="btn btn-gradient btn-submit-answers mt-4">Завершить</button>
+                            <button type="submit" id="sendanswers" class="btn btn-gradient btn-submit-answers mt-4 text-white border border-white fs-5">Завершить</button>
                         }
                     </form>
                     <div class="text-center">
                         @if ((Context.Request.Method == "POST") && (Model.LessonType == LessonType.Exam))
                         {
-                            <a id="returnonlistoflessons" style="max-width: 275px; " class="btn btn-gradient btn-submit-answers my-4"
+                            <a id="returnonlistoflessons" style="max-width: 275px; " class="btn btn-gradient btn-submit-answers my-4 text-white"
                            asp-controller="FinalResult" asp-action="GetFinalResult">Завершить экзамен</a>
                         }
                         @if ((Context.Request.Method == "POST") && (Model.LessonType != LessonType.Exam))
                         {
-                            <a id="returnonlistoflessons" style="max-width: 275px; " class="btn btn-gradient btn-submit-answers"
+                            <a id="returnonlistoflessons" style="max-width: 275px; " class="btn btn-gradient btn-submit-answers "
                            asp-controller="PersonalProfile" asp-action="GetPersonalProfile">Выйти на список занятий</a>
                         }
                     </div>
