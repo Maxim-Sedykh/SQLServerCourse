@@ -1,74 +1,130 @@
 ﻿@using SQLServerCourse.Domain.ViewModels.Review;
 
-@if (User.IsInRole("Admin"))
-{
-    Layout = "~/Views/Shared/Layouts/AdminLayout.cshtml";
-}
-
-@model IEnumerable<ReviewViewModel>
+@model List<ReviewViewModel>
 @{
-    ViewData["Title"] = "Отзывы | SQLCourse";
+    if (User.IsInRole("Admin"))
+    {
+        ViewData["Title"] = "Редактирование отзывов | SQLCourse";
+        Layout = "~/Views/Shared/Layouts/AdminLayout.cshtml";
+    }
+    else
+    {
+        ViewData["Title"] = "Отзывы | SQLCourse";
+    }
 }
 
 <div class="container-fluid">
     <div class="container px-0">
-        <div class="review-container">
-            <div class="row w-100 m-0">
-                <div class="col-md-12 col-sm-12 review-container-text text-center px-1 text-white mt-3">
+        <div class="row w-100 m-0">
+            <div class="col-md-12 col-sm-12 page-title-container text-center px-1 text-white mt-3 mx-auto lh-lg fs-5 pt-3">
+                <p>
                     Ниже находятся отзывы учеников, прошедших весь курс. <br />Оставьте свой отзыв после прохождения
                     полного курса MS SQL и T-SQL<br />
-                </div>
-            </div>
-            <div class="row m-0">
-                <div class="col-md-12 col-sm-12 text-center">
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <button type="button" align="center" class="btn btn-gradient btn-createreview mt-4 text-white"
-                                onclick="openModal({ url: '/Review/CreateReview', modalId: 'wideModalWindow'})" data-toggle="ajax-modal" data-target="Modal">
-                            Создать отзыв
-                        </button>
-                    }
-                    else
-                    {
-                        <a id="anothercourse" class="btn btn-createreview"
-                        asp-controller="Account" asp-action="Login">
-                            Войдите чтобы оставить отзыв
-                        </a>
-                    }
-                </div>
-            </div>
-            <div class="sort-div border-bottom">
-                <p style="font-size:20px;">Сортировать: <button class="btn btn-sort border-bottom" onclick="sortByNewest()">Сначала новые</button> 
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <button class="btn btn-sort" onclick="sortByOwn()">Сначала свои</button>
-                    }
                 </p>
             </div>
-            <div id="review-list">
-                @foreach (var review in Model)
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-12 col-sm-12 text-center">
+                @if (User.Identity.IsAuthenticated)
                 {
-                    <div class="review">
-                        <table align="center" class="table-review my-4" bordercolor="grey">
-                            <tr class="tr">
-
-                                <th class="th-rev-log px-3">
-                                    <text class="review-user-name">@review.UsersLogin</text> <br /> 
-                                    <text class="review-date" style="font-weight:500;">@review.ReviewDateTime.ToString("yyyy-MM-dd HH:mm:ss")</text>
-                                </th>
-                                <th class="th-rev-text">
-                                    <div class="review-container-rev-text wordwrap">
-                                        @review.ReviewText
-                                    </div>
-                                </th>
-                            <tr>
-                        </table>
-                    </div>
+                    <button type="button" align="center" class="btn btn-gradient btn-createreview mt-4 text-white"
+                            onclick="openModal({ url: '/Review/CreateReview', modalId: 'wideModalWindow'})" data-toggle="ajax-modal" data-target="Modal">
+                        Создать отзыв
+                    </button>
+                }
+                else
+                {
+                    <a id="anothercourse" class="btn btn-createreview"
+                    asp-controller="Account" asp-action="Login">
+                        Войдите чтобы оставить отзыв
+                    </a>
                 }
             </div>
         </div>
+        <div class="row sort-div mb-5 fs-6">
+            <div class="col-md-5 col-sm-12 d-flex justify-content-between border-bottom px-5">
+                <p>
+                    Сортировать: 
+                </p>
+                <button class="btn btn-sort border-bottom" onclick="sortByNewest()">Сначала новые</button>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <button class="btn btn-sort" onclick="sortByOwn()">Сначала свои</button>
+                }
+            </div>
+            <div class="col-md-7 hidden-sm"></div>
+        </div>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <div class="row review mb-5 mx-auto p-2">
+                <div class="col-md-2">
+                    <p class="text-center fs-5 fw-bolder">
+                        @Model[i].UsersLogin
+                    </p>
+                    <p class="text-center fs-6">
+                        @Model[i].ReviewDateTime.ToString("yyyy-MM-dd HH:mm:ss")
+                    </p>
+                </div>
+                <div class="col-md-8 my-auto">
+                    <div class="review-text-container px-3 pt-2 my-1">
+                        <p class="text-white fs-6">@Model[i].ReviewText</p>
+                    </div>
+                </div>
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="col-md-2 d-flex justify-content-center">
+                        <form id="deleteReviewForm-@i">
+                            <input id="reviewIdInput" type="hidden" name="id" value="@Model[i].Id">
+                            <button type="submit" class="btn btn-gradient text-white mt-2" id="deleteReviewButton" onclick="deleteReview(event, @i)">Удалить</button>
+                        </form>
+                    </div>
+                }
+            </div>
+        }
     </div>
 </div>
+
+<script>
+    async function deleteReview(event, number) {
+        event.preventDefault();
+        Swal.fire({
+            title: "Вы действительно хотите удалить этот отзыв?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#108b20",
+            cancelButtonColor: "#8f0404",
+            confirmButtonText: "Да, удалить отзыв!",
+            cancelButtonText: "Отмена",
+            background: '#333',
+            iconColor: '#fff',
+            color: 'white',
+        }).then(async (result) => {
+            event.preventDefault();
+
+            if (result.isConfirmed) {
+                var form = document.getElementById("deleteReviewForm-" + number);
+                var id = JSON.stringify(form.querySelector('input').value);
+
+                const response = await fetch('/Review/DeleteReview', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: id
+                });
+
+                const responseBody = await response.json();
+                Swal.fire({
+                    title: responseBody.description,
+                    text: response.ok ? 'Больше вы его не увидите!' : 'Попробуйте позже!',
+                    icon: response.ok ? 'success' : 'error',
+                    background: '#333',
+                    color: 'white',
+                }).then(() => {
+                    location.reload()
+                });
+            }
+        });
+    }
+</script>
 
 <script>
     var priorityKey = @Json.Serialize(User.Identity.Name);

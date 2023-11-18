@@ -20,6 +20,8 @@ namespace SQLServerCourse.Domain.Enum
 
         TasksDataNotFound = 30,
 
+        ReviewNotFound = 40,
+
         OK = 200,
         InternalServerError = 500
     }

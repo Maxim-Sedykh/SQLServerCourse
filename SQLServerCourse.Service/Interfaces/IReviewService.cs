@@ -1,4 +1,6 @@
-﻿using SQLServerCourse.Domain.Responce;
+﻿using SQLServerCourse.Domain.Entity;
+using SQLServerCourse.Domain.Responce;
+using SQLServerCourse.Domain.ViewModels.PersonalProfile;
 using SQLServerCourse.Domain.ViewModels.Review;
 using System;
 using System.Collections.Generic;
@@ -13,5 +15,7 @@ namespace SQLServerCourse.Service.Interfaces
         Task<IBaseResponse<List<ReviewViewModel>>> GetReviews();
 
         Task<IBaseResponse<bool>> CreateReview(CreateReviewViewModel model, string userName);
+
+        Task<IBaseResponse<Review>> DeleteReview(int id);
     }
 }

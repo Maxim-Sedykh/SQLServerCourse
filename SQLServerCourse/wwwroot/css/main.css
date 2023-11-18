@@ -46,6 +46,15 @@ h5 {
     height:400px;
 }
 
+.admin-list-item {
+    background: #008395;
+}
+
+    .admin-list-item:hover {
+        background: var(--color-aqua);
+        color: white;
+    }
+
 .btn-main {
     border-radius: 15px;
 }

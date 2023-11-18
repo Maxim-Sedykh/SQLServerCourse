@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using SQLServerCourse.Domain.ViewModels.PersonalProfile;
 using SQLServerCourse.Domain.ViewModels.Review;
 using SQLServerCourse.Service.Implementations;
 using SQLServerCourse.Service.Interfaces;
@@ -37,6 +39,21 @@ namespace SQLServerCourse.Controllers
                 return RedirectToAction("GetReviews", "Review");
             }
             return PartialView("Error", $"{response.Description}");
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public async Task<IActionResult> DeleteReview([FromBody] int id)
+        {
+            if (ModelState.IsValid)
+            {
+                var response = await _reviewService.DeleteReview(id);
+                if (response.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    return Json(new { description = response.Description });
+                }
+            }
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 }

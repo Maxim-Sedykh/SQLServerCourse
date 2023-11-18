@@ -66,6 +66,40 @@ namespace SQLServerCourse.Service.Implementations
             }
         }
 
+        public async Task<IBaseResponse<Review>> DeleteReview(int id)
+        {
+            try
+            {
+                var review = await _reviewRepository.GetAll()
+                    .FirstOrDefaultAsync(x => x.Id == id);
+                if (review == null)
+                {
+                    return new BaseResponse<Review>()
+                    {
+                        StatusCode = StatusCode.UserNotFound,
+                        Description = "Отзыв не найден"
+                    };
+                }
+
+                await _reviewRepository.Delete(review);
+
+                return new BaseResponse<Review>()
+                {
+                    Data = review,
+                    Description = "Отзыв удалён!",
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<Review>()
+                {
+                    StatusCode = StatusCode.InternalServerError,
+                    Description = $"Внутренняя ошибка: {ex.Message}"
+                };
+            }
+        }
+
         public async Task<IBaseResponse<List<ReviewViewModel>>> GetReviews()
         {
             try
@@ -74,6 +108,7 @@ namespace SQLServerCourse.Service.Implementations
                     .Include(x => x.User)
                     .Select(x => new ReviewViewModel()
                     {
+                        Id = x.Id,
                         UsersLogin = x.User.Login,
                         ReviewText = x.ReviewText,
                         ReviewDateTime = x.ReviewTime,

@@ -10,6 +10,8 @@ namespace SQLServerCourse.Domain.ViewModels.Review
 {
     public class ReviewViewModel
     {
+        public int Id { get; set; }
+
         public string UsersLogin { get; set; }
 
         public string ReviewText { get; set; }

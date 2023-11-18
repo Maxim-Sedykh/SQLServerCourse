@@ -39,6 +39,27 @@ body {
     height: 142px; 
 }
 
+.swal2-popup {
+    border-radius: 40px;
+}
+
+    .swal2-popup .swal2-actions{
+    }
+
+    .swal2-popup .swal2-styled {
+        border-radius: 40px;
+        background: #037c0e;
+    }
+
+        .swal2-popup .swal2-styled:hover {
+            background-color: #03620b;
+            color: white;
+        }
+
+        .swal2-popup .swal2-styled:focus {
+            box-shadow: unset;
+        }
+
 .swal-confirm-popup-button {
     background: red;
 }
