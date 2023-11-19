@@ -1,17 +1,20 @@
 ﻿@model SQLServerCourse.Domain.ViewModels.Review.CreateReviewViewModel
 
-<form method="post" asp-controller="Review" asp-action="CreateReview">
-    <div asp-validation-summary="All" style="font-size:18px;margin-bottom: 10px; min-height:0px; line-height:30px;" class="text-white text-center "></div>
-    <div class="form-review d-flex justify-content-between mb-1">
-        <div class="text-center text-white" style="color:white; font-size:18px;">
-            <button class="btn btn-review-submit" type="submit" id="button-review">Отправить</button>
-        </div>
-        <div class="div-review-text text-center text-white" style="color:white; font-size:18px;">
-            <textarea asp-for="ReviewText" type="text" class="textarea-review-text" id="textarea-review" placeholder="Напишите ваш отзыв..."></textarea>
-        </div>
+<div class="container-fluid">
+    <div class="container">
+        <form method="post" asp-controller="Review" asp-action="CreateReview">
+            <div asp-validation-summary="All" style="font-size:18px;margin-bottom: 10px; min-height:0px; line-height:30px;" class="text-white text-center "></div>
+            <div class="row review mb-5 mx-auto p-2">
+                <div class="col-md-3 col-smcol-12">
+                    <button class="btn btn-review-submit" type="submit" id="button-review">Отправить</button>
+                </div>
+                <div class="col-md-9 col-sm-12 m-auto">
+                    <div class="review-text-container my-1">
+                        <textarea asp-for="ReviewText" type="text" class="review-text-container textarea-review-text
+                            w-100 align-top p-3 text-white" id="textarea-review" placeholder="Напишите ваш отзыв..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
-</form>
-
-<script>
-    
-</script>
+</div>

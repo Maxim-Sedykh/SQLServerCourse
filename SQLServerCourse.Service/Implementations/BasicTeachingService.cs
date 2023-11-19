@@ -134,7 +134,7 @@ namespace SQLServerCourse.Service.Implementations
                 var generalModel = GetLessonQuestions(currentLesson);
                 for (int i = 0; i < generalModel.Questions.Count; i++)
                 {
-                    if (userAnswersModel.Questions[i].UserAnswer is not null)
+                    if (userAnswersModel.Questions[i].UserAnswer != null)
                     {
                         generalModel.Questions[i].UserAnswer = Regex.Replace(userAnswersModel.Questions[i].UserAnswer, @"\s+", " ")?.ToLower()?.Trim();
                     } 

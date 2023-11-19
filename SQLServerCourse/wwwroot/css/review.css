@@ -5,7 +5,7 @@
     width: 90%;
 }
 
-.btn-createreview {
+.btn-create-review {
     border-radius: 15px;
     margin-top: 25px;
     background: var(--color-darkblue2);
@@ -46,4 +46,22 @@
     min-height:130px;
     border-radius:40px;
     background:#333;
+}
+
+.btn-review-submit {
+    margin-top: 7px;
+    background: var(--color-aqua);
+    border-radius: 20px;
+    color: white;
+}
+
+    .btn-review-submit:hover {
+        background: var(--color-darkblue1);
+        color: white;
+    }
+
+.textarea-review-text {
+    outline: none;
+    resize: none;
+    min-height:130px;
 }

@@ -27,14 +27,14 @@
             <div class="col-md-12 col-sm-12 text-center">
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <button type="button" align="center" class="btn btn-gradient btn-createreview mt-4 text-white"
+                    <button type="button" align="center" class="btn btn-gradient btn-create-review mt-4 text-white"
                             onclick="openModal({ url: '/Review/CreateReview', modalId: 'wideModalWindow'})" data-toggle="ajax-modal" data-target="Modal">
                         Создать отзыв
                     </button>
                 }
                 else
                 {
-                    <a id="anothercourse" class="btn btn-createreview"
+                    <a id="anothercourse" class="btn btn-create-review"
                     asp-controller="Account" asp-action="Login">
                         Войдите чтобы оставить отзыв
                     </a>
@@ -46,7 +46,7 @@
                 <p>
                     Сортировать: 
                 </p>
-                <button class="btn btn-sort border-bottom" onclick="sortByNewest()">Сначала новые</button>
+                <button class="btn btn-sort" onclick="sortByNewest()">Сначала новые</button>
                 @if (User.Identity.IsAuthenticated)
                 {
                     <button class="btn btn-sort" onclick="sortByOwn()">Сначала свои</button>
@@ -54,33 +54,35 @@
             </div>
             <div class="col-md-7 hidden-sm"></div>
         </div>
-        @for (int i = 0; i < Model.Count; i++)
-        {
-            <div class="row review mb-5 mx-auto p-2">
-                <div class="col-md-2">
-                    <p class="text-center fs-5 fw-bolder">
-                        @Model[i].UsersLogin
-                    </p>
-                    <p class="text-center fs-6">
-                        @Model[i].ReviewDateTime.ToString("yyyy-MM-dd HH:mm:ss")
-                    </p>
-                </div>
-                <div class="col-md-8 my-auto">
-                    <div class="review-text-container px-3 pt-2 my-1">
-                        <p class="text-white fs-6">@Model[i].ReviewText</p>
+        <div id="review-list">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <div class="row review mb-5 mx-auto p-2">
+                    <div class="col-md-2">
+                        <p class="review-user-name text-center fs-5 fw-bolder">
+                            @Model[i].UsersLogin
+                        </p>
+                        <p class="review-date text-center fs-6">
+                            @Model[i].ReviewDateTime.ToString("yyyy-MM-dd HH:mm:ss")
+                        </p>
                     </div>
-                </div>
-                @if (User.IsInRole("Admin"))
-                {
-                    <div class="col-md-2 d-flex justify-content-center">
-                        <form id="deleteReviewForm-@i">
-                            <input id="reviewIdInput" type="hidden" name="id" value="@Model[i].Id">
-                            <button type="submit" class="btn btn-gradient text-white mt-2" id="deleteReviewButton" onclick="deleteReview(event, @i)">Удалить</button>
-                        </form>
+                    <div class="col-md-8 my-auto">
+                        <div class="review-text-container px-3 pt-2 my-1">
+                            <p class="text-white fs-6">@Model[i].ReviewText</p>
+                        </div>
                     </div>
-                }
-            </div>
-        }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="col-md-2 d-flex justify-content-center">
+                            <form id="deleteReviewForm-@i">
+                                <input id="reviewIdInput" type="hidden" name="id" value="@Model[i].Id">
+                                <button type="submit" class="btn btn-gradient text-white mt-2" id="deleteReviewButton" onclick="deleteReview(event, @i)">Удалить</button>
+                            </form>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
     </div>
 </div>
 
@@ -91,8 +93,8 @@
             title: "Вы действительно хотите удалить этот отзыв?",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#108b20",
-            cancelButtonColor: "#8f0404",
+            confirmButtonColor: "var(--color-darkblue1)",
+            cancelButtonColor: "#800707",
             confirmButtonText: "Да, удалить отзыв!",
             cancelButtonText: "Отмена",
             background: '#333',
@@ -128,7 +130,7 @@
 
 <script>
     var priorityKey = @Json.Serialize(User.Identity.Name);
-    var reviews = document.getElementsByClassName("review");
+    var reviews = document.querySelectorAll(".review");
     var reviewContainer = document.getElementById("review-list");
 
     function compareByDate(a, b) {
@@ -169,7 +171,6 @@
             reviewContainer.appendChild(sortedReviews[i]);
         }
     }
-
 </script>
 
 <script>

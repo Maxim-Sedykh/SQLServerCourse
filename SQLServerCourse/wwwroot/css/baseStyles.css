@@ -63,3 +63,20 @@ body {
 .swal-confirm-popup-button {
     background: red;
 }
+
+.btn-gradient {
+    background: #002d7a;
+    border-radius: 30px;
+    font-size: 20px;
+    border: none;
+    color: red;
+    height: 40px;
+    line-height: 40px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+    .btn-gradient:hover {
+        background: var(--color-blue);
+        color: white;
+    }
