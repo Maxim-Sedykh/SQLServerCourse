@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace SQLServerCourse.Service.Interfaces
 {
-    public interface IPersonalProfileService
+    public interface IProfileService
     {
-        Task<IBaseResponse<ProfileViewModel>> GetPersonalProfile(string userName);
+        Task<IBaseResponse<ProfileViewModel>> GetProfile(string userName);
 
         Task<IBaseResponse<List<LessonRecordViewModel>>> GetLessonRecords(string userName);
 

@@ -11,11 +11,11 @@ namespace SQLServerCourse.Domain.Entity
 {
     public class LessonRecord
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
 
-        public int LessonId { get; set; }
+        public byte LessonId { get; set; }
 
-        public int UserId { get; set; }
+        public long UserId { get; set; }
 
         public User User { get; set; } 
         

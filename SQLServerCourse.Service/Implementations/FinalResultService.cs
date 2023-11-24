@@ -116,14 +116,14 @@ namespace SQLServerCourse.Service.Implementations
             return firstPartOfAnalys + secondPartOfAnalys;
         }
 
-        public IBaseResponse<AnalysViewModel> GetUserAnalys(string userName)
+        public IBaseResponse<string> GetUserAnalys(string userName)
         {
             try
             {
                 var currentUser = _userRepository.GetAll().FirstOrDefault(x => x.Login == userName);
                 if (currentUser is null)
                 {
-                    return new BaseResponse<AnalysViewModel>()
+                    return new BaseResponse<string>()
                     {
                         StatusCode = StatusCode.UserNotFound,
                         Description = "Пользователь не найден"
@@ -131,21 +131,21 @@ namespace SQLServerCourse.Service.Implementations
                 }
                 if (currentUser.Analys is null)
                 {
-                    return new BaseResponse<AnalysViewModel>()
+                    return new BaseResponse<string>()
                     {
                         Description = "Извините, мы не сумели обнаружить ваш анализ",
                         StatusCode = StatusCode.UserAnalysNotFound
                     };
                 }
-                return new BaseResponse<AnalysViewModel>()
+                return new BaseResponse<string>()
                 {
-                    Data = new AnalysViewModel { Analys = currentUser.Analys },
+                    Data = currentUser.Analys,
                     StatusCode = StatusCode.OK
                 };
             }
             catch (Exception ex)
             {
-                return new BaseResponse<AnalysViewModel>()
+                return new BaseResponse<string>()
                 {
                     Description = $"Внутренняя ошибка : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError

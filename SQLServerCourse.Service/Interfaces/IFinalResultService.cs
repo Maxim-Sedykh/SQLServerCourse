@@ -12,6 +12,6 @@ namespace SQLServerCourse.Service.Interfaces
     {
         Task<IBaseResponse<ResultViewModel>> GetResultModel(string userName);
 
-        IBaseResponse<AnalysViewModel> GetUserAnalys(string userName);
+        IBaseResponse<string> GetUserAnalys(string userName);
     }
 }

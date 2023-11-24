@@ -9,12 +9,12 @@ namespace SQLServerCourse.Domain.Entitys_for_lesson
 {
     public class Hall
     {
-        public int Id { get; set; }
+        public byte Id { get; set; }
 
-        public string HallName { get; set; }
+        public string Name { get; set; }
 
-        public List<HallRow> HallRow { get; set; }
+        public List<HallRow> HallRows { get; set; }
 
-        public List<Screening> Screening { get; set; }
+        public List<Screening> Screenings { get; set; }
     }
 }

@@ -9,10 +9,10 @@ namespace SQLServerCourse.Domain.ViewModels.Teaching
 {
     public class LessonLectureViewModel
     {
-        public int Id { get; set; }
+        public byte Id { get; set; }
 
         public string LessonName { get; set; }
 
-        public HtmlString? LessonMarkup { get; set; }
+        public HtmlString LessonMarkup { get; set; }
     }
 }

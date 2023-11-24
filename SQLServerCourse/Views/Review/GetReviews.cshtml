@@ -1,16 +1,9 @@
 ﻿@using SQLServerCourse.Domain.ViewModels.Review;
 
 @model List<ReviewViewModel>
+
 @{
-    if (User.IsInRole("Admin"))
-    {
-        ViewData["Title"] = "Редактирование отзывов | SQLCourse";
-        Layout = "~/Views/Shared/Layouts/AdminLayout.cshtml";
-    }
-    else
-    {
-        ViewData["Title"] = "Отзывы | SQLCourse";
-    }
+    ViewData["Title"] = "Отзывы | SQLCourse";
 }
 
 <div class="container-fluid">
@@ -90,12 +83,12 @@
     async function deleteReview(event, number) {
         event.preventDefault();
         Swal.fire({
-            title: "Вы действительно хотите удалить этот отзыв?",
+            title: "Вы действительно хотите удалить этот объект?",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "var(--color-darkblue1)",
             cancelButtonColor: "#800707",
-            confirmButtonText: "Да, удалить отзыв!",
+            confirmButtonText: "Да, удалить!",
             cancelButtonText: "Отмена",
             background: '#333',
             iconColor: '#fff',

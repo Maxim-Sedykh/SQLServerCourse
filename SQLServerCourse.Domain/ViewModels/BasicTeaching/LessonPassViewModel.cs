@@ -13,9 +13,9 @@ namespace SQLServerCourse.Domain.ViewModels.Lesson
 {
     public class LessonPassViewModel
     {
-        public int LessonId { get; set; }
+        public byte LessonId { get; set; }
 
-        public LessonType? LessonType { get; set; }
+        public LessonType LessonType { get; set; }
 
         public List<QuestionViewModel> Questions { get; set; }
     }

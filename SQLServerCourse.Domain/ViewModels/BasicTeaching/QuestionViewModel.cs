@@ -12,13 +12,13 @@ namespace SQLServerCourse.Domain.ViewModels.Teaching
 {
     public class QuestionViewModel
     {
-        public int Number { get; set; }
+        public byte Number { get; set; }
 
         public string DisplayQuestion { get; set; }
 
         public TaskType QuestionType { get; set; }
 
-        public List<TestVariant>? VariantsOfAnswer { get; set; }
+        public List<TestVariant> VariantsOfAnswer { get; set; }
 
         public string RightPageAnswer { get; set; }
 

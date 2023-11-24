@@ -10,7 +10,7 @@ namespace SQLServerCourse.Domain.ViewModels.PersonalProfile
 {
     public class ProfileViewModel
     {
-        public int Id { get; set; } 
+        public long Id { get; set; } 
 
         public string Login { get; set; }
 
@@ -28,6 +28,6 @@ namespace SQLServerCourse.Domain.ViewModels.PersonalProfile
 
         public bool IsExamCompleted { get; set;}
 
-        public int LessonsCompleted { get; set; }
+        public byte LessonsCompleted { get; set; }
     }
 }

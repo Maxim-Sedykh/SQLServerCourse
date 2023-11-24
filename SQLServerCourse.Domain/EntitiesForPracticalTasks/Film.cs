@@ -11,12 +11,12 @@ namespace SQLServerCourse.Domain.Entitys_for_lesson
 {
     public class Film
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
 
-        public string NameOfFilm { get; set; }
+        public string Name { get; set; }
 
         public string Description { get; set; }
 
-        public List<Screening> Screening { get; set; }
+        public List<Screening> Screenings { get; set; }
     }
 }

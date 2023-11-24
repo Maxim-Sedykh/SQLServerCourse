@@ -17,16 +17,6 @@ namespace SQLServerCourse.Domain.ViewModels.Account
         [MaxLength(12, ErrorMessage = "Длина логина должна быть меньше 12 символов")]
         public string Login { get; set; }
 
-        [Required(ErrorMessage = "Введите имя")]
-        [MinLength(2, ErrorMessage = "Длина имени должна быть больше двух символов")]
-        [MaxLength(25, ErrorMessage = "Длина имени должна быть меньше 25 символов")]
-        public string Name { get; set; }
-
-        [Required(ErrorMessage = "Введите фамилию")]
-        [MinLength(2, ErrorMessage = "Длина фамилии должна быть больше двух символов")]
-        [MaxLength(25, ErrorMessage = "Длина фамилии должна быть меньше 25 символов")]
-        public string Surname { get; set; }
-
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Введите пароль")]
         [MinLength(5, ErrorMessage = "Длина пароля должна быть больше пяти символов")]

@@ -10,13 +10,13 @@ using System.Security.Claims;
 
 namespace SQLServerCourse.Service.Implementations
 {
-    public class PersonalProfileService: IPersonalProfileService
+    public class ProfileService: IProfileService
     {
         private readonly IBaseRepository<User> _userRepository;
         private readonly IBaseRepository<LessonRecord> _lessonRecordRepository;
         private readonly IBaseRepository<Lesson> _lessonRepository;
 
-        public PersonalProfileService(IBaseRepository<User> userRepository, IBaseRepository<LessonRecord> lessonRecordRepository,
+        public ProfileService(IBaseRepository<User> userRepository, IBaseRepository<LessonRecord> lessonRecordRepository,
             IBaseRepository<Lesson> lessonRepository)
         {
             _userRepository = userRepository;
@@ -26,7 +26,7 @@ namespace SQLServerCourse.Service.Implementations
 
         //private readonly ILogger<PersonalProfileService> _logger;
 
-        public async Task<IBaseResponse<ProfileViewModel>> GetPersonalProfile(string userName)
+        public async Task<IBaseResponse<ProfileViewModel>> GetProfile(string userName)
         {
             try
             {

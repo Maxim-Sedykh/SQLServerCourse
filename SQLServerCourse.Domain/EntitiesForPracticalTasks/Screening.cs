@@ -9,11 +9,11 @@ namespace SQLServerCourse.Domain.Entitys_for_lesson
 {
     public class Screening
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
 
-        public int HallId { get; set; }
+        public byte HallId { get; set; }
 
-        public int FilmId { get; set; }
+        public long FilmId { get; set; }
 
         public DateTime Time { get; set; }
 

@@ -42,7 +42,7 @@ namespace SQLServerCourse.Service.Implementations
             _testVariantRepository = pageAnswerRepository;
         }
 
-        public IBaseResponse<LessonLectureViewModel> GetLecture(int lessonId)
+        public IBaseResponse<LessonLectureViewModel> GetLecture(byte lessonId)
         {
             try
             {

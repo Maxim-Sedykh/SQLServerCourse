@@ -15,7 +15,7 @@ namespace SQLServerCourse.Domain.ViewModels.FinalResult
 
         public string Surname { get; set; }
 
-        public float? FinalGrade { get; set; }
+        public float FinalGrade { get; set; }
 
         public string UserAnalys { get; set; }
     }

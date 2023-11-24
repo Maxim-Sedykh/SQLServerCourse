@@ -23,7 +23,7 @@ namespace SQLServerCourse.Initializer
 
         public static void InitializeServices(this IServiceCollection services)
         {
-            services.AddScoped<IPersonalProfileService, PersonalProfileService>();
+            services.AddScoped<IProfileService, ProfileService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IReviewService, ReviewService>();
             services.AddScoped<IBasicTeachingService, BasicTeachingService>();

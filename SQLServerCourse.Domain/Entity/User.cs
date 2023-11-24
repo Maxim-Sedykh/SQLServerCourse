@@ -14,30 +14,18 @@ namespace SQLServerCourse.Domain.Entity
 {
     public class User
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
 
-        public string Login { get; set; }
-                                                                                                                                                                                                    
-        public string Name { get; set; }
-
-        public string Surname { get; set; }
+        public string Login { get; set; }                                                                                                                                                                                            
             
         public string Password { get; set; }
 
         public Role Role { get; set; }
 
-        public float FinalGrade { get; set; }
+        public List<Review> Reviews { get; set; }
 
-        public int LessonsCompleted { get; set; } = 0;
+        public List<LessonRecord> LessonRecords { get; set; }
 
-        public List<Review> Review { get; set; }
-
-        public List<LessonRecord> Registers { get; set; }
-
-        public bool IsExamCompleted { get; set; }
-
-        public string? Analys { get; set; }
-
-        public bool IsReviewed { get; set; }
+        public UserProfile UserProfile { get; set; }
     }
 }

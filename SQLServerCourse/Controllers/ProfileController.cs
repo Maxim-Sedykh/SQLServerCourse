@@ -7,19 +7,19 @@ using System.Text.Json;
 
 namespace SQLServerCourse.Controllers
 {
-    public class PersonalProfileController : Controller
+    public class ProfileController : Controller
     {
-        private readonly IPersonalProfileService _personalProfileService;
+        private readonly IProfileService _profileService;
 
-        public PersonalProfileController(IPersonalProfileService personalProfileService)
+        public ProfileController(IProfileService personalProfileService)
         {
-            _personalProfileService = personalProfileService;
+            _profileService = personalProfileService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetPersonalProfile()
+        public async Task<IActionResult> GetProfile()
         {
-            var response = await _personalProfileService.GetPersonalProfile(User.Identity.Name);
+            var response = await _profileService.GetProfile(User.Identity.Name);
 
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
@@ -33,7 +33,7 @@ namespace SQLServerCourse.Controllers
         {
             if (ModelState.IsValid)
             {
-                var response = await _personalProfileService.UpdateInfo(model);
+                var response = await _profileService.UpdateInfo(model);
                 if (response.StatusCode == Domain.Enum.StatusCode.OK)
                 {
                     return Json(new { description = response.Description });
@@ -45,7 +45,7 @@ namespace SQLServerCourse.Controllers
         [HttpGet]
         public async Task<IActionResult> GetLessonRecords()
         {
-            var response = await _personalProfileService.GetLessonRecords(User.Identity.Name);
+            var response = await _profileService.GetLessonRecords(User.Identity.Name);
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
                 return PartialView(response.Data);
@@ -56,7 +56,7 @@ namespace SQLServerCourse.Controllers
         [HttpGet]
         public IActionResult GetLessonList()
         {
-            var response = _personalProfileService.GetLessonList();
+            var response = _profileService.GetLessonList();
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
                 return PartialView(response.Data);

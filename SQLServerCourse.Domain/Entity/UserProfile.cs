@@ -1,0 +1,33 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SQLServerCourse.Domain.Entity
+{
+    public class UserProfile
+    {
+        public long Id { get; set; }
+
+        public string Name { get; set; }
+
+        public string Surname { get; set; }
+
+        public byte Age { get; set; }
+
+        public bool IsExamCompleted { get; set; }
+
+        public float FinalGrade { get; set; }
+
+        public byte LessonsCompleted { get; set; }
+
+        public string? Analys { get; set; }
+
+        public bool IsReviewed { get; set; }
+
+        public long UserId { get; set; }
+
+        public User User { get; set; }
+    }
+}

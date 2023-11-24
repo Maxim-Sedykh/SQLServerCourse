@@ -9,15 +9,15 @@ namespace SQLServerCourse.Domain.Entitys_for_lesson
 {
     public class Ticket
     {
-        public int Id { get; set; }
-
-        public int ScreeningId { get; set; }
+        public long Id { get; set; }
 
         public short Row { get; set; }
 
         public short Seat { get; set; }
 
-        public int Cost { get; set; }
+        public decimal Cost { get; set; }
+
+        public long ScreeningId { get; set; }
 
         public Screening Screening { get; set; }
     }
