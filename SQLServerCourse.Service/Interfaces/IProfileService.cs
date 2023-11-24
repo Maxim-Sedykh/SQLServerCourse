@@ -12,11 +12,11 @@ namespace SQLServerCourse.Service.Interfaces
 {
     public interface IProfileService
     {
-        Task<IBaseResponse<ProfileViewModel>> GetProfile(string userName);
+        Task<IBaseResponse<UserProfileViewModel>> GetProfile(string userName);
 
         Task<IBaseResponse<List<LessonRecordViewModel>>> GetLessonRecords(string userName);
 
-        Task<IBaseResponse<User>> UpdateInfo(ProfileViewModel model);
+        Task<IBaseResponse<User>> UpdateInfo(UserProfileViewModel model);
 
         IBaseResponse<List<string>> GetLessonList();
     }

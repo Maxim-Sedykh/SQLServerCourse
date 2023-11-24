@@ -26,12 +26,12 @@ namespace SQLServerCourse.Service.Implementations
 
         //private readonly ILogger<PersonalProfileService> _logger;
 
-        public async Task<IBaseResponse<ProfileViewModel>> GetProfile(string userName)
+        public async Task<IBaseResponse<UserProfileViewModel>> GetProfile(string userName)
         {
             try
             {
                 var result = await _userRepository.GetAll()
-                    .Select(x => new ProfileViewModel()
+                    .Select(x => new UserProfileViewModel()
                     {
                         Id = x.Id,
                         Login = x.Login,
@@ -46,13 +46,13 @@ namespace SQLServerCourse.Service.Implementations
 
                 if (result is null)
                 {
-                    return new BaseResponse<ProfileViewModel>()
+                    return new BaseResponse<UserProfileViewModel>()
                     {
                         Description = "Ваш профиль не найден",
                         StatusCode = StatusCode.UserNotFound
                     };
                 }
-                return new BaseResponse<ProfileViewModel>()
+                return new BaseResponse<UserProfileViewModel>()
                 {
                     Data = result,
                     StatusCode = StatusCode.OK
@@ -60,7 +60,7 @@ namespace SQLServerCourse.Service.Implementations
             }
             catch (Exception ex)
             {
-                return new BaseResponse<ProfileViewModel>()
+                return new BaseResponse<UserProfileViewModel>()
                 {
                     StatusCode = StatusCode.InternalServerError,
                     Description = $"Внутренняя ошибка: {ex.Message}"
@@ -68,7 +68,7 @@ namespace SQLServerCourse.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<User>> UpdateInfo(ProfileViewModel model)
+        public async Task<IBaseResponse<User>> UpdateInfo(UserProfileViewModel model)
         {
             try
             {

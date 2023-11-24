@@ -14,13 +14,13 @@ namespace SQLServerCourse.Domain.ViewModels.Account
     {
         [Required(ErrorMessage = "Введите логин")]
         [MinLength(4, ErrorMessage = "Длина логина должна быть больше четырёх символов")]
-        [MaxLength(12, ErrorMessage = "Длина логина должна быть меньше 12 символов")]
+        [MaxLength(12, ErrorMessage = "Длина логина должна быть меньше двенадцати символов")]
         public string Login { get; set; }
 
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Введите пароль")]
         [MinLength(5, ErrorMessage = "Длина пароля должна быть больше пяти символов")]
-        [MaxLength(15, ErrorMessage = "Длина фамилии должна быть меньше 15 символов")]
+        [MaxLength(20, ErrorMessage = "Длина пароля должна быть меньше двадцати символов")]
         public string Password { get; set; }
     }
 }

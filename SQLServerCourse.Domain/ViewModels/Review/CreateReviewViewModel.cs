@@ -13,7 +13,7 @@ namespace SQLServerCourse.Domain.ViewModels.Review
     {
         [Required(ErrorMessage = "Введите отзыв")]
         [MinLength(10, ErrorMessage = "Длина отзыва должна быть больше десяти символов")]
-        [MaxLength(150, ErrorMessage = "Длина отзыва должна быть меньше 150 символов")]
+        [MaxLength(200, ErrorMessage = "Длина отзыва должна быть меньше двухста символов")]
         public string ReviewText { get; set; }
     }
 }

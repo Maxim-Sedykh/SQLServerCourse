@@ -29,7 +29,7 @@ namespace SQLServerCourse.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateInfo([FromBody] ProfileViewModel model)
+        public async Task<IActionResult> UpdateInfo([FromBody] UserProfileViewModel model)
         {
             if (ModelState.IsValid)
             {

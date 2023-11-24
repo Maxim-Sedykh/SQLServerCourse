@@ -12,7 +12,7 @@ namespace SQLServerCourse.Domain.ViewModels.Account
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Введите пароль")]
         [MinLength(5, ErrorMessage = "Длина пароля должна быть больше 5 символов")]
-        [MaxLength(15, ErrorMessage = "Длина фамилии должна быть меньше 15 символов")]
+        [MaxLength(15, ErrorMessage = "Длина пароля должна быть меньше 15 символов")]
         public string NewPassword { get; set; }
     }
 }

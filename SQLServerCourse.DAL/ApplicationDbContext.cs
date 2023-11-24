@@ -113,7 +113,7 @@ namespace SQLServerCourse.DAL
                 builder.Property(up => up.Id).ValueGeneratedOnAdd();
                 builder.Property(up => up.Name).HasMaxLength(50).IsRequired(false);
                 builder.Property(up => up.Surname).HasMaxLength(50).IsRequired(false);
-                builder.Property(up => up.Analys).HasMaxLength(150).IsRequired(false);
+                builder.Property(up => up.Analys).IsRequired(false);
             });
 
             modelBuilder.Entity<Review>(builder =>
