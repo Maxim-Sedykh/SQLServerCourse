@@ -11,9 +11,9 @@ namespace SQLServerCourse.Domain.Entitys_for_lesson
     {
         public long Id { get; set; }
 
-        public short Row { get; set; }
+        public byte Row { get; set; }
 
-        public short Seat { get; set; }
+        public byte Seat { get; set; }
 
         public decimal Cost { get; set; }
 

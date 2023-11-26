@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLServerCourse", "SQLServerCourse\SQLServerCourse.csproj", "{D8ADEA55-B2E5-44B3-86C1-437FA2183CCD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQLServerCourse.Domain", "SQLServerCourse.Domain", "{BCDDBA6F-E7F9-41AD-875F-766BD18A9D74}"
+	ProjectSection(SolutionItems) = preProject
+		SQLServerCourse.DAL\Repositories\UserRepository.cs = SQLServerCourse.DAL\Repositories\UserRepository.cs
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQLServerCourse.DAL", "SQLServerCourse.DAL", "{4A25F7A1-BAAE-436E-AF93-6E1EFB4B1D09}"
 EndProject

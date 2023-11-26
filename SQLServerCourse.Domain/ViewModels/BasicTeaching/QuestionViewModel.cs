@@ -18,7 +18,7 @@ namespace SQLServerCourse.Domain.ViewModels.Teaching
 
         public TaskType QuestionType { get; set; }
 
-        public List<TestVariant> VariantsOfAnswer { get; set; }
+        public List<TestVariant>? VariantsOfAnswer { get; set; }
 
         public string RightPageAnswer { get; set; }
 

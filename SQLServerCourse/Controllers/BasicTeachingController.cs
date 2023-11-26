@@ -19,7 +19,7 @@ namespace SQLServerCourse.Controllers
         }
 
         [HttpGet]
-        public IActionResult ReadLesson(int id) 
+        public IActionResult ReadLesson(byte id) 
         {
             var response = _basicTeachingService.GetLecture(id);
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
@@ -30,7 +30,7 @@ namespace SQLServerCourse.Controllers
         }
 
         [HttpGet]
-        public IActionResult PassLesson(int id)
+        public IActionResult PassLesson(byte id)
         {
             var response = _basicTeachingService.GetQuestions(id); //Здесь заполняются 3 свойства у модели LessonPassViewModel
 

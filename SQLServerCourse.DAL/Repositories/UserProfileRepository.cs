@@ -1,4 +1,5 @@
-﻿using SQLServerCourse.Domain.Entity;
+﻿using SQLServerCourse.DAL.Interfaces;
+using SQLServerCourse.Domain.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SQLServerCourse.DAL.Repositories
 {
-    public class UserProfileRepository
+    public class UserProfileRepository: IBaseRepository<UserProfile>
     {
         private readonly ApplicationDbContext _db;
 

@@ -7,19 +7,19 @@ using System.Text.Json;
 
 namespace SQLServerCourse.Controllers
 {
-    public class ProfileController : Controller
+    public class UserProfileController : Controller
     {
-        private readonly IProfileService _profileService;
+        private readonly IUserProfileService _profileService;
 
-        public ProfileController(IProfileService personalProfileService)
+        public UserProfileController(IUserProfileService personalProfileService)
         {
             _profileService = personalProfileService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProfile()
+        public async Task<IActionResult> GetUserProfile()
         {
-            var response = await _profileService.GetProfile(User.Identity.Name);
+            var response = await _profileService.GetUserProfile(User.Identity.Name);
 
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {

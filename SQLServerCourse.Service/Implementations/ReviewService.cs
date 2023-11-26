@@ -66,7 +66,7 @@ namespace SQLServerCourse.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<Review>> DeleteReview(int id)
+        public async Task<IBaseResponse<Review>> DeleteReview(long id)
         {
             try
             {
@@ -109,8 +109,8 @@ namespace SQLServerCourse.Service.Implementations
                     .Select(x => new ReviewViewModel()
                     {
                         Id = x.Id,
-                        UsersLogin = x.User.Login,
-                        ReviewText = x.ReviewText,
+                        Login = x.User.Login,
+                        Text = x.ReviewText,
                         ReviewDateTime = x.ReviewTime,
                     }).ToListAsync();
 

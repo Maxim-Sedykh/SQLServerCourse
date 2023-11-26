@@ -10,37 +10,37 @@ using System.Security.Claims;
 
 namespace SQLServerCourse.Service.Implementations
 {
-    public class ProfileService: IProfileService
+    public class UserProfileService: IUserProfileService
     {
         private readonly IBaseRepository<User> _userRepository;
+        private readonly IBaseRepository<UserProfile> _userProfileRepository;
         private readonly IBaseRepository<LessonRecord> _lessonRecordRepository;
         private readonly IBaseRepository<Lesson> _lessonRepository;
 
-        public ProfileService(IBaseRepository<User> userRepository, IBaseRepository<LessonRecord> lessonRecordRepository,
-            IBaseRepository<Lesson> lessonRepository)
+        public UserProfileService(IBaseRepository<User> userRepository, IBaseRepository<UserProfile> userProfileRepository,
+            IBaseRepository<LessonRecord> lessonRecordRepository, IBaseRepository<Lesson> lessonRepository)
         {
             _userRepository = userRepository;
+            _userProfileRepository = userProfileRepository;
             _lessonRecordRepository = lessonRecordRepository;
             _lessonRepository = lessonRepository;
         }
 
-        //private readonly ILogger<PersonalProfileService> _logger;
-
-        public async Task<IBaseResponse<UserProfileViewModel>> GetProfile(string userName)
+        public async Task<IBaseResponse<UserProfileViewModel>> GetUserProfile(string userName)
         {
             try
             {
-                var result = await _userRepository.GetAll()
+                var result = await _userProfileRepository.GetAll()
                     .Select(x => new UserProfileViewModel()
                     {
                         Id = x.Id,
-                        Login = x.Login,
+                        Login = userName,
                         Name = x.Name,
                         Surname = x.Surname,
+                        Age = x.Age,
                         FinalGrade = x.FinalGrade,
                         IsExamCompleted = x.IsExamCompleted,
                         LessonsCompleted = x.LessonsCompleted,
-                        //LessonNames = _lessonRepository.GetAll().Select(x => x.Name).ToList()
                     })
                     .FirstOrDefaultAsync(x => x.Login == userName);
 
@@ -68,36 +68,37 @@ namespace SQLServerCourse.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<User>> UpdateInfo(UserProfileViewModel model)
+        public async Task<IBaseResponse<UserProfile>> UpdateInfo(UserProfileViewModel model)
         {
             try
             {
-                var user = await _userRepository.GetAll()
+                var profile = await _userProfileRepository.GetAll()
                     .FirstOrDefaultAsync(x => x.Id == model.Id);
-                if (user == null)
+                if (profile == null)
                 {
-                    return new BaseResponse<User>()
+                    return new BaseResponse<UserProfile>()
                     {
                         StatusCode = StatusCode.UserNotFound,
                         Description = "Пользователь не найден"
                     };
                 }
 
-                user.Name = model.Name;
-                user.Surname = model.Surname;
+                profile.Name = model.Name;
+                profile.Surname = model.Surname;
+                profile.Age = model.Age;
 
-                await _userRepository.Update(user);
+                await _userProfileRepository.Update(profile);
 
-                return new BaseResponse<User>()
+                return new BaseResponse<UserProfile>()
                 {
-                    Data = user,
+                    Data = profile,
                     Description = "Данные обновлены",
                     StatusCode = StatusCode.OK
                 };
             }
             catch (Exception ex)
             {
-                return new BaseResponse<User>()
+                return new BaseResponse<UserProfile>()
                 {
                     StatusCode = StatusCode.InternalServerError,
                     Description = $"Внутренняя ошибка: {ex.Message}"

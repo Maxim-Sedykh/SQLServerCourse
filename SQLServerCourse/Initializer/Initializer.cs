@@ -16,14 +16,13 @@ namespace SQLServerCourse.Initializer
             services.AddScoped<IBaseRepository<Question>, QuestionRepository>();
             services.AddScoped<IBaseRepository<TestVariant>, TestVariantRepository>();
             services.AddScoped<IBaseRepository<Review>, ReviewRepository>();
-            services.AddScoped<IBaseRepository<PracticalTask>, PracticalTaskRepository>();
             services.AddScoped<IBaseRepository<LessonRecord>, LessonRecordRepository>();
-            services.AddScoped<IBaseRepository<FrequentRemark>, FrequentRemarkRepository>();
+            services.AddScoped<IBaseRepository<UserProfile>, UserProfileRepository>();
         }
 
         public static void InitializeServices(this IServiceCollection services)
         {
-            services.AddScoped<IProfileService, ProfileService>();
+            services.AddScoped<IUserProfileService, UserProfileService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IReviewService, ReviewService>();
             services.AddScoped<IBasicTeachingService, BasicTeachingService>();

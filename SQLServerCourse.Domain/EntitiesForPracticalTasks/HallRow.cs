@@ -11,7 +11,7 @@ namespace SQLServerCourse.Domain.Entitys_for_lesson
     {
         public long Id { get; set; }
 
-        public long HallId { get; set; }
+        public byte HallId { get; set; }
 
         public short Number { get; set; }
 

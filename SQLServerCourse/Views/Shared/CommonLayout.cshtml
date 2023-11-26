@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/account.css" />
     <link rel="stylesheet" href="~/css/baseStyles.css" />
+    <link rel="stylesheet" href="~/css/bootstrapColor.css" />
     <link rel="stylesheet" href="~/css/documentation.css" />
     <link rel="stylesheet" href="~/css/main.css" />
     <link rel="stylesheet" href="~/css/personalAccount.css" />
@@ -28,20 +29,23 @@
         <div class="container-fluid" style="max-width:1600px;">
             <header class="@backgroundColor" id="header" style="border-radius: 0px 0px 40px 40px;">
                 <nav class="navbar navbar-expand-lg navbar-light text-black">
-                    <div class="container" style="max-width:1600px;">
-                        <a class="navbar-brand" href="/">SQLCourse MSSQL</a>
+                    <div class="container px-4" style="max-width:1600px;">
+                        <a class="navbar-brand @textColor" href="/">SQLCourse MSSQL</a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <a class="nav-link active text-black px-0" aria-current="page" href="/">На главную</a>
+                            <a class="nav-link active px-0 @textColor" aria-current="page" href="/">На главную</a>
                             <div class="navItemRight" style="margin-left:auto;">
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-white">
+                                    @if (!User.IsInRole("Admin"))
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link text-black my-auto text-black" asp-controller="Review" asp-action="GetReviews">Отзывы</a>
+                                        </li>
+                                    }
                                     <li class="nav-item">
-                                        <a class="nav-link text-black my-auto text-black" asp-controller="Review" asp-action="GetReviews">Отзывы</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <button type="button" align="center" class="nav-link text-black my-auto bg-transparent" style="border:none;"
+                                        <button type="button" align="center" class="nav-link my-auto bg-transparent @textColor" style="border:none;"
                                                 data-bs-toggle="modal" data-bs-target="#documentaryModal" onclick="openModal({ url: '/Home/Documentary', modalId: 'modalWindow'})">
                                             Документация
                                         </button>
@@ -56,12 +60,12 @@
 
                                         @if (User.Identity.IsAuthenticated)
                                         {
-                                            <a class="nav-link dropdown-toggle text-black" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <a class="nav-link dropdown-toggle @textColor" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                 Аккаунт
                                             </a>
                                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
 
-                                                <li><a class="dropdown-item " asp-controller="PersonalProfile" asp-action="GetPersonalProfile">Личный кабинет</a></li>
+                                                <li><a class="dropdown-item " asp-controller="UserProfile" asp-action="GetUserProfile">Личный кабинет</a></li>
                                                 @if (User.IsInRole("Admin"))
                                                 {
                                                     <li><a class="dropdown-item" asp-controller="Admin" asp-action="ChangeUserData">Админ</a></li>
@@ -85,6 +89,15 @@
                 </nav>
             </header>
         </div>
+        <nav class="navbar" style="height:80px;">
+            <div class="admin-list-group mx-auto">
+                <ul class="list-group list-group-horizontal list-group-rou">
+                    <li class="list-group-item admin-list-item bd-cyan-800" style="border-radius: 20px 0px 0px 20px"><a asp-controller="User" asp-action="GetUsers" class="d-block h-100 w-100 text-white text-decoration-none">Пользователи</a></li>
+                    <li class="list-group-item admin-list-item bd-cyan-800"><a asp-controller="Review" asp-action="GetReviews" class="d-block h-100 w-100 text-white text-decoration-none">Отзывы</a></li>
+                    <li class="list-group-item admin-list-item bd-cyan-800" style="border-radius: 0px 20px 20px 0px"><a asp-controller="User" asp-action="GetUsers" class="d-block h-100 w-100 text-white text-decoration-none">Уроки</a></li>
+                </ul>
+            </div>
+        </nav>
         <main>
             @RenderBody()
         </main>

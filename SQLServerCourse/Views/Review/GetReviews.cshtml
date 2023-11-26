@@ -53,7 +53,7 @@
                 <div class="row review mb-5 mx-auto p-2">
                     <div class="col-md-2">
                         <p class="review-user-name text-center fs-5 fw-bolder">
-                            @Model[i].UsersLogin
+                            @Model[i].Login
                         </p>
                         <p class="review-date text-center fs-6">
                             @Model[i].ReviewDateTime.ToString("yyyy-MM-dd HH:mm:ss")
@@ -61,7 +61,7 @@
                     </div>
                     <div class="col-md-8 my-auto">
                         <div class="review-text-container px-3 pt-2 my-1">
-                            <p class="text-white fs-6">@Model[i].ReviewText</p>
+                            <p class="text-white fs-6">@Model[i].Text</p>
                         </div>
                     </div>
                     @if (User.IsInRole("Admin"))

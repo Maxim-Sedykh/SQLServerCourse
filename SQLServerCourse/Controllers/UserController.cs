@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SQLServerCourse.Domain.ViewModels.PersonalProfile;
-using SQLServerCourse.Service.Interfaces;
 
 namespace SQLServerCourse.Controllers
 {
@@ -9,9 +7,27 @@ namespace SQLServerCourse.Controllers
     {
         public UserController()
         {
-
+                
         }
 
-        
+        public IActionResult GetUsers()
+        {
+            return View();
+        }
+
+        public IActionResult CreateUser()
+        {
+            return View();
+        }
+
+        public IActionResult DeleteUser()
+        {
+            return View();
+        }
+
+        public IActionResult EditUser()
+        {
+            return View();
+        }
     }
 }

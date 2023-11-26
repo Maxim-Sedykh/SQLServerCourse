@@ -43,7 +43,7 @@ namespace SQLServerCourse.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<IActionResult> DeleteReview([FromBody] int id)
+        public async Task<IActionResult> DeleteReview([FromBody] long id)
         {
             if (ModelState.IsValid)
             {

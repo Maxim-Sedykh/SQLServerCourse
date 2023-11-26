@@ -4,9 +4,9 @@ using SQLServerCourse.DAL.Interfaces;
 using SQLServerCourse.DAL.Repositories;
 using SQLServerCourse.Domain.Entity;
 using SQLServerCourse.Domain.Enum;
-using SQLServerCourse.Domain.Extensions;
 using SQLServerCourse.Domain.Responce;
 using SQLServerCourse.Domain.ViewModels.Lesson;
+using SQLServerCourse.Domain.ViewModels.PersonalProfile;
 using SQLServerCourse.Domain.ViewModels.Teaching;
 using SQLServerCourse.Service.Interfaces;
 using System;
@@ -25,19 +25,19 @@ namespace SQLServerCourse.Service.Implementations
 {
     public class BasicTeachingService: IBasicTeachingService
     {
-        private readonly IBaseRepository<User> _userRepository;
+        private readonly IBaseRepository<UserProfile> _userProfileRepository;
         private readonly IBaseRepository<LessonRecord> _lessonRecordRepository;
         private readonly IBaseRepository<Lesson> _lessonRepository;
         private readonly IBaseRepository<Question> _questionRepository;
         private readonly IBaseRepository<TestVariant> _testVariantRepository;
 
-        public BasicTeachingService(IBaseRepository<User> userRepository, IBaseRepository<LessonRecord> lessonRecordRepository, 
-            IBaseRepository<Lesson> lessonRepository, 
+        public BasicTeachingService(IBaseRepository<LessonRecord> lessonRecordRepository, 
+            IBaseRepository<Lesson> lessonRepository, IBaseRepository<UserProfile> userProfileRepository,
             IBaseRepository<Question> questionRepository, IBaseRepository<TestVariant> pageAnswerRepository)
         {
-            _userRepository = userRepository;
             _lessonRecordRepository = lessonRecordRepository;
             _lessonRepository = lessonRepository;
+            _userProfileRepository = userProfileRepository;
             _questionRepository = questionRepository;
             _testVariantRepository = pageAnswerRepository;
         }
@@ -77,7 +77,7 @@ namespace SQLServerCourse.Service.Implementations
             }
         }
 
-        public IBaseResponse<LessonPassViewModel> GetQuestions(int lessonId)
+        public IBaseResponse<LessonPassViewModel> GetQuestions(byte lessonId)
         {
             try
             {
@@ -132,16 +132,16 @@ namespace SQLServerCourse.Service.Implementations
                 }
 
                 var generalModel = GetLessonQuestions(currentLesson);
-                for (int i = 0; i < generalModel.Questions.Count; i++)
+                for (int i = 0; i < generalModel.Questions.Count; i++)  
                 {
                     if (userAnswersModel.Questions[i].UserAnswer != null)
                     {
-                        generalModel.Questions[i].UserAnswer = Regex.Replace(userAnswersModel.Questions[i].UserAnswer, @"\s+", " ")?.ToLower()?.Trim();
+                        generalModel.Questions[i].UserAnswer = Regex.Replace(userAnswersModel.Questions[i].UserAnswer, @"\s+", " ").ToLower().Trim();
                     } 
                 }
-                    
-                var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.Login == userName);
-                if (user is null)
+
+                var profile = await _userProfileRepository.GetAll().FirstOrDefaultAsync(x => x.User.Login == userName);
+                if (profile == null)
                 {
                     return new BaseResponse<LessonPassViewModel>()
                     {
@@ -151,9 +151,9 @@ namespace SQLServerCourse.Service.Implementations
                 }
 
                 Tuple<float, List<bool>> tasksEvaluations = CheckTasks(generalModel); //Проверка ответов пользователя
-                if (generalModel.LessonId > user.LessonsCompleted)
+                if (generalModel.LessonId > profile.LessonsCompleted)
                 {
-                    await CommitPassageChanges(generalModel, user, tasksEvaluations, generalModel.LessonId);
+                    await CommitPassageChanges(generalModel, profile, tasksEvaluations, generalModel.LessonId);
                 }
 
                 return new BaseResponse<LessonPassViewModel>()
@@ -171,16 +171,16 @@ namespace SQLServerCourse.Service.Implementations
                 };
             }
 
-            async Task CommitPassageChanges(LessonPassViewModel generalModel, User user, Tuple<float, List<bool>> tasksEvaluations, int lessonId)
+            async Task CommitPassageChanges(LessonPassViewModel generalModel, UserProfile profile, Tuple<float, List<bool>> tasksEvaluations, byte lessonId)
             {
-                user.FinalGrade =+ tasksEvaluations.Item1;
-                user.LessonsCompleted++;
+                profile.FinalGrade =+ tasksEvaluations.Item1;
+                profile.LessonsCompleted++;
 
-                await _userRepository.Update(user);
+                await _userProfileRepository.Update(profile);
                 await _lessonRecordRepository.Create(new LessonRecord
                 {
                     LessonId = lessonId,
-                    UserId = user.Id,
+                    UserId = profile.Id,
                     Mark = tasksEvaluations.Item1
                 });
 

@@ -1,4 +1,5 @@
-﻿@model SQLServerCourse.Domain.ViewModels.PersonalProfile.UserProfileViewModel
+﻿@using SQLServerCourse.Domain.ViewModels.PersonalProfile
+@model UserProfileViewModel
 
 @{
     ViewData["Title"] = "Личный кабинет | SQLCourse";
@@ -34,13 +35,13 @@
                                 Логин : <input class="info-user-input personal-profile-input-disabled" asp-for="Login" type="text">
                             </div>
                             <div class="mb-3">
-                                Имя: <input class="info-user-input profile-input" asp-for="Name" class="form-control" type="text">
+                                Имя: <input class="info-user-input profile-input" asp-for="Name" placeholder="Введите имя" class="form-control" type="text">
                             </div>
                             <div class="mb-3">
-                                Фамилия: <input class="info-user-input profile-input" asp-for="Surname" class="form-control" type="text">
+                                Фамилия: <input class="info-user-input profile-input" asp-for="Surname" placeholder="Введите фамилию" class="form-control" type="text">
                             </div>
                             <div class="mb-3">
-                                Возраст: <input class="info-user-input profile-input" asp-for="Age" class="form-control" type="number">
+                                Возраст: <input class="info-user-input profile-input" asp-for="Age" placeholder="Введите возраст" class="form-control" type="number">
                             </div>
                             <div class="mb-3">
                                 <button type="submit" class="btn btn-gradient text-white" id='updateInfoId'
@@ -64,7 +65,7 @@
                             }
                         </p>
                         <button type="button" align="center" class="btn btn-gradient text-white mb-3 py-0"
-                                onclick="openModal({ url: '/PersonalProfile/GetLessonRecords',  modalId: 'modalWindow'})"
+                                onclick="openModal({ url: '/UserProfile/GetLessonRecords',  modalId: 'modalWindow'})"
                                 data-toggle="ajax-modal" data-target="Modal">
                             Список оценок
                         </button>
@@ -84,7 +85,7 @@
         </div>
         <div class="row mx-auto mb-4 mt-0" style="align-content:center;width: 80%; height:75px; background:#1ab1c9; border-radius:35px;">
             <div class="@examRowStyle col-sm-12  text-center">
-                <button type="button" align="center" class="btn btn-gradient text-white text-center" onclick="openModal({ url: '/PersonalProfile/GetLessonList', modalId: 'wideModalWindow'})"
+                <button type="button" align="center" class="btn btn-gradient text-white text-center" onclick="openModal({ url: '/UserProfile/GetLessonList', modalId: 'wideModalWindow'})"
                         data-toggle="ajax-modal" data-target="Modal">
                     Перейти к урокам
                 </button>
@@ -129,11 +130,12 @@
             Login: document.getElementById("Login").value,
             Name: document.getElementById("Name").value,
             Surname: document.getElementById("Surname").value,
+            Age: document.getElementById("Age").value,
             LessonsCompleted: parseInt(document.getElementById("LessonsCompleted").value)
         };
         var jsonUpdateFormData = JSON.stringify(updateFormData);
 
-        const response = await fetch('/PersonalProfile/UpdateInfo', {
+        const response = await fetch('/UserProfile/UpdateInfo', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: jsonUpdateFormData

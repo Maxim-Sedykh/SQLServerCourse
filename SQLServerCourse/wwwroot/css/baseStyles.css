@@ -8,6 +8,58 @@ html {
   }
 }
 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.bd-cyan-100 {
+    color: #212529;
+    background-color: #abdee5;
+}
+
+.bd-cyan-200 {
+    color: #212529;
+    background-color: #86cfda;
+}
+
+.bd-cyan-300 {
+    color: #212529;
+    background-color: #61c0cf;
+}
+
+.bd-cyan-400 {
+    color: #fff;
+    background-color: #3cb1c3;
+}
+
+.bd-cyan-500 {
+    color: #fff;
+    background-color: #17a2b8;
+}
+
+.bd-cyan-600 {
+    color: #fff;
+    background-color: #13889b;
+}
+
+.bd-cyan-700 {
+    color: #fff;
+    background-color: #106e7d;
+}
+
+.bd-cyan-800 {
+    color: #fff;
+    background-color: #0c5460;
+}
+
+.bd-cyan-900 {
+    color: #fff;
+    background-color: #083a42;
+}
+
+
 :root {
     --color-darkblue1: #061c42;
     --color-darkblue2: #001f5e;

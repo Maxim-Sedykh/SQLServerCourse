@@ -11,9 +11,9 @@ namespace SQLServerCourse.Service.Interfaces
 {
     public interface IBasicTeachingService
     {
-        public IBaseResponse<LessonLectureViewModel> GetLecture(int lessonId);
+        public IBaseResponse<LessonLectureViewModel> GetLecture(byte lessonId);
 
-        public IBaseResponse<LessonPassViewModel> GetQuestions(int lessonId);
+        public IBaseResponse<LessonPassViewModel> GetQuestions(byte lessonId);
 
         public Task<IBaseResponse<LessonPassViewModel>> PassLesson(LessonPassViewModel model, string userName);
     }

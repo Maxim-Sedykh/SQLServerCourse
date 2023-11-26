@@ -121,7 +121,7 @@ namespace SQLServerCourse.DAL
                 builder.ToTable("Reviews").HasKey(r => r.Id);
 
                 builder.Property(r => r.Id).ValueGeneratedOnAdd();
-                builder.Property(r => r.ReviewText).HasMaxLength(200).IsRequired();
+                builder.Property(r => r.ReviewText).HasMaxLength(300).IsRequired();
 
                 builder.HasOne(r => r.User)
                     .WithMany(u => u.Reviews)
@@ -151,8 +151,8 @@ namespace SQLServerCourse.DAL
                 builder.ToTable("Questions").HasKey(x => x.Id);
 
                 builder.Property(x => x.Id).ValueGeneratedOnAdd();
-                builder.Property(r => r.DisplayQuestion).HasMaxLength(100).IsRequired();
-                builder.Property(r => r.Answer).HasMaxLength(30).IsRequired();
+                builder.Property(r => r.DisplayQuestion).HasMaxLength(750).IsRequired();
+                builder.Property(r => r.Answer).HasMaxLength(70).IsRequired();
 
                 builder.HasOne(q => q.Lesson)
                     .WithMany(l => l.Questions)
@@ -165,7 +165,7 @@ namespace SQLServerCourse.DAL
                 builder.ToTable("TestVariants").HasKey(x => x.Id);
 
                 builder.Property(tv => tv.Id).ValueGeneratedOnAdd();
-                builder.Property(tv => tv.Content).HasMaxLength(100).IsRequired();
+                builder.Property(tv => tv.Content).HasMaxLength(500).IsRequired();
 
                 builder.HasOne(tv => tv.Question)
                     .WithMany(q => q.TestVariants)
@@ -179,7 +179,7 @@ namespace SQLServerCourse.DAL
 
                 builder.Property(l => l.Id).ValueGeneratedOnAdd();
                 builder.Property(l => l.Name).HasMaxLength(75).IsRequired();
-                builder.Property(l => l.LectureMarkup).HasMaxLength(5000).IsRequired();
+                builder.Property(l => l.LectureMarkup).HasMaxLength(5000).IsRequired(false);
             });
 
             // Таблицы для практических заданий
@@ -190,7 +190,7 @@ namespace SQLServerCourse.DAL
 
                 builder.Property(x => x.Id).ValueGeneratedOnAdd();
                 builder.Property(l => l.Name).HasMaxLength(50).IsRequired();
-                builder.Property(l => l.Description).HasMaxLength(100).IsRequired(false);
+                builder.Property(l => l.Description).HasMaxLength(200).IsRequired(false);
             });
 
             modelBuilder.Entity<Hall>(builder =>

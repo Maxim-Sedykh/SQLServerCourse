@@ -21,12 +21,13 @@ namespace SQLServerCourse.Service.Implementations
 {
     public class FinalResultService : IFinalResultService
     {
-        private readonly IBaseRepository<User> _userRepository;
+        private const byte supposedLessonRecordsCount = 5;
+        private readonly IBaseRepository<UserProfile> _userProfileRepository;
         private readonly IBaseRepository<LessonRecord> _lessonRecordRepository;
 
-        public FinalResultService(IBaseRepository<User> userRepository, IBaseRepository<LessonRecord> lessonRecordRepository)
+        public FinalResultService(IBaseRepository<UserProfile> userProfileRepository, IBaseRepository<LessonRecord> lessonRecordRepository)
         {
-            _userRepository = userRepository;
+            _userProfileRepository = userProfileRepository;
             _lessonRecordRepository = lessonRecordRepository;
         }
 
@@ -34,8 +35,8 @@ namespace SQLServerCourse.Service.Implementations
         {
             try
             {
-                var currentUser = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.Login == userName);
-                if (currentUser is null)
+                var profile = await _userProfileRepository.GetAll().FirstOrDefaultAsync(x => x.User.Login == userName);
+                if (profile is null)
                 {
                     return new BaseResponse<ResultViewModel>()
                     {
@@ -44,17 +45,20 @@ namespace SQLServerCourse.Service.Implementations
                     };
                 }
 
-                currentUser.Analys = await CreateAnalys(currentUser);
-                currentUser.IsExamCompleted = true;
-                await _userRepository.Update(currentUser);
+                string analys = await CreateAnalys(profile);
+
+                profile.Analys = analys;
+                profile.IsExamCompleted = true;
+
+                await _userProfileRepository.Update(profile);
 
                 var response =  new ResultViewModel()
                                 {
-                                    Login = currentUser.Login,
-                                    Name = currentUser.Name,
-                                    Surname = currentUser.Surname,
-                                    FinalGrade = currentUser.FinalGrade,
-                                    UserAnalys = currentUser.Analys
+                                    Login = profile.User.Login,
+                                    Name = profile.Name,
+                                    Surname = profile.Surname,
+                                    FinalGrade = profile.FinalGrade,
+                                    UserAnalys = profile.Analys
                 };
 
                 if (response is null)
@@ -84,9 +88,11 @@ namespace SQLServerCourse.Service.Implementations
 
         }
 
-        private async Task<string> CreateAnalys(User user) // Создание анализа прохождения курса
+        private async Task<string> CreateAnalys(UserProfile profile) // Создание анализа прохождения курса
         {
-            string firstPartOfAnalys = user.FinalGrade switch
+            string analys = "Извините, данные вашего анализа были утеряны.";
+
+            string firstPartOfAnalys = profile.FinalGrade switch
             {
                 > 60 and <= 75 => "Данный курс вы прошли удовлетворительно. ",
                 > 75 and <= 90 => "Вы очень хорошо прошли курс! ",
@@ -95,12 +101,11 @@ namespace SQLServerCourse.Service.Implementations
                         "Вы всегда рано или поздно достигните успеха, если будете стараться!!! "
             };
 
-            int supposedLessonRecordsCount = 5;
-            if (_lessonRecordRepository.GetAll().Where(x => x.UserId == user.Id).Count() != supposedLessonRecordsCount)
+            if (_lessonRecordRepository.GetAll().Where(x => x.UserId == profile.Id).Count() != supposedLessonRecordsCount)
             {
-                return "Извините, данные вашего анализа были утеряны.";
+                return analys;
             }
-            var usersLessonRecords = await _lessonRecordRepository.GetAll().Include(x => x.Lesson).Where(x => x.UserId == user.Id).ToListAsync();
+            var usersLessonRecords = await _lessonRecordRepository.GetAll().Include(x => x.Lesson).Where(x => x.UserId == profile.Id).ToListAsync();
             var examLessonRecord = usersLessonRecords.Where(x => x.Lesson.Name == "Экзамен");
             var commonLessonRecords = usersLessonRecords.Except(examLessonRecord);
 
@@ -113,15 +118,16 @@ namespace SQLServerCourse.Service.Implementations
                  $" вы набрали {examLessonRecord.First().Mark} баллов по экзамену из 40б. " +
                  $"За одно тестовое задание можно было получить 1.5 балла, за открытое 3.5.";
 
-            return firstPartOfAnalys + secondPartOfAnalys;
+            return analys = firstPartOfAnalys + secondPartOfAnalys;
         }
 
         public IBaseResponse<string> GetUserAnalys(string userName)
         {
             try
             {
-                var currentUser = _userRepository.GetAll().FirstOrDefault(x => x.Login == userName);
-                if (currentUser is null)
+                var profile = _userProfileRepository.GetAll().FirstOrDefault(x => x.User.Login == userName);
+
+                if (profile is null)
                 {
                     return new BaseResponse<string>()
                     {
@@ -129,7 +135,7 @@ namespace SQLServerCourse.Service.Implementations
                         Description = "Пользователь не найден"
                     };
                 }
-                if (currentUser.Analys is null)
+                if (profile.Analys is null)
                 {
                     return new BaseResponse<string>()
                     {
@@ -139,7 +145,7 @@ namespace SQLServerCourse.Service.Implementations
                 }
                 return new BaseResponse<string>()
                 {
-                    Data = currentUser.Analys,
+                    Data = profile.Analys,
                     StatusCode = StatusCode.OK
                 };
             }
