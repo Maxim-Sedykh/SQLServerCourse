@@ -19,13 +19,16 @@ namespace SQLServerCourse.Service.Implementations
     public class AccountService: IAccountService
     {
         private readonly IBaseRepository<User> _userRepository;
+        private readonly IBaseRepository<UserProfile> _userProfileRepository;
         private readonly ILogger<AccountService> _logger;
 
         public AccountService(IBaseRepository<User> userRepository,
-            ILogger<AccountService> logger)
+            ILogger<AccountService> logger,
+            IBaseRepository<UserProfile> userProfileRepository)
         {
             _userRepository = userRepository;
             _logger = logger;
+            _userProfileRepository = userProfileRepository;
         }
         public async Task<BaseResponse<ClaimsIdentity>> Register(RegisterViewModel model)
         {
@@ -47,7 +50,15 @@ namespace SQLServerCourse.Service.Implementations
                     Password = HashPasswordHelper.HashPassword(model.Password),
                 };
 
+                var profile = new UserProfile()
+                {
+                    UserId = user.Id,
+                    IsEditAble = true,
+                };
+
                 await _userRepository.Create(user);
+                await _userProfileRepository.Create(profile);
+
                 var result = Authenticate(user);
 
                 return new BaseResponse<ClaimsIdentity>

@@ -173,7 +173,7 @@ namespace SQLServerCourse.Service.Implementations
 
             async Task CommitPassageChanges(LessonPassViewModel generalModel, UserProfile profile, Tuple<float, List<bool>> tasksEvaluations, byte lessonId)
             {
-                profile.FinalGrade =+ tasksEvaluations.Item1;
+                profile.CurrentGrade =+ tasksEvaluations.Item1;
                 profile.LessonsCompleted++;
 
                 await _userProfileRepository.Update(profile);

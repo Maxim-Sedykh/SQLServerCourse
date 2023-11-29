@@ -19,20 +19,20 @@ namespace SQLServerCourse.Service.Implementations
     public class ReviewService : IReviewService
     {
         private readonly IBaseRepository<Review> _reviewRepository;
-        private readonly IBaseRepository<User> _userRepository;
+        private readonly IBaseRepository<UserProfile> _userProfileRepository;
 
-        public ReviewService(IBaseRepository<Review> reviewRepository, IBaseRepository<User> userRepository)
+        public ReviewService(IBaseRepository<Review> reviewRepository, IBaseRepository<UserProfile> userProfileRepository)
         {
             _reviewRepository = reviewRepository;
-            _userRepository = userRepository;
+            _userProfileRepository = userProfileRepository;
         }
 
         public async Task<IBaseResponse<bool>> CreateReview(CreateReviewViewModel model, string userName)
         {
             try
             {
-                var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.Login == userName);
-                if (user == null)
+                var profile = await _userProfileRepository.GetAll().FirstOrDefaultAsync(x => x.User.Login == userName);
+                if (profile == null)
                 {
                     return new BaseResponse<bool>
                     {
@@ -43,12 +43,16 @@ namespace SQLServerCourse.Service.Implementations
 
                 var review = new Review()
                 {
-                    UserId = user.Id,
+                    UserId = profile.Id,
                     ReviewText = model.ReviewText,
                     ReviewTime = DateTime.Now,
                 };
 
+                profile.IsReviewLeft = true;
+
                 await _reviewRepository.Create(review);
+                await _userProfileRepository.Update(profile);
+
 
                 return new BaseResponse<bool>()
                 {

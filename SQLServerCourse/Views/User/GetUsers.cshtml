@@ -1,5 +1,138 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using SQLServerCourse.Domain.Enum
+@using SQLServerCourse.Domain.ViewModels.User
+@model List<UserViewModel>
+
 @{
+    string dis = "";
+    ViewData["Title"] = "Все пользователи | SQLCourse";
 }
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="card w-100 col-md-12 p-5 br-40">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Логин</th>
+                        <th scope="col">Роль</th>
+                        <th scope="col">Экзамен выполнен</th>
+                        <th scope="col">Оставлял отзыв</th>
+                        <th scope="col">Может менять свои данные</th>
+                        <th scope="col">Изменить</th>
+                        <th scope="col">Удалить</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <tr>
+                            <td>@Model[i].Id</td>
+                            <td>@Model[i].Login</td>
+                            <td>@Model[i].Role</td>
+                            <td>
+                                @if (Model[i].IsExamCompleted)
+                                {
+                                    <text>Да</text>
+                                }
+                                else
+                                {
+                                    <text>Нет</text>
+                                }
+                            </td>
+                            <td>
+                                @if (Model[i].IsReviewLeft)
+                                {
+                                    <text>Да</text>
+                                }
+                                else
+                                {
+                                    <text>Нет</text>
+                                }
+                            </td>
+                            <td>
+                                @if (Model[i].IsEditAble)
+                                {
+                                    <text>Да</text>
+                                }
+                                else
+                                {
+                                    <text>Нет</text>
+                                }
+                            </td>
+                            <td>
+                                <button type="button" class="btn bd-cyan-500 rounded-pill" onclick="openModal({ url: '/User/GetUser', modalId: 'wideModalWindow'})"
+                                        data-toggle="ajax-modal" data-target="Modal">
+                                    Вся информация
+                                </button>
+                            </td>
+                            <td>
+                                @if (Model[i].Role == Role.Admin)
+                                {
+                                    dis = "disabled";
+                                }
+                                else
+                                {
+                                    dis = "";
+                                }
+                                <form id="deleteUserForm-@i">
+                                    <input type="hidden" name="id" value="@Model[i].Id">
+                                    <button type="submit" class="btn bd-red-700 rounded-pill @dis" onclick="deleteUser(event, @i)">Удалить</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    document.getElementById('#userRoleId').select2({
+        placeholder: "Выберите роль",
+        minimumInputLength: 0,
+    });
+</script>
+<script>
+    async function deleteUser(event, number) {
+        event.preventDefault();
+        Swal.fire({
+            title: "Вы действительно хотите удалить пользователя?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#042b76",
+            cancelButtonColor: "#800707",
+            confirmButtonText: "Да, удалить!",
+            cancelButtonText: "Отмена",
+            background: '#333',
+            iconColor: '#fff',
+            color: 'white',
+        }).then(async (result) => {
+            event.preventDefault();
+
+            if (result.isConfirmed) {
+                var form = document.getElementById("deleteUserForm-" + number);
+                var id = JSON.stringify(form.querySelector('input').value);
+
+                const response = await fetch('/User/DeleteUser', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: id
+                });
+
+                const responseBody = await response.json();
+                Swal.fire({
+                    title: responseBody.description,
+                    text: response.ok ? 'Больше вы его не увидите!' : 'Попробуйте позже!',
+                    icon: response.ok ? 'success' : 'error',
+                    background: '#333',
+                    color: 'white',
+                }).then(() => {
+                    location.reload()
+                });
+            }
+        });
+    }
+</script>

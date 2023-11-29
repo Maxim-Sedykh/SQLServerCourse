@@ -97,16 +97,19 @@ namespace SQLServerCourse.DAL
                 builder.HasData(new UserProfile
                 {
                     Id = 1,
+                    IsEditAble = true,
                     UserId = 1,
                 },
                 new UserProfile
                 {
                     Id = 2,
+                    IsEditAble = true,
                     UserId = 2,
                 },
                 new UserProfile
                 {
-                    Id = 3, 
+                    Id = 3,
+                    IsEditAble = true,
                     UserId = 3,
                 });
 

@@ -43,15 +43,12 @@ namespace SQLServerCourse.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<IActionResult> DeleteReview([FromBody] long id)
+        public async Task<IActionResult> DeleteReview(long id)
         {
-            if (ModelState.IsValid)
+            var response = await _reviewService.DeleteReview(id);
+            if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
-                var response = await _reviewService.DeleteReview(id);
-                if (response.StatusCode == Domain.Enum.StatusCode.OK)
-                {
-                    return Json(new { description = response.Description });
-                }
+                return RedirectToAction("GetReviews", "Review");
             }
             return StatusCode(StatusCodes.Status500InternalServerError);
         }

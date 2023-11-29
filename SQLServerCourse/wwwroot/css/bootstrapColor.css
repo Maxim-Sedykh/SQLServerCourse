@@ -15,7 +15,7 @@
         background-color: #e5e1ea;
     }
 
-    .color-swatches .bd-gray {
+    .color-swatches {
         background-color: #f9f9f9;
     }
 
@@ -592,4 +592,9 @@
 .bd-cyan-900 {
     color: #fff;
     background-color: #083a42;
+}
+
+.bd-gray {
+    color:#fff;
+    background-color:#333333;
 }

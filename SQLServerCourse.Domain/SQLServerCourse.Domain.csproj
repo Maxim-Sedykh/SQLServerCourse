@@ -14,8 +14,4 @@
 	<PackageReference Include="ServiceStack" Version="6.10.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
-
 </Project>

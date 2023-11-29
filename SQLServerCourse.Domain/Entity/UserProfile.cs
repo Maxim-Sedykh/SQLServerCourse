@@ -18,13 +18,15 @@ namespace SQLServerCourse.Domain.Entity
 
         public bool IsExamCompleted { get; set; }
 
-        public float FinalGrade { get; set; }
+        public float CurrentGrade { get; set; }
 
         public byte LessonsCompleted { get; set; }
 
         public string? Analys { get; set; }
 
-        public bool IsReviewed { get; set; }
+        public bool IsEditAble { get; set; }
+
+        public bool IsReviewLeft { get; set; }
 
         public long UserId { get; set; }
 

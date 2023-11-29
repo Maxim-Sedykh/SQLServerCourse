@@ -57,7 +57,7 @@ namespace SQLServerCourse.Service.Implementations
                                     Login = profile.User.Login,
                                     Name = profile.Name,
                                     Surname = profile.Surname,
-                                    FinalGrade = profile.FinalGrade,
+                                    CurrentGrade = profile.CurrentGrade,
                                     UserAnalys = profile.Analys
                 };
 
@@ -92,7 +92,7 @@ namespace SQLServerCourse.Service.Implementations
         {
             string analys = "Извините, данные вашего анализа были утеряны.";
 
-            string firstPartOfAnalys = profile.FinalGrade switch
+            string firstPartOfAnalys = profile.CurrentGrade switch
             {
                 > 60 and <= 75 => "Данный курс вы прошли удовлетворительно. ",
                 > 75 and <= 90 => "Вы очень хорошо прошли курс! ",

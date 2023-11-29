@@ -28,10 +28,12 @@ namespace SQLServerCourse.Domain.ViewModels.PersonalProfile
         [Range(0, 130, ErrorMessage = "Диапазон возраста должен быть от 0 до 130")]
         public byte Age { get; set; }
 
-        public float FinalGrade { get; set; }
+        public float CurrentGrade { get; set; }
 
         public bool IsExamCompleted { get; set;}
 
         public byte LessonsCompleted { get; set; }
+
+        public bool IsEditAble { get; set; }
     }
 }

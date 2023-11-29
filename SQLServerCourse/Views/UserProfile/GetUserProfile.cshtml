@@ -6,7 +6,13 @@
 }
 
 @{
-    var examRowStyle = "col-md-12";
+    string cannotChangeData = "";
+    if (!Model.IsEditAble)
+    {
+        cannotChangeData = "disabled";
+    }
+
+    string examRowStyle = "col-md-12";
     if (Model.IsExamCompleted) examRowStyle = "col-md-6";
 }
 
@@ -30,7 +36,7 @@
                         <form id="personalProfileFormId">
                             <input class="info-user-input" asp-for="Id" hidden="hidden"/>
                             <input class="info-user-input" asp-for="IsExamCompleted" hidden="hidden" />
-                            <input class="info-user-input" asp-for="FinalGrade" hidden="hidden" />
+                            <input class="info-user-input" asp-for="CurrentGrade" hidden="hidden" />
                             <div class="mb-3">
                                 Логин : <input class="info-user-input personal-profile-input-disabled" asp-for="Login" type="text">
                             </div>
@@ -44,7 +50,7 @@
                                 Возраст: <input class="info-user-input profile-input" asp-for="Age" placeholder="Введите возраст" class="form-control" type="number">
                             </div>
                             <div class="mb-3">
-                                <button type="submit" class="btn btn-gradient text-white" id='updateInfoId'
+                                <button type="submit" class="btn btn-gradient text-white @cannotChangeData" id='updateInfoId'
                                         style="background: #0058b4; height: 40px;">
                                     Обновить информацию
                                 </button>
@@ -61,7 +67,7 @@
                             }
                             else
                             {
-                                <text>@Model.FinalGrade баллов из 100</text>
+                                <text>@Model.CurrentGrade баллов из 100</text>
                             }
                         </p>
                         <button type="button" align="center" class="btn btn-gradient text-white mb-3 py-0"

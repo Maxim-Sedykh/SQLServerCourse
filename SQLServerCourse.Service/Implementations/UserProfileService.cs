@@ -38,9 +38,10 @@ namespace SQLServerCourse.Service.Implementations
                         Name = x.Name,
                         Surname = x.Surname,
                         Age = x.Age,
-                        FinalGrade = x.FinalGrade,
+                        CurrentGrade = x.CurrentGrade,
                         IsExamCompleted = x.IsExamCompleted,
                         LessonsCompleted = x.LessonsCompleted,
+                        IsEditAble = x.IsEditAble
                     })
                     .FirstOrDefaultAsync(x => x.Login == userName);
 
