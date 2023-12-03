@@ -35,7 +35,7 @@ namespace SQLServerCourse.Service.Implementations
             try
             {
                 var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.Login == model.Login);
-                if (user is not null)
+                if (user != null)
                 {
                     return new BaseResponse<ClaimsIdentity>
                     {

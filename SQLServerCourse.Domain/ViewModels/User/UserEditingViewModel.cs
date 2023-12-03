@@ -17,32 +17,19 @@ namespace SQLServerCourse.Domain.ViewModels.User
         [Display(Name = "Логин")]
         public string Login { get; set; }
 
-        [Required(ErrorMessage = "Укажите пароль")]
-        [Display(Name = "Пароль")]
-        public string Password { get; set; }
-
         [Required(ErrorMessage = "Укажите роль")]
         [Display(Name = "Роль")]
         public Role Role { get; set; }
 
         [Display(Name = "Имя")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [Display(Name = "Фамилия")]
-        public string Surname { get; set; }
+        public string? Surname { get; set; }
 
         [Display(Name = "Может редактировать свои данные")]
         public bool IsEditAble { get; set; }
 
-        [Display(Name = "Прошёл экзамен")]
-        public bool IsExamCompleted { get; set; }
-
-        [Display(Name = "Текущая оценка")]
-        [Range(0, 100, ErrorMessage = "Диапазон оценки должен быть от 0 до 100")]
-        public float CurrentGrade { get; set; }
-
-        [Display(Name = "Прошёл уроков")]
-        [Range(0, 130, ErrorMessage = "Диапазон пройденных уроков должен быть от 0 до 5")]
-        public byte LessonsCompleted { get; set; }
+        public Dictionary<int, string>? UserRoles { get; set; }
     }
 }

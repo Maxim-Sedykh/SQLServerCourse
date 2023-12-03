@@ -32,4 +32,8 @@
     <ProjectReference Include="..\SQLServerCourse.Service\SQLServerCourse.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Lesson\" />
+  </ItemGroup>
+
 </Project>

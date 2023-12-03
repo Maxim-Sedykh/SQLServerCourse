@@ -71,11 +71,6 @@ namespace SQLServerCourse.Service.Implementations
             }
         }
 
-        public Task<IBaseResponse<Review>> EditUser(long id)
-        {
-            throw new NotImplementedException();
-        }
-
         public BaseResponse<Dictionary<int, string>> GetRoles()
         {
             try
@@ -95,6 +90,49 @@ namespace SQLServerCourse.Service.Implementations
                 {
                     Description = ex.Message,
                     StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<UserEditingViewModel>> GetUser(long id)
+        {
+            try
+            {
+                var roles = ((Role[])Enum.GetValues(typeof(Role)))
+                    .ToDictionary(k => (int)k, v => v.GetDisplayName());
+                var result = await _userProfileRepository.GetAll()
+                    .Select(x => new UserEditingViewModel()
+                    {
+                        Id = x.User.Id,
+                        Login = x.User.Login,
+                        Role = x.User.Role,
+                        Name = x.Name,
+                        Surname = x.Surname,
+                        IsEditAble = x.IsEditAble,
+                        UserRoles = roles
+                    })
+                    .FirstOrDefaultAsync(x => x.Id == id);
+
+                if (result is null)
+                {
+                    return new BaseResponse<UserEditingViewModel>()
+                    {
+                        Description = "Пользователь не найден",
+                        StatusCode = StatusCode.UserNotFound
+                    };
+                }
+                return new BaseResponse<UserEditingViewModel>()
+                {
+                    Data = result,
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<UserEditingViewModel>()
+                {
+                    StatusCode = StatusCode.InternalServerError,
+                    Description = $"Внутренняя ошибка: {ex.Message}"
                 };
             }
         }
@@ -131,6 +169,61 @@ namespace SQLServerCourse.Service.Implementations
             catch (Exception ex)
             {
                 return new BaseResponse<List<UserViewModel>>()
+                {
+                    StatusCode = StatusCode.InternalServerError,
+                    Description = $"Внутренняя ошибка: {ex.Message}"
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<UserProfile>> UpdateUserData(UserEditingViewModel model)
+        {
+            try
+            {
+                var profile = await _userProfileRepository.GetAll()
+                    .FirstOrDefaultAsync(x => x.User.Id == model.Id);
+                var currentUser = await _userRepository.GetAll()
+                    .FirstOrDefaultAsync(x => x.Id == model.Id);
+                if (profile == null || currentUser == null)
+                {
+                    return new BaseResponse<UserProfile>()
+                    {
+                        StatusCode = StatusCode.UserNotFound,
+                        Description = "Пользователь не найден"
+                    };
+                }
+
+                var otherUsers = _userRepository.GetAll().Where(x => x.Id != model.Id);
+                foreach (var user in otherUsers)
+                {
+                    if (user.Login == model.Login) 
+                    {
+                        return new BaseResponse<UserProfile>()
+                        {
+                            Description = "Уже есть пользователь с таким логином"
+                        };
+                    }
+                }
+
+                currentUser.Login = model.Login;
+                currentUser.Role = model.Role;
+                profile.Name = model.Name;
+                profile.Surname = model.Surname;
+                profile.IsEditAble = model.IsEditAble;
+
+                await _userProfileRepository.Update(profile);
+                await _userRepository.Update(currentUser);
+
+                return new BaseResponse<UserProfile>()
+                {
+                    Description = "Данные обновлены!",
+                    Data = profile,
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<UserProfile>()
                 {
                     StatusCode = StatusCode.InternalServerError,
                     Description = $"Внутренняя ошибка: {ex.Message}"

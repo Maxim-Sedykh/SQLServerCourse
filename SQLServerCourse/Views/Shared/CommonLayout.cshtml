@@ -95,7 +95,7 @@
                         <ul class="list-group list-group-horizontal list-group-rou">
                             <li class="list-group-item admin-list-item bd-cyan-800" style="border-radius: 20px 0px 0px 20px"><a asp-controller="User" asp-action="GetUsers" class="d-block h-100 w-100 text-white text-decoration-none">Пользователи</a></li>
                             <li class="list-group-item admin-list-item bd-cyan-800"><a asp-controller="Review" asp-action="GetReviews" class="d-block h-100 w-100 text-white text-decoration-none">Отзывы</a></li>
-                            <li class="list-group-item admin-list-item bd-cyan-800" style="border-radius: 0px 20px 20px 0px"><a asp-controller="User" asp-action="GetUsers" class="d-block h-100 w-100 text-white text-decoration-none">Уроки</a></li>
+                            <li class="list-group-item admin-list-item bd-cyan-800" style="border-radius: 0px 20px 20px 0px"><a asp-controller="Lesson" asp-action="Index" asp-route-id="3" class="d-block h-100 w-100 text-white text-decoration-none">Уроки</a></li>
                         </ul>
                     </div>
                 </nav>
@@ -154,6 +154,7 @@
         </div>
     </footer>
 
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="~/js/JavaScript.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

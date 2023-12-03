@@ -16,8 +16,10 @@ namespace SQLServerCourse.Service.Interfaces
 
         Task<IBaseResponse<bool>> DeleteUser(long id);
 
-        Task<IBaseResponse<Review>> EditUser(long id);
+        Task<IBaseResponse<UserEditingViewModel>> GetUser(long id);
 
         BaseResponse<Dictionary<int, string>> GetRoles();
+
+        Task<IBaseResponse<UserProfile>> UpdateUserData(UserEditingViewModel model);
     }
 }

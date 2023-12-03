@@ -8,8 +8,15 @@
 }
 
 <div class="container mt-2">
+    <div class="d-flex justify-content-between w-50 mx-auto mb-4">
+        <a asp-controller="User" asp-action="GetUsers" class="btn d-block br-40 bd-cyan-500">Обновить таблицу</a>
+        <button class="btn br-40 bd-green-600" onclick="openModal({ url: '/User/GetUser', modalId: 'modalWindow'})"
+                data-toggle="ajax-modal" data-target="Modal">
+            Добавить пользователя
+        </button>
+    </div>
     <div class="row">
-        <div class="card w-100 col-md-12 p-5 br-40">
+        <div class="card w-100 col-md-12 px-5 py-4 br-40">
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
@@ -61,7 +68,7 @@
                                 }
                             </td>
                             <td>
-                                <button type="button" class="btn bd-cyan-500 rounded-pill" onclick="openModal({ url: '/User/GetUser', modalId: 'wideModalWindow'})"
+                                <button type="button" class="btn bd-cyan-500 rounded-pill" onclick="openModal({ url: '/User/GetUser/@Model[i].Id', modalId: 'modalWindow'})"
                                         data-toggle="ajax-modal" data-target="Modal">
                                     Вся информация
                                 </button>
@@ -88,13 +95,7 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script>
-    document.getElementById('#userRoleId').select2({
-        placeholder: "Выберите роль",
-        minimumInputLength: 0,
-    });
-</script>
+<script src="~/js/JavaScript.js"></script>
 <script>
     async function deleteUser(event, number) {
         event.preventDefault();
