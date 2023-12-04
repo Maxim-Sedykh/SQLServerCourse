@@ -8,15 +8,15 @@
 }
 
 <div class="container mt-2">
-    <div class="d-flex justify-content-between w-50 mx-auto mb-4">
+    <div class="d-flex justify-content-between w-50 mx-auto">
         <a asp-controller="User" asp-action="GetUsers" class="btn d-block br-40 bd-cyan-500">Обновить таблицу</a>
-        <button class="btn br-40 bd-green-600" onclick="openModal({ url: '/User/GetUser', modalId: 'modalWindow'})"
+        <button class="btn br-40 bd-green-600" onclick="openModal({ url: '/User/GetAddUser', modalId: 'modalWindow'})"
                 data-toggle="ajax-modal" data-target="Modal">
             Добавить пользователя
         </button>
     </div>
     <div class="row">
-        <div class="card w-100 col-md-12 px-5 py-4 br-40">
+        <div class="card w-100 col-md-12 px-5 py-4 br-40 my-4">
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
@@ -95,7 +95,6 @@
     </div>
 </div>
 
-<script src="~/js/JavaScript.js"></script>
 <script>
     async function deleteUser(event, number) {
         event.preventDefault();

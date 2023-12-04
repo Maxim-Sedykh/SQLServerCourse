@@ -8,30 +8,23 @@ using System.Threading.Tasks;
 
 namespace SQLServerCourse.Domain.ViewModels.User
 {
-    public class UserEditingViewModel
+    public class UserAddingViewModel
     {
-        [Display(Name = "Id")]
-        public long Id { get; set; }
-
-        [Required(ErrorMessage = "Укажите логин")]
+        [Display(Name = "Логин")]
+        [Required(ErrorMessage = "Введите логин")]
         [MinLength(4, ErrorMessage = "Длина логина должна быть больше четырёх символов")]
         [MaxLength(12, ErrorMessage = "Длина логина должна быть меньше двенадцати символов")]
-        [Display(Name = "Логин")]
         public string Login { get; set; }
 
-        [Required(ErrorMessage = "Укажите роль")]
+        [Display(Name = "Пароль")]
+        [DataType(DataType.Password)]
+        [Required(ErrorMessage = "Введите пароль")]
+        [MinLength(5, ErrorMessage = "Длина пароля должна быть больше пяти символов")]
+        [MaxLength(20, ErrorMessage = "Длина пароля должна быть меньше двадцати символов")]
+        public string Password { get; set; }
+
         [Display(Name = "Роль")]
+        [Required(ErrorMessage = "Выберите роль")]
         public Role Role { get; set; }
-
-        [Display(Name = "Имя")]
-        public string? Name { get; set; }
-
-        [Display(Name = "Фамилия")]
-        public string? Surname { get; set; }
-
-        [Display(Name = "Может редактировать свои данные")]
-        public bool IsEditAble { get; set; }
-
-        public Dictionary<int, string>? UserRoles { get; set; }
     }
 }

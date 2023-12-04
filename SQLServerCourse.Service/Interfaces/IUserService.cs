@@ -21,5 +21,7 @@ namespace SQLServerCourse.Service.Interfaces
         BaseResponse<Dictionary<int, string>> GetRoles();
 
         Task<IBaseResponse<UserProfile>> UpdateUserData(UserEditingViewModel model);
+
+        Task<IBaseResponse<User>> AddUser(UserAddingViewModel model);
     }
 }

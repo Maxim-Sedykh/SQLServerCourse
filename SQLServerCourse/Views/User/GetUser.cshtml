@@ -1,9 +1,7 @@
-﻿@using SQLServerCourse.Domain.ViewModels.User
-@model UserEditingViewModel
+﻿@model SQLServerCourse.Domain.ViewModels.User.UserEditingViewModel
 
 <div class="container">
     <form id="userDataForm" method="post">
-        <input asp-for="@Model.UserRoles" type="hidden" value="@Html.Raw(Json.Serialize(Model.UserRoles))" class="form-control br-40" readonly>
         <div class="row p-3 border border-bottom border-white br-40 pb-4">
             <div class="col-md-12">
                 <div class="form-group">
@@ -38,9 +36,10 @@
                     <label asp-for="@Model.Surname" class="col-form-label text-white"></label>
                     <input asp-for="@Model.Surname" type="text" class="form-control br-40">
                 </div>
-                <div class="form-check">
-                    <input asp-for="@Model.IsEditAble" type="checkbox" class="form-check-input mt-2">
-                    <label asp-for="@Model.IsEditAble" class="col-form-label text-white"></label>
+                <div class="form-group">
+                    <label asp-for="@Model.IsEditAble" class="col-form-label text-white"></label><br />
+                    <input asp-for="@Model.IsEditAble" id="isEditAbleTrueId" type="radio" class="form-check-input" value="true"><label class="col-form-label text-white ms-2 pt-0"> Да</label><br />
+                    <input asp-for="@Model.IsEditAble" id="isEditAbleFalseId" type="radio" class="form-check-input" value=""><label class="col-form-label text-white ms-2 pt-0"> Нет</label>
                 </div>
             </div>
         </div>
@@ -50,37 +49,56 @@
     </form>
 </div>
 
-<script src="~/js/JavaScript.js"></script>
-@* <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    var IsEditAble = @Html.Raw(Json.Serialize(Model.IsEditAble));
+    if (IsEditAble) {
+        document.getElementById("isEditAbleTrueId").checked = true;
+    }
+    else{
+        document.getElementById("isEditAbleFalseId").checked = true;
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
     $(document).ready(function () {
         $('#userRoleId').select2({
             dropdownParent: $('#wideModalWindow'),
-            placeholder:'Выберите роль',
-</script> *@
-@* <script>
-    $(document).ready(function () {
-        $('#userRoleId').select2({
             placeholder: 'Выберите роль',
-            dropdownParent: $('#wideModalWindow'),
-            allowClear: true,
-            ajax: {
-                type: "POST",
-                url: "/User/GetRoles",
-                dataType: "json",
-                processResults: function (result) {
-                    return {
-                        results: $.map(result, function (val, index) {
-                            return {
-                                id: index,
-                                text: val
-                            };
-                        }),
-                    };
-                }
-            },
+</script>
+<script>
+    document.getElementById("updateUserData").addEventListener("click", async (event) => {
+        event.preventDefault();
+        debugger;
+
+        var value = document.querySelector('input[name="IsEditAble"]:checked').value;
+        var isEditable = Boolean(value);
+        var updateFormData = {
+            Id: parseInt(document.getElementById("Id").value),
+            Login: document.getElementById("Login").value,
+            Role: document.getElementById("Role").value,
+            Name: document.getElementById("Name").value,
+            Surname: document.getElementById("Surname").value,
+            IsEditAble: isEditable,
+        };
+        var jsonUpdateFormData = JSON.stringify(updateFormData);
+
+        const response = await fetch('/User/UpdateInfo', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: jsonUpdateFormData
+        });
+
+        const responseBody = await response.json();
+        Swal.fire({
+            title: 'Уведомление!',
+            text: responseBody.description,
+            icon: response.ok ? 'success' : 'error',
+            confirmButtonText: 'Окей',
+            background: '#333',
+            color: 'white',
         });
     });
 </script>
- *@
+
+
 

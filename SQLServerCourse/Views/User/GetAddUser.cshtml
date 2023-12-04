@@ -1,0 +1,85 @@
+﻿@model SQLServerCourse.Domain.ViewModels.User.UserAddingViewModel
+
+<div class="container">
+    <form id="formAddUser" method="post">
+        <div class="row p-3 border border-bottom border-white br-40 pb-4">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label asp-for="@Model.Login" class="col-form-label text-white"></label>
+                    <input asp-for="Login" class="form-control br-40" placeholder="Введите логин" type="text">
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Password" class="col-form-label text-white"></label>
+                    <input autocomplete="new-password" asp-for="Password" class="form-control br-40" placeholder="Введите пароль" type="password">
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Role" class="col-form-label text-white"></label><br />
+                    <select asp-for="@Model.Role" class="form-select rounded-3" id="userRoleId" data-minimum-results-for-search="Infinity" 
+                    style="width:100%;"></select>
+                    <small id="roleHelp" class="form-text text-white">Если вы ничего не выберите, будет выбран "Обычный пользователь"</small>
+                </div>
+            </div>
+        </div>
+        <div class="float-end mt-3 w-50">
+            <button class="btn br-40 float-end bd-blue-400" id="addUserBtn">Добавить</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    $('#addUserBtn').on('click', function (event) {
+        event.preventDefault();
+        const data = $('#formAddUser').serialize()
+        $.ajax({
+            type: 'POST',
+            url: '/User/AddUser',
+            data: data,
+            success: function (data) {
+                Swal.fire({
+                    title: 'Уведомление!',
+                    text: data.description,
+                    icon: 'success',
+                    confirmButtonText: 'Окей',
+                    background: '#084879',
+                    color: 'white'
+                })
+            },
+            error: function (response) {
+                Swal.fire({
+                    title: 'Уведомление!',
+                    text: response.responseJSON.errorMessage,
+                    icon: 'error',
+                    confirmButtonText: 'Окей',
+                    background: '#640808',
+                    color: 'white'
+                })
+            }
+        })
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#userRoleId').select2({
+            dropdownParent: $('#modalWindow'),
+            placeholder: "Выберите роль",
+            minimumInputLength: 0,
+            allowClear: true,
+            ajax: {
+                type: "POST",
+                url: "/User/GetRoles",
+                dataType: "json",
+                processResults: function (result) {
+                    return {
+                        results: $.map(result, function (val, index) {
+                            return {
+                                id: index,
+                                text: val
+                            };
+                        }),
+                    };
+                }
+            }
+        });
+    });
+</script>

@@ -4,6 +4,7 @@ using SQLServerCourse.DAL.Repositories;
 using SQLServerCourse.Domain.Entity;
 using SQLServerCourse.Domain.Enum;
 using SQLServerCourse.Domain.Extensions;
+using SQLServerCourse.Domain.Helpers;
 using SQLServerCourse.Domain.Responce;
 using SQLServerCourse.Domain.ViewModels.PersonalProfile;
 using SQLServerCourse.Domain.ViewModels.Review;
@@ -22,11 +23,63 @@ namespace SQLServerCourse.Service.Implementations
         private readonly IBaseRepository<UserProfile> _userProfileRepository;
         private readonly IBaseRepository<User> _userRepository;
 
-
         public UserService(IBaseRepository<UserProfile> userProfileRepository, IBaseRepository<User> userRepository)
         {
             _userProfileRepository = userProfileRepository;
             _userRepository = userRepository;
+        }
+
+        public async Task<IBaseResponse<User>> AddUser(UserAddingViewModel model)
+        {
+            try
+            {
+                var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.Login == model.Login);
+                if (user != null)
+                {
+                    return new BaseResponse<User>()
+                    {
+                        Description = "Пользователь с таким логином уже есть",
+                        StatusCode = StatusCode.UserAlreadyExists
+                    };
+                }
+                user = new User()
+                {
+                    Login = model.Login,
+                    Role = model.Role,
+                    Password = HashPasswordHelper.HashPassword(model.Password),
+                };
+
+                await _userRepository.Create(user);
+
+                var profile = new UserProfile()
+                {
+                    Name = string.Empty,
+                    Surname = string.Empty,
+                    Age = 0,
+                    CurrentGrade = 0,
+                    IsExamCompleted = false,
+                    LessonsCompleted = 0,
+                    IsEditAble = true,
+                    UserId = user.Id,
+                };
+
+                await _userProfileRepository.Create(profile);
+
+                return new BaseResponse<User>()
+                {
+                    Data = user,
+                    Description = "Пользователь добавлен",
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<User>()
+                {
+                    StatusCode = StatusCode.InternalServerError,
+                    Description = $"Внутренняя ошибка: {ex.Message}"
+                };
+            }
         }
 
         public async Task<IBaseResponse<bool>> DeleteUser(long id)
@@ -148,7 +201,8 @@ namespace SQLServerCourse.Service.Implementations
                         Login = x.User.Login,
                         Role = x.User.Role,
                         IsExamCompleted = x.IsExamCompleted,
-                        IsReviewLeft = x.IsReviewLeft
+                        IsReviewLeft = x.IsReviewLeft,
+                        IsEditAble = x.IsEditAble
                     })
                     .ToListAsync();
 

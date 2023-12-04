@@ -50,13 +50,14 @@ namespace SQLServerCourse.Service.Implementations
                     Password = HashPasswordHelper.HashPassword(model.Password),
                 };
 
+                await _userRepository.Create(user);
+
                 var profile = new UserProfile()
                 {
                     UserId = user.Id,
                     IsEditAble = true,
                 };
 
-                await _userRepository.Create(user);
                 await _userProfileRepository.Create(profile);
 
                 var result = Authenticate(user);
