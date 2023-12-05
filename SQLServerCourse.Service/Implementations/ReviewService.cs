@@ -113,6 +113,7 @@ namespace SQLServerCourse.Service.Implementations
                     .Select(x => new ReviewViewModel()
                     {
                         Id = x.Id,
+                        UserId = x.UserId,
                         Login = x.User.Login,
                         Text = x.ReviewText,
                         ReviewDateTime = x.ReviewTime,

@@ -11,12 +11,12 @@ namespace SQLServerCourse.Controllers
     public class HomeController : Controller
     {
         private readonly IHomeService _homeService;
-        private readonly ApplicationDbContext _db;
+        //private readonly ApplicationDbContext _db;
 
-        public HomeController(IHomeService homeService, ApplicationDbContext db)
+        public HomeController(IHomeService homeService/*, ApplicationDbContext db*/)
         {
             _homeService = homeService;
-            _db = db;
+            //_db = db;
         }
 
         public IActionResult Index() => View();

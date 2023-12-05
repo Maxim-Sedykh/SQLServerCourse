@@ -44,19 +44,30 @@
                 <button class="btn btn-sort" onclick="sortByOwn()">Сначала свои</button>
             }
         </div>
-        <div class="col-md-7 hidden-sm"></div>
+        <div class="col-md-7 hidden-sm">
+            @if (User.IsInRole("Admin"))
+            {
+                <p>Отобразить по ID пользователя</p>
+            }
+        </div>
     </div>
     <div id="review-list">
         @for (int i = 0; i < Model.Count; i++)
         {
             <div class="row review mb-5 mx-auto p-2">
                 <div class="col-md-2">
-                    <p class="review-user-name text-center fs-5 fw-bolder">
+                    <p class="text-center fs-5 fw-bolder">
                         @Model[i].Login
                     </p>
-                    <p class="review-date text-center fs-6">
+                    <p class="text-center fs-6">
                         @Model[i].ReviewDateTime.ToString("yyyy-MM-dd HH:mm:ss")
                     </p>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <p class="text-center fs-6 fw-bold">
+                            ID пользователя: @Model[i].UserId
+                        </p>
+                    }
                 </div>
                 <div class="col-md-8 my-auto">
                     <div class="review-text-container px-3 pt-2 my-1">
