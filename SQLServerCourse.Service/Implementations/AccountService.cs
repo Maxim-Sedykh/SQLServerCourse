@@ -119,11 +119,11 @@ namespace SQLServerCourse.Service.Implementations
             }
         }
 
-        public async Task<BaseResponse<bool>> ChangePassword(ChangePasswordViewModel model, string userName)
+        public async Task<BaseResponse<bool>> ChangePassword(ChangePasswordViewModel model, string userLogin)
         {
             try
             {
-                var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.Login == userName);
+                var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.Login == userLogin);
                 if (user == null)
                 {
                     return new BaseResponse<bool>()

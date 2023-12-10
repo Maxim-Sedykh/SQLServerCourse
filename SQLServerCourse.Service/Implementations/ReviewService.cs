@@ -2,6 +2,7 @@
 using SQLServerCourse.DAL.Interfaces;
 using SQLServerCourse.DAL.Repositories;
 using SQLServerCourse.Domain.Entity;
+using SQLServerCourse.Domain.Entitys_for_lesson;
 using SQLServerCourse.Domain.Enum;
 using SQLServerCourse.Domain.Responce;
 using SQLServerCourse.Domain.ViewModels.PersonalProfile;
@@ -27,11 +28,11 @@ namespace SQLServerCourse.Service.Implementations
             _userProfileRepository = userProfileRepository;
         }
 
-        public async Task<IBaseResponse<bool>> CreateReview(CreateReviewViewModel model, string userName)
+        public async Task<IBaseResponse<bool>> CreateReview(CreateReviewViewModel model, string userLogin)
         {
             try
             {
-                var profile = await _userProfileRepository.GetAll().FirstOrDefaultAsync(x => x.User.Login == userName);
+                var profile = await _userProfileRepository.GetAll().FirstOrDefaultAsync(x => x.User.Login == userLogin);
                 if (profile == null)
                 {
                     return new BaseResponse<bool>
@@ -80,7 +81,7 @@ namespace SQLServerCourse.Service.Implementations
                 {
                     return new BaseResponse<Review>()
                     {
-                        StatusCode = StatusCode.UserNotFound,
+                        StatusCode = StatusCode.ReviewNotFound,
                         Description = "Отзыв не найден"
                     };
                 }
@@ -108,16 +109,7 @@ namespace SQLServerCourse.Service.Implementations
         {
             try
             {
-                var reviews = await _reviewRepository.GetAll()
-                    .Include(x => x.User)
-                    .Select(x => new ReviewViewModel()
-                    {
-                        Id = x.Id,
-                        UserId = x.UserId,
-                        Login = x.User.Login,
-                        Text = x.ReviewText,
-                        ReviewDateTime = x.ReviewTime,
-                    }).ToListAsync();
+                var reviews = await GetAllUnsortedReviews().ToListAsync();
 
                 return new BaseResponse<List<ReviewViewModel>>()
                 {
@@ -133,6 +125,96 @@ namespace SQLServerCourse.Service.Implementations
                     StatusCode = StatusCode.InternalServerError,
                 };
             }
+        }
+
+        public async Task<IBaseResponse<List<ReviewViewModel>>> GetReviewsByUserId(UserReviewsViewModel userId)
+        {
+            try
+            {
+                var sortedReviews = await GetAllUnsortedReviews().Where(x => x.UserId == userId.UserId).ToListAsync();
+
+                return new BaseResponse<List<ReviewViewModel>>()
+                {
+                    Data = sortedReviews,
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<List<ReviewViewModel>>()
+                {
+                    Description = $"Внутренняя ошибка: {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError,
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<List<ReviewViewModel>>> SortReviewsByDate()
+        {
+            try
+            {
+                var sortedReviews = await GetAllUnsortedReviews().OrderByDescending(x => x.ReviewDateTime).ToListAsync();
+
+                return new BaseResponse<List<ReviewViewModel>>()
+                {
+                    Data = sortedReviews,
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<List<ReviewViewModel>>()
+                {
+                    Description = $"Внутренняя ошибка: {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError,
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<List<ReviewViewModel>>> SortReviewsByOwnership(string userLogin)
+        {
+            try
+            {
+                if (userLogin == null)
+                {
+                    return new BaseResponse<List<ReviewViewModel>>()
+                    {
+                        StatusCode = StatusCode.UserNotFound,
+                        Description = "Пользователь не найден"
+                    };
+                }
+                var sortedReviews = await GetAllUnsortedReviews().OrderByDescending(r => r.Login == userLogin).ToListAsync();
+
+                return new BaseResponse<List<ReviewViewModel>>()
+                {
+                    Data = sortedReviews,
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<List<ReviewViewModel>>()
+                {
+                    Description = $"Внутренняя ошибка: {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError,
+                };
+            }
+        }
+
+        private IQueryable<ReviewViewModel> GetAllUnsortedReviews()
+        {
+            var reviews = _reviewRepository.GetAll()
+                    .Include(x => x.User)
+                    .Select(x => new ReviewViewModel()
+                    {
+                        Id = x.Id,
+                        UserId = x.UserId,
+                        Login = x.User.Login,
+                        Text = x.ReviewText,
+                        ReviewDateTime = x.ReviewTime,
+                    });
+
+            return reviews;
         }
     }
 }

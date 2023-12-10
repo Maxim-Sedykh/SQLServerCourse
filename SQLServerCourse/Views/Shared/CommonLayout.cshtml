@@ -65,7 +65,7 @@
                                             </a>
                                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
 
-                                                <li><a class="dropdown-item " asp-controller="UserProfile" asp-action="GetUserProfile">Личный кабинет</a></li>
+                                                <li><a class="dropdown-item " asp-controller="UserProfile" asp-action="GetUserProfile" asp-route-userLogin="@User.Identity.Name">Личный кабинет</a></li>
                                                 <li>
                                                     <form method="post" asp-controller="Account" asp-action="Logout">
                                                         <button class="dropdown-item">Выйти</button>

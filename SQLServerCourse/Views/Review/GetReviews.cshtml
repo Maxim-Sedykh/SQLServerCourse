@@ -33,10 +33,10 @@
             }
         </div>
     </div>
-    <div class="row sort-div mb-5 fs-6">
+    <div class="row sort-div my-5 fs-6">
         <div class="col-md-5 col-sm-12 d-flex justify-content-between border-bottom px-5">
             <p>
-                Сортировать: 
+                Сортировать по:
             </p>
             <button class="btn btn-sort" onclick="sortByNewest()">Сначала новые</button>
             @if (User.Identity.IsAuthenticated)
@@ -44,11 +44,7 @@
                 <button class="btn btn-sort" onclick="sortByOwn()">Сначала свои</button>
             }
         </div>
-        <div class="col-md-7 hidden-sm">
-            @if (User.IsInRole("Admin"))
-            {
-                <p>Отобразить по ID пользователя</p>
-            }
+        <div class="col-md-7 col-sm-12" style="padding-left:25%;">
         </div>
     </div>
     <div id="review-list">
@@ -56,18 +52,13 @@
         {
             <div class="row review mb-5 mx-auto p-2">
                 <div class="col-md-2">
-                    <p class="text-center fs-5 fw-bolder">
+                    <p class="review-user-name text-center fs-5 fw-bolder mb-1">
                         @Model[i].Login
                     </p>
-                    <p class="text-center fs-6">
+                    <p class="review-date text-center fs-6 mb-2">
                         @Model[i].ReviewDateTime.ToString("yyyy-MM-dd HH:mm:ss")
                     </p>
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <p class="text-center fs-6 fw-bold">
-                            ID пользователя: @Model[i].UserId
-                        </p>
-                    }
+                    <a class="btn d-block br-40 bd-blue-800 mt-3" asp-controller="UserProfile" asp-action="GetUserProfile" asp-route-userLogin="@Model[i].Login">Профиль</a>
                 </div>
                 <div class="col-md-8 my-auto">
                     <div class="review-text-container px-3 pt-2 my-1">
@@ -131,14 +122,3 @@
         }
     }
 </script>
-
-<script>
-    document.getElementById("textarea-review")
-        .addEventListener("keyup", function (event) {
-            event.preventDefault();
-            if (event.keyCode === 13) {
-                document.getElementById("button-review").click();
-            }
-        });
-</script>
-

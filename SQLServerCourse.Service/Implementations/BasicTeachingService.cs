@@ -117,7 +117,7 @@ namespace SQLServerCourse.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<LessonPassViewModel>> PassLesson(LessonPassViewModel  userAnswersModel, string userName) // Прохождение практической части уроков
+        public async Task<IBaseResponse<LessonPassViewModel>> PassLesson(LessonPassViewModel  userAnswersModel, string userLogin) // Прохождение практической части уроков
         {
             try
             {
@@ -140,7 +140,7 @@ namespace SQLServerCourse.Service.Implementations
                     } 
                 }
 
-                var profile = await _userProfileRepository.GetAll().FirstOrDefaultAsync(x => x.User.Login == userName);
+                var profile = await _userProfileRepository.GetAll().FirstOrDefaultAsync(x => x.User.Login == userLogin);
                 if (profile == null)
                 {
                     return new BaseResponse<LessonPassViewModel>()
@@ -153,7 +153,21 @@ namespace SQLServerCourse.Service.Implementations
                 Tuple<float, List<bool>> tasksEvaluations = CheckTasks(generalModel); //Проверка ответов пользователя
                 if (generalModel.LessonId > profile.LessonsCompleted)
                 {
-                    await CommitPassageChanges(generalModel, profile, tasksEvaluations, generalModel.LessonId);
+                    profile.CurrentGrade = +tasksEvaluations.Item1;
+                    profile.LessonsCompleted++;
+
+                    await _userProfileRepository.Update(profile);
+                    await _lessonRecordRepository.Create(new LessonRecord
+                    {
+                        LessonId = generalModel.LessonId,
+                        UserId = profile.Id,
+                        Mark = tasksEvaluations.Item1
+                    });
+
+                    for (int i = 0; i < generalModel.Questions.Count; i++)
+                    {
+                        generalModel.Questions[i].AnswerCorrectness = tasksEvaluations.Item2[i];
+                    }
                 }
 
                 return new BaseResponse<LessonPassViewModel>()
@@ -169,25 +183,6 @@ namespace SQLServerCourse.Service.Implementations
                     Description = $"Внутренняя ошибка: {ex.Message}",
                     StatusCode = StatusCode.InternalServerError,
                 };
-            }
-
-            async Task CommitPassageChanges(LessonPassViewModel generalModel, UserProfile profile, Tuple<float, List<bool>> tasksEvaluations, byte lessonId)
-            {
-                profile.CurrentGrade =+ tasksEvaluations.Item1;
-                profile.LessonsCompleted++;
-
-                await _userProfileRepository.Update(profile);
-                await _lessonRecordRepository.Create(new LessonRecord
-                {
-                    LessonId = lessonId,
-                    UserId = profile.Id,
-                    Mark = tasksEvaluations.Item1
-                });
-
-                for (int i = 0; i < generalModel.Questions.Count; i++)
-                {
-                    generalModel.Questions[i].AnswerCorrectness = tasksEvaluations.Item2[i];
-                }
             }
         }   
 

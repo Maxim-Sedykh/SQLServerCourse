@@ -17,9 +17,9 @@ namespace SQLServerCourse.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetUserProfile()
+        public async Task<IActionResult> GetUserProfile(string userLogin)
         {
-            var response = await _profileService.GetUserProfile(User.Identity.Name);
+            var response = await _profileService.GetUserProfile(userLogin);
 
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
@@ -43,9 +43,9 @@ namespace SQLServerCourse.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetLessonRecords()
+        public async Task<IActionResult> GetLessonRecords(string userLogin)
         {
-            var response = await _profileService.GetLessonRecords(User.Identity.Name);
+            var response = await _profileService.GetLessonRecords(userLogin);
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
                 return PartialView(response.Data);

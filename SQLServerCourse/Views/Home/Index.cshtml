@@ -20,7 +20,7 @@
                 <div class="text-center">
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <a class="btn btn-mainnav margin-leftpart-mainpic" style="width:40%;" asp-controller="UserProfile" asp-action="GetUserProfile">
+                        <a class="btn btn-mainnav margin-leftpart-mainpic" style="width:40%;" asp-controller="UserProfile" asp-action="GetUserProfile" asp-route-userLogin="@User.Identity.Name">
                             Перейти к обучению
                         </a>
                     }
@@ -96,7 +96,8 @@
                         <div class="text-center">
                             @if (User.Identity.IsAuthenticated)
                             {
-                                <a class="btn btn-mainnav margin-leftpart-mainpic fs-5" style="background: var(--color-aqua); height:45px;" asp-controller="UserProfile" asp-action="GetUserProfile">
+                                <a class="btn btn-mainnav margin-leftpart-mainpic fs-5" style="background: var(--color-aqua); height:45px;"
+                                   asp-controller="UserProfile" asp-action="GetUserProfile" asp-route-userLogin="@User.Identity.Name">
                                     Продолжите обучение!
                                 </a>
                             }

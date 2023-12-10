@@ -14,7 +14,7 @@ namespace SQLServerCourse.Service.Interfaces
     {
         Task<IBaseResponse<List<ReviewViewModel>>> GetReviews();
 
-        Task<IBaseResponse<bool>> CreateReview(CreateReviewViewModel model, string userName);
+        Task<IBaseResponse<bool>> CreateReview(CreateReviewViewModel model, string userLogin);
 
         Task<IBaseResponse<Review>> DeleteReview(long id);
     }

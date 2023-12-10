@@ -26,7 +26,7 @@ namespace SQLServerCourse.Service.Implementations
             _lessonRepository = lessonRepository;
         }
 
-        public async Task<IBaseResponse<UserProfileViewModel>> GetUserProfile(string userName)
+        public async Task<IBaseResponse<UserProfileViewModel>> GetUserProfile(string userLogin)
         {
             try
             {
@@ -34,7 +34,7 @@ namespace SQLServerCourse.Service.Implementations
                     .Select(x => new UserProfileViewModel()
                     {
                         Id = x.Id,
-                        Login = userName,
+                        Login = userLogin,
                         Name = x.Name,
                         Surname = x.Surname,
                         Age = x.Age,
@@ -43,7 +43,7 @@ namespace SQLServerCourse.Service.Implementations
                         LessonsCompleted = x.LessonsCompleted,
                         IsEditAble = x.IsEditAble
                     })
-                    .FirstOrDefaultAsync(x => x.Login == userName);
+                    .FirstOrDefaultAsync(x => x.Login == userLogin);
 
                 if (result is null)
                 {
@@ -107,11 +107,11 @@ namespace SQLServerCourse.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<List<LessonRecordViewModel>>> GetLessonRecords(string userName)
+        public async Task<IBaseResponse<List<LessonRecordViewModel>>> GetLessonRecords(string userLogin)
         {
             try
             {
-                var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.Login == userName);
+                var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.Login == userLogin);
 
                 if (user == null)
                 {

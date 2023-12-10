@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Azure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SQLServerCourse.Domain.Extensions;
+using SQLServerCourse.Domain.Responce;
 using SQLServerCourse.Domain.ViewModels.PersonalProfile;
 using SQLServerCourse.Domain.ViewModels.Review;
 using SQLServerCourse.Service.Implementations;
@@ -31,7 +34,7 @@ namespace SQLServerCourse.Controllers
         public IActionResult CreateReview() => PartialView();
 
         [HttpPost]
-        public async Task<IActionResult> CreateReview(CreateReviewViewModel review, string userName)
+        public async Task<IActionResult> CreateReview(CreateReviewViewModel review)
         {
             var response = await _reviewService.CreateReview(review, User.Identity.Name);
             if (response.StatusCode == Domain.Enum.StatusCode.OK)

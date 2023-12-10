@@ -31,11 +31,11 @@ namespace SQLServerCourse.Service.Implementations
             _lessonRecordRepository = lessonRecordRepository;
         }
 
-        public async Task<IBaseResponse<ResultViewModel>> GetResultModel(string userName)
+        public async Task<IBaseResponse<ResultViewModel>> GetResultModel(string userLogin)
         {
             try
             {
-                var profile = await _userProfileRepository.GetAll().FirstOrDefaultAsync(x => x.User.Login == userName);
+                var profile = await _userProfileRepository.GetAll().FirstOrDefaultAsync(x => x.User.Login == userLogin);
                 if (profile is null)
                 {
                     return new BaseResponse<ResultViewModel>()
@@ -121,11 +121,11 @@ namespace SQLServerCourse.Service.Implementations
             return analys = firstPartOfAnalys + secondPartOfAnalys;
         }
 
-        public IBaseResponse<string> GetUserAnalys(string userName)
+        public IBaseResponse<string> GetUserAnalys(string userLogin)
         {
             try
             {
-                var profile = _userProfileRepository.GetAll().FirstOrDefault(x => x.User.Login == userName);
+                var profile = _userProfileRepository.GetAll().FirstOrDefault(x => x.User.Login == userLogin);
 
                 if (profile is null)
                 {

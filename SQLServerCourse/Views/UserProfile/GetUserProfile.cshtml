@@ -6,24 +6,44 @@
 }
 
 @{
-    string cannotChangeData = "";
+    bool isCurrentUserProfile = true;
+    string cannotChangeData = string.Empty;
+    string anotherProfileDisabled = string.Empty;
+    string examRowStyle = "col-md-12";
+    string profileCardColor = "bd-cyan-500";
+
+    if (Model.Login != User.Identity.Name)
+    {
+        isCurrentUserProfile = false;
+        anotherProfileDisabled = "disabled";
+        cannotChangeData = "disabled";
+        profileCardColor = "bd-cyan-800";
+    }
     if (!Model.IsEditAble)
     {
         cannotChangeData = "disabled";
     }
 
-    string examRowStyle = "col-md-12";
+    
     if (Model.IsExamCompleted) examRowStyle = "col-md-6";
 }
 
 <div class="container-fluid">
     <div class="container">
-        <div align="center" class="my-2">
-            <h2>
-                Личный кабинет
-            </h2>
+        <div align="center" class="my-2 fs-3">
+            @if (isCurrentUserProfile)
+            {
+                <text>Ваш профиль</text>
+            }
+            else
+            {
+                <text>Профиль пользователя @Model.Login</text>
+                <br />
+                <a asp-controller="UserProfile" asp-action="GetUserProfile" asp-route-userLogin="@User.Identity.Name" 
+                class="my-3 fs-5 text-black" >Вернуться к себе</a>
+            }
         </div>
-        <div class="personalArea-userinfo text-white p-3 pt-3 me-0 my-3" style="font-size:20px; border-radius:40px;">
+        <div class="personalArea-userinfo @profileCardColor text-white p-3 pt-3 me-0 my-3" style="font-size:20px; border-radius:40px;">
             @if (Model.IsExamCompleted)
             {
                 <div class="passed-course-info mx-auto mb-3">
@@ -71,18 +91,18 @@
                             }
                         </p>
                         <button type="button" align="center" class="btn btn-gradient text-white mb-3 py-0"
-                                onclick="openModal({ url: '/UserProfile/GetLessonRecords',  modalId: 'modalWindow'})"
+                                onclick="openModal({ url: '/UserProfile/GetLessonRecords/@Model.Login',  modalId: 'modalWindow'})"
                                 data-toggle="ajax-modal" data-target="Modal">
                             Список оценок
                         </button>
                         <br />
                         <p >Лекций пройдено: <input asp-for="LessonsCompleted" class="personal-profile-input-disabled info-user-input" disabled="disabled" style="height:40px;"/> </p>
-                        <button class="btn btn-gradient text-white" id="showChangeButton" style="background: #0058b4;">Изменить пароль</button>
+                        <button class="btn btn-gradient text-white" id="showChangeButton" @anotherProfileDisabled style="background: #0058b4;">Изменить пароль</button>
                         <form id="changePasswordFormId">
                             <div class="d-flex justify-content-between mt-3 pe-5 " style="display: none;" id="changeDiv">
                                 <input name="NewPassword" autocomplete="off" class="form-control profile-input profile-pass-hide mb-3 ps-3"
                                        id="changeInput" type="password" style="width: 50%; " placeholder="Введите новый пароль...">
-                                <button type="submit" class="btn btn-gradient text-white profile-pass-hide" id='changePasswordButton' style="background: #0058b4;">Обновить пароль</button>
+                                <button type="submit" class="btn btn-gradient bd-indigo-800 text-white profile-pass-hide" @anotherProfileDisabled id='changePasswordButton'>Обновить пароль</button>
                             </div>
                         </form>
                     </div>
@@ -91,7 +111,7 @@
         </div>
         <div class="row mx-auto mb-4 mt-0" style="align-content:center;width: 80%; height:75px; background:#1ab1c9; border-radius:35px;">
             <div class="@examRowStyle col-sm-12  text-center">
-                <button type="button" align="center" class="btn btn-gradient text-white text-center" onclick="openModal({ url: '/UserProfile/GetLessonList', modalId: 'wideModalWindow'})"
+                <button type="button" align="center" class="btn btn-gradient text-white text-center" @anotherProfileDisabled onclick="openModal({ url: '/UserProfile/GetLessonList/@Model.Login', modalId: 'wideModalWindow'})"
                         data-toggle="ajax-modal" data-target="Modal">
                     Перейти к урокам
                 </button>
@@ -99,7 +119,7 @@
             @if (Model.IsExamCompleted)
             {
                 <div class="col-md-6 col-sm-12 text-center">
-                    <button type="button" align="center" class="btn btn-gradient text-white text-center" onclick="openModal({ url: '/FinalResult/GetUserAnalys', modalId: 'modalWindow'})"
+                    <button type="button" align="center" class="btn btn-gradient text-white text-center" onclick="openModal({ url: '/FinalResult/GetUserAnalys/@Model.Login', modalId: 'modalWindow'})"
                             data-toggle="ajax-modal" data-target="Modal">
                         Посмотреть анализ
                     </button>
@@ -132,7 +152,7 @@
         var updateFormData = {
             Id: parseInt(document.getElementById("Id").value),
             IsExamCompleted: Boolean(document.getElementById("IsExamCompleted").value),
-            CurrentGrade: parseFloat(document.getElementById("FinalGrade").value.replace(/,/g, '.')),
+            CurrentGrade: parseFloat(document.getElementById("CurrentGrade").value.replace(/,/g, '.')),
             Login: document.getElementById("Login").value,
             Name: document.getElementById("Name").value,
             Surname: document.getElementById("Surname").value,

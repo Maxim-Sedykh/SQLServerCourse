@@ -15,6 +15,6 @@ namespace SQLServerCourse.Service.Interfaces
 
         public IBaseResponse<LessonPassViewModel> GetQuestions(byte lessonId);
 
-        public Task<IBaseResponse<LessonPassViewModel>> PassLesson(LessonPassViewModel model, string userName);
+        public Task<IBaseResponse<LessonPassViewModel>> PassLesson(LessonPassViewModel model, string userLogin);
     }
 }

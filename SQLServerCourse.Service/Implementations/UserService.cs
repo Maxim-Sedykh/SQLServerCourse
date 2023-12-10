@@ -22,6 +22,7 @@ namespace SQLServerCourse.Service.Implementations
     {
         private readonly IBaseRepository<UserProfile> _userProfileRepository;
         private readonly IBaseRepository<User> _userRepository;
+        private const string adminLogin = "Admin123";
 
         public UserService(IBaseRepository<UserProfile> userProfileRepository, IBaseRepository<User> userRepository)
         {
@@ -96,7 +97,7 @@ namespace SQLServerCourse.Service.Implementations
                         Description = "Пользователь не найден"
                     };
                 }
-                if (user.Role == Role.Admin && user.Login == "Admin123")
+                if (user.Role == Role.Admin && user.Login == adminLogin)
                 {
                     return new BaseResponse<bool>()
                     {
