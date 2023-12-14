@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SQLServerCourse.Service.Interfaces
 {
-    public interface IBasicTeachingService
+    public interface ILessonService
     {
         public IBaseResponse<LessonLectureViewModel> GetLecture(byte lessonId);
 

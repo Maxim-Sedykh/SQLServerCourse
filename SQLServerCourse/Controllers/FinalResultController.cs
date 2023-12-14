@@ -28,9 +28,9 @@ namespace SQLServerCourse.Controllers
             return View("Error", $"{response.Description}");
         }
 
-        public IActionResult GetUserAnalys()
+        public IActionResult GetUserAnalys(long id)
         {
-            var response = _finalResultService.GetUserAnalys(User.Identity.Name);
+            var response = _finalResultService.GetUserAnalys(id);
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
                 return PartialView(response.Data);

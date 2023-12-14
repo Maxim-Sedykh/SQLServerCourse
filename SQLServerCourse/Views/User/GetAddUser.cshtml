@@ -42,7 +42,9 @@
                     confirmButtonText: 'Окей',
                     background: '#084879',
                     color: 'white'
-                })
+                }).then(() => {
+                    location.reload()
+                });
             },
             error: function (response) {
                 Swal.fire({
@@ -52,7 +54,9 @@
                     confirmButtonText: 'Окей',
                     background: '#640808',
                     color: 'white'
-                })
+                }).then(() => {
+                    location.reload()
+                });
             }
         })
     });

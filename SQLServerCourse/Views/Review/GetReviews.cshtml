@@ -51,24 +51,24 @@
         @for (int i = 0; i < Model.Count; i++)
         {
             <div class="row review mb-5 mx-auto p-2">
-                <div class="col-md-2">
+                <div class="col-md-2 text-center">
                     <p class="review-user-name text-center fs-5 fw-bolder mb-1">
                         @Model[i].Login
                     </p>
-                    <p class="review-date text-center fs-6 mb-2">
+                    <p class="review-date text-center fs-6 mb-4">
                         @Model[i].ReviewDateTime.ToString("yyyy-MM-dd HH:mm:ss")
                     </p>
-                    <a class="btn d-block br-40 bd-blue-800 mt-3" asp-controller="UserProfile" asp-action="GetUserProfile" asp-route-userLogin="@Model[i].Login">Профиль</a>
+                    <a class="btn d-inline br-40 bd-blue-800" asp-controller="UserProfile" asp-action="GetUserProfile" asp-route-userLogin="@Model[i].Login">Профиль</a>
                 </div>
                 <div class="col-md-8 my-auto">
-                    <div class="review-text-container px-3 pt-2 my-1">
+                    <div class="review-text-container px-3 py-2 my-1">
                         <p class="text-white fs-6">@Model[i].Text</p>
                     </div>
                 </div>
                 @if (User.IsInRole("Admin"))
                 {
                     <div class="col-md-2 d-flex justify-content-center">
-                        <form asp-controller="Review" asp-action="DeleteReview" asp-route-id="@Model[i].Id" method="post">
+                        <form asp-controller="Review" asp-action="DeleteReview" asp-route-id="@Model[i].Id" asp-route-referrer="GetReviews" method="post">
                             <button type="submit" class="btn btn-gradient text-white mt-2">Удалить</button>
                         </form>
                     </div>

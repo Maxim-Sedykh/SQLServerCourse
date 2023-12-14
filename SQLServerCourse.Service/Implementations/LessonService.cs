@@ -23,7 +23,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace SQLServerCourse.Service.Implementations
 {
-    public class BasicTeachingService: IBasicTeachingService
+    public class LessonService: ILessonService
     {
         private readonly IBaseRepository<UserProfile> _userProfileRepository;
         private readonly IBaseRepository<LessonRecord> _lessonRecordRepository;
@@ -31,7 +31,7 @@ namespace SQLServerCourse.Service.Implementations
         private readonly IBaseRepository<Question> _questionRepository;
         private readonly IBaseRepository<TestVariant> _testVariantRepository;
 
-        public BasicTeachingService(IBaseRepository<LessonRecord> lessonRecordRepository, 
+        public LessonService(IBaseRepository<LessonRecord> lessonRecordRepository, 
             IBaseRepository<Lesson> lessonRepository, IBaseRepository<UserProfile> userProfileRepository,
             IBaseRepository<Question> questionRepository, IBaseRepository<TestVariant> pageAnswerRepository)
         {

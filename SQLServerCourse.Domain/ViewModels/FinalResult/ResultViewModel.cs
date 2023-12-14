@@ -9,6 +9,8 @@ namespace SQLServerCourse.Domain.ViewModels.FinalResult
 {
     public class ResultViewModel
     {
+        public long Id { get; set; }
+
         public string Login { get; set; }
 
         public string Name { get; set; }

@@ -31,10 +31,11 @@ namespace SQLServerCourse.Service.Implementations
             try
             {
                 var result = await _userProfileRepository.GetAll()
+                    .Include(x => x.User)
                     .Select(x => new UserProfileViewModel()
                     {
                         Id = x.Id,
-                        Login = userLogin,
+                        Login = x.User.Login,
                         Name = x.Name,
                         Surname = x.Surname,
                         Age = x.Age,
@@ -107,11 +108,11 @@ namespace SQLServerCourse.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<List<LessonRecordViewModel>>> GetLessonRecords(string userLogin)
+        public async Task<IBaseResponse<List<LessonRecordViewModel>>> GetLessonRecords(long id)
         {
             try
             {
-                var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.Login == userLogin);
+                var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
 
                 if (user == null)
                 {

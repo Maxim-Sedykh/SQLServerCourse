@@ -10,7 +10,7 @@
 <div class="container mt-2">
     <div class="d-flex justify-content-between w-50 mx-auto">
         <a asp-controller="User" asp-action="GetUsers" class="btn d-block br-40 bd-cyan-500">Обновить таблицу</a>
-        <button class="btn br-40 bd-green-600" onclick="openModal({ url: '/User/GetAddUser', modalId: 'modalWindow'})"
+        <button class="btn br-40 bd-blue-700" onclick="openModal({ url: '/User/GetAddUser', modalId: 'modalWindow'})"
                 data-toggle="ajax-modal" data-target="Modal">
             Добавить пользователя
         </button>
@@ -24,7 +24,7 @@
                         <th scope="col">Логин</th>
                         <th scope="col">Роль</th>
                         <th scope="col">Экзамен выполнен</th>
-                        <th scope="col">Оставлял отзыв</th>
+                        <th scope="col">Отзыв</th>
                         <th scope="col">Может менять данные</th>
                         <th scope="col">Изменить</th>
                         <th scope="col">Удалить</th>
@@ -50,11 +50,14 @@
                             <td>
                                 @if (Model[i].IsReviewLeft)
                                 {
-                                    <text>Да</text>
+                                    <button type="button" class="btn bd-cyan-500 rounded-pill" onclick="openModal({ url: '/Review/GetUserReviews', modalId: 'wideModalWindow', data: '@Model[i].Id'})"
+                                            data-toggle="ajax-modal" data-target="Modal">
+                                        Отзывы пользователя
+                                    </button>
                                 }
                                 else
                                 {
-                                    <text>Нет</text>
+                                    <text>Не оставил</text>
                                 }
                             </td>
                             <td>
@@ -68,7 +71,7 @@
                                 }
                             </td>
                             <td>
-                                <button type="button" class="btn bd-cyan-500 rounded-pill" onclick="openModal({ url: '/User/GetUser/@Model[i].Id', modalId: 'modalWindow'})"
+                                <button type="button" class="btn bd-cyan-500 rounded-pill" onclick="openModal({ url: '/User/GetUser', modalId: 'modalWindow', data: '@Model[i].Id'})"
                                         data-toggle="ajax-modal" data-target="Modal">
                                     Вся информация
                                 </button>
@@ -84,7 +87,7 @@
                                 }
                                 <form id="deleteUserForm-@i">
                                     <input type="hidden" name="id" value="@Model[i].Id">
-                                    <button type="submit" class="btn bd-red-700 rounded-pill @dis" onclick="deleteUser(event, @i)">Удалить</button>
+                                    <button type="submit" class="btn bd-blue-700 rounded-pill @dis" onclick="deleteUser(event, @i)">Удалить</button>
                                 </form>
                             </td>
                         </tr>

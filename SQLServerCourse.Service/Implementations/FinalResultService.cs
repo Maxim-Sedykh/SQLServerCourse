@@ -35,7 +35,9 @@ namespace SQLServerCourse.Service.Implementations
         {
             try
             {
-                var profile = await _userProfileRepository.GetAll().FirstOrDefaultAsync(x => x.User.Login == userLogin);
+                var profile = await _userProfileRepository.GetAll()
+                    .Include(x => x.User)
+                    .FirstOrDefaultAsync(x => x.User.Login == userLogin);
                 if (profile is null)
                 {
                     return new BaseResponse<ResultViewModel>()
@@ -54,6 +56,7 @@ namespace SQLServerCourse.Service.Implementations
 
                 var response =  new ResultViewModel()
                                 {
+                                    Id = profile.Id,
                                     Login = profile.User.Login,
                                     Name = profile.Name,
                                     Surname = profile.Surname,
@@ -121,11 +124,13 @@ namespace SQLServerCourse.Service.Implementations
             return analys = firstPartOfAnalys + secondPartOfAnalys;
         }
 
-        public IBaseResponse<string> GetUserAnalys(string userLogin)
+        public IBaseResponse<string> GetUserAnalys(long id)
         {
             try
             {
-                var profile = _userProfileRepository.GetAll().FirstOrDefault(x => x.User.Login == userLogin);
+                var profile = _userProfileRepository.GetAll()
+                    .Include(x => x.User)
+                    .FirstOrDefault(x => x.User.Id == id);
 
                 if (profile is null)
                 {

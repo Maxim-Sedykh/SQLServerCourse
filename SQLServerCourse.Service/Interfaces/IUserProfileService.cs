@@ -14,7 +14,7 @@ namespace SQLServerCourse.Service.Interfaces
     {
         Task<IBaseResponse<UserProfileViewModel>> GetUserProfile(string userLogin);
 
-        Task<IBaseResponse<List<LessonRecordViewModel>>> GetLessonRecords(string userLogin);
+        Task<IBaseResponse<List<LessonRecordViewModel>>> GetLessonRecords(long id);
 
         Task<IBaseResponse<UserProfile>> UpdateInfo(UserProfileViewModel model);
 

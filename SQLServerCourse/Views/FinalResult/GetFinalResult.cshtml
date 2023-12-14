@@ -27,7 +27,7 @@
             </div>
             <div class="col-md-6 col-sm-12">
                 <button type="button" class="btn-gradient text-white" style="width: 50%; background: var(--color-aqua);"
-                        onclick="openModal({ url: '/FinalResult/GetUserAnalys', modalId: 'modalWindow'})" data-toggle="ajax-modal" data-target="Modal">
+                        onclick="openModal({ url: '/FinalResult/GetUserAnalys', modalId: 'modalWindow', data: '@Model.Id'})" data-toggle="ajax-modal" data-target="Modal">
                     Просмотреть анализ
                 </button>
             </div>

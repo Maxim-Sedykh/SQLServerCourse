@@ -12,6 +12,7 @@ namespace SQLServerCourse.Controllers
 {
     public class ReviewController : Controller
     {
+        private const string defaultReferrer = "GetReviews";
         private readonly IReviewService _reviewService;
 
         public ReviewController(IReviewService reviewService)
@@ -46,14 +47,33 @@ namespace SQLServerCourse.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<IActionResult> DeleteReview(long id)
+        public async Task<IActionResult> DeleteReview(long id, string referrer)
         {
             var response = await _reviewService.DeleteReview(id);
-            if (response.StatusCode == Domain.Enum.StatusCode.OK)
+            if (response.StatusCode == Domain.Enum.StatusCode.OK && referrer == defaultReferrer)
             {
                 return RedirectToAction("GetReviews", "Review");
             }
+            else
+            {
+                if (response.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    return RedirectToAction("GetUsers", "User");
+                }
+            }
             return StatusCode(StatusCodes.Status500InternalServerError);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetUserReviews(long id)
+        {
+            var response = await _reviewService.GetUserReviews(id);
+
+            if (response.StatusCode == Domain.Enum.StatusCode.OK)
+            {
+                return PartialView(response.Data);
+            }
+            return View("Error", $"{response.Description}");
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿function openModal(parameters) {
+    const id = parameters.data;
     const url = parameters.url;
     const modalId = parameters.modalId;
     const modal = $('#' + modalId);
@@ -8,7 +9,7 @@
         return;
     }
 
-    $.ajax({
+    var ajaxParams = {
         type: 'GET',
         url: url,
         success: function (response) {
@@ -21,5 +22,11 @@
         error: function (response) {
             alert(response.responseText);
         }
-    });
+    };
+
+    if (id !== undefined) {
+        ajaxParams.data = { "id": id };
+    }
+
+    $.ajax(ajaxParams);
 };

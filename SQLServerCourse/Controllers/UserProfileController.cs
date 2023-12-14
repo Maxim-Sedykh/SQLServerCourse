@@ -43,9 +43,9 @@ namespace SQLServerCourse.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetLessonRecords(string userLogin)
+        public async Task<IActionResult> GetLessonRecords(long id)
         {
-            var response = await _profileService.GetLessonRecords(userLogin);
+            var response = await _profileService.GetLessonRecords(id);
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
                 return PartialView(response.Data);
