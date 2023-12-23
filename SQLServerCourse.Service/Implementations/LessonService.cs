@@ -262,5 +262,39 @@ namespace SQLServerCourse.Service.Implementations
             }
             return new Tuple<float, List<bool>>(grade, tasksCorrectness);
         }
+
+        public async Task<IBaseResponse<LessonLectureViewModel>> SaveLectureMarkup(LessonContentViewModel model)
+        {
+            try
+            {
+                var currentLesson = _lessonRepository.GetAll().FirstOrDefault(x => x.Id == model.Id);
+                if (currentLesson == null)
+                {
+                    return new BaseResponse<LessonLectureViewModel>()
+                    {
+                        StatusCode = StatusCode.LessonNotFound,
+                        Description = "Урок не найден"
+                    };
+                }
+
+                currentLesson.LectureMarkup = model.LessonMarkup;
+
+                await _lessonRepository.Update(currentLesson);
+
+                return new BaseResponse<LessonLectureViewModel>()
+                {
+                    Description = "Изменения сохранены",
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<LessonLectureViewModel>()
+                {
+                    Description = $"Внутренняя ошибка: {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError,
+                };
+            }
+        }
     }
 }

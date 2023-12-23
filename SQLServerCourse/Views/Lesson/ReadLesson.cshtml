@@ -2,38 +2,71 @@
 
 @{
     ViewData["Title"] = $"Лекция№{Model.Id} | SQLServerCourse";
+    string columnCountState = "col-md-6";
+    if (User.IsInRole("Admin"))
+    {
+        columnCountState = "col-md-4";
+    }
 }
 
 <div class="container-fluid">
     <div class="container">
-        <br />
-        <h1 align="center">@Model.LessonName</h1>
-        <br />
+        <p class="fs-2 text-center my-3">@Model.LessonName</p>
         <div class="row">
-            <div class="col-md-6 col-sm-12 text-center">
-                <a class="btn btn-gradient text-white text-center" asp-controller="PersonalProfile"
-                   asp-action="GetPersonalProfile" style="background: #41cdd1; width:150px;">
+            <div class="@columnCountState col-sm-12 text-center">
+                <a class="btn d-block br-40 bd-cyan-500 text-white text-center fs-6 w-25 mx-auto" asp-controller="UserProfile"
+                   asp-action="GetUserProfile" asp-route-userLogin="@User.Identity.Name">
                     Назад
                 </a>
             </div>
-            <div class="col-md-6 col-sm-12 text-center">
-                <a class="btn btn-gradient text-white text-center" asp-controller="BasicTeaching"
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="@columnCountState col-sm-12 text-center">
+                    <btn id="saveLectureChange" class="btn br-40 bd-cyan-800 text-white text-center fs-6 w-50 mx-auto">
+                        Сохранить изменения
+                    </btn>
+                </div>
+            }
+            <div class="@columnCountState col-sm-12 text-center">
+                <a class="btn d-block br-40 bd-blue-700 text-white text-center fs-6 w-50 mx-auto" asp-controller="Lesson"
                    asp-action="PassLesson" asp-route-id="@Model.Id">
                     Перейти к практике
                 </a>
             </div>
         </div>
-        @Model.LessonMarkup
-        <br /><br />
-        <div class="row">
+        <div class="toolbar mt-5">
+            <a href="#" class="toolbar-b fas fa-bold" title="Жирный"></a>
+            <a href="#" class="toolbar-i fas fa-italic" title="Курсив"></a>
+            <a href="#" class="toolbar-u fas fa-underline" title="Подчёркнутый"></a>
+            <a href="#" class="toolbar-s fas fa-strikethrough" title="Зачёркнутый"></a>
+            <a href="#" class="toolbar-ul fas fa-list-ul" title="Маркированный список"></a>
+            <a href="#" class="toolbar-ol fas fa-list-ol" title="Нумерованный список"></a>
+            <a href="#" class="toolbar-img far fa-image" title="Изображение"></a>
+            <a href="#" class="toolbar-left fas fa-align-left" title="по левому краю"></a>
+            <a href="#" class="toolbar-center fas fa-align-center" title="по центру"></a>
+            <a href="#" class="toolbar-right fas fa-align-right" title="по правому краю"></a>
+            <a href="#" class="toolbar-justify fas fa-align-justify" title="по ширине"></a>
+        </div>
+        @if (User.IsInRole("Admin"))
+        {
+            <p class="fw-bold">* Вы можете изменять содержимое лекции!</p>
+            <div contenteditable="true" id="lessonMarkup" class="p-2">
+                @Model.LessonMarkup
+            </div>
+        }   
+        else
+        {
+            @Model.LessonMarkup
+        }
+        <div class="row mt-3">
             <div class="col-md-6 col-sm-12 text-center">
-                <a class="btn btn-gradient text-white text-center" asp-controller="PersonalProfile"
-                   asp-action="GetPersonalProfile" style="background: #41cdd1; width:150px;">
+                <a class="btn d-block br-40 bd-cyan-500 text-white text-center fs-6 w-25 mx-auto" asp-controller="UserProfile"
+                   asp-action="GetUserProfile" asp-route-userLogin="@User.Identity.Name">
                     Назад
                 </a>
             </div>
             <div class="col-md-6 col-sm-12 text-center">
-                <a class="btn btn-gradient text-white text-center" asp-controller="BasicTeaching"
+                <a class="btn d-block br-40 bd-blue-700 text-white text-center fs-6 w-50 mx-auto" asp-controller="Lesson"
                    asp-action="PassLesson" asp-route-id="@Model.Id">
                     Перейти к практике
                 </a>
@@ -42,3 +75,84 @@
         <br />
     </div>
 </div>
+
+<script>
+    document.getElementById("saveLectureChange").addEventListener("click", async (event) => {
+        event.preventDefault();
+        var lessonId = @Json.Serialize(Model.Id);
+
+        var saveFormData = {
+            Id: lessonId,
+            LessonMarkup: document.getElementById('lessonMarkup').innerHTML
+        };
+        var jsonUpdateFormData = JSON.stringify(saveFormData);
+
+        const response = await fetch('/Lesson/SaveLessonContent', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: jsonUpdateFormData
+        });
+
+        const responseBody = await response.json();
+        Swal.fire({
+            title: 'Уведомление!',
+            text: responseBody.description,
+            icon: response.ok ? 'success' : 'error',
+            confirmButtonText: 'Окей',
+            background: '#333',
+            color: 'white',
+        }).then(() => {
+            location.reload()
+        });
+    });
+</script>
+
+<script>
+    document.querySelector('body').addEventListener('click', function (event) {
+        if (event.target.classList.contains('toolbar-b')) {
+            document.execCommand('bold', false, null);
+            event.preventDefault();
+        }
+        if (event.target.classList.contains('toolbar-i')) {
+            document.execCommand('italic', false, null);
+            event.preventDefault();
+        }
+        if (event.target.classList.contains('toolbar-u')) {
+            document.execCommand('underline', false, null);
+            event.preventDefault();
+        }
+        if (event.target.classList.contains('toolbar-s')) {
+            document.execCommand('strikethrough', false, null);
+            event.preventDefault();
+        }
+        if (event.target.classList.contains('toolbar-ul')) {
+            document.execCommand('insertUnorderedList', false, null);
+            event.preventDefault();
+        }
+        if (event.target.classList.contains('toolbar-ol')) {
+            document.execCommand('insertOrderedList', false, null);
+            event.preventDefault();
+        }
+        if (event.target.classList.contains('toolbar-img')) {
+            var url = prompt('Введите адрес изображения', 'https://snipp.ru/demo/526/image.jpg');
+            document.execCommand('insertImage', false, url);
+            event.preventDefault();
+        }
+        if (event.target.classList.contains('toolbar-left')) {
+            document.execCommand('justifyLeft', false, null);
+            event.preventDefault();
+        }
+        if (event.target.classList.contains('toolbar-center')) {
+            document.execCommand('justifyCenter', false, null);
+            event.preventDefault();
+        }
+        if (event.target.classList.contains('toolbar-right')) {
+            document.execCommand('justifyRight', false, null);
+            event.preventDefault();
+        }
+        if (event.target.classList.contains('toolbar-justify')) {
+            document.execCommand('justifyFull', false, null);
+            event.preventDefault();
+        }
+    });
+</script>

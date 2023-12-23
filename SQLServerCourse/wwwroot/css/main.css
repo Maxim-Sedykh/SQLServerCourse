@@ -1,4 +1,6 @@
 ﻿
+
+
 .navbar {
     font-size: 18px;
 }
@@ -43,16 +45,8 @@ h5 {
     background: url(../images/MainPagePic1.jpg);
     border-radius: 30px;
     border-bottom: 1px solid white;
-    height:400px;
+    min-height:300px;
 }
-
-/*.admin-list-item {
-}
-
-    .admin-list-item:hover {
-        background: var(--color-aqua);
-        color: white;
-    }*/
 
 .btn-main {
     border-radius: 15px;
@@ -248,4 +242,66 @@ h5 {
 
 .modal-header-d-flex {
     width:100%;
+}
+
+.toolbar a {
+    display: inline-block;
+    border: 1px solid #888;
+    padding: 5px 8px;
+    margin: 0 5px 10px 0;
+    color: #000;
+    border-radius: 3px;
+    font-size: 12px;
+    box-shadow: 1px 1px 2px #ddd;
+    background: #fff;
+    vertical-align: top;
+    text-decoration: none;
+}
+
+.toolbar select {
+    display: inline-block;
+    height: 28px;
+    line-height: 28px;
+    background: #fff;
+    padding: 0;
+    margin: 0 5px 10px 0;
+    color: #000;
+    box-shadow: 1px 1px 2px #ddd;
+    border-radius: 3px;
+    vertical-align: top;
+    font-size: 12px;
+}
+
+.toolbar input {
+    display: inline-block;
+    height: 28px;
+    line-height: 28px;
+    background: #fff;
+    padding: 0;
+    margin: 0 5px 10px 0;
+    color: #000;
+    box-shadow: 1px 1px 2px #ddd;
+    border-radius: 3px;
+    vertical-align: top;
+    font-size: 12px;
+}
+
+.toolbar span {
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    padding: 0;
+    margin: 0 0 10px 0;
+    color: #000;
+    vertical-align: top;
+    font-size: 12px;
+}
+
+.editor {
+    min-height: 150px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 2px;
+    box-shadow: 1px 1px 2px #ddd;
+    background: #fff;
 }

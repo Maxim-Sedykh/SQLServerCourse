@@ -8,44 +8,43 @@
 }
 
 @{
-    string lessonContainerColor = "background: var(--color-blue)";
+    string lessonContainerColor = "bd-blue-700";
     if (Model.LessonType == LessonType.Exam)
     {
-        lessonContainerColor = "background: var(--color-darkblue1)";
+        lessonContainerColor = "bd-indigo-800";
     }
 }
 
 <div class="container-fluid">
     <div class="container">
         <div class="row">
-            <div class="col-12 lesson-container my-3" style=" @lessonContainerColor;">
+            <div class="col-md-2 hidden-sm"></div>
+            <div class="col-md-8 col-sm-12 @lessonContainerColor my-3 br-40 px-4">
                 @if (Model.LessonType == LessonType.Exam)
                 {
-                    <h2 class="text-center text-white text-uppercase">э к з а м е н</h2>
+                    <p class="text-center text-white text-uppercase fs-2 mt-3">э к з а м е н</p>
                 }
                 else
                 {
-                    <h2 class="text-center text-white">Практическая часть занятия</h2>
+                    <p class="text-center text-white fs-2 mt-3">Практическая часть занятия</p>
                 }
-                <div class="text-center">
-                    @if ((Context.Request.Method == "POST") && (Model.LessonType == LessonType.Exam))
-                    {
-                        <a id="returnonlistoflessons" style="max-width: 275px; " class="btn btn-gradient btn-submit-answers my-4"
-                       asp-controller="FinalResult" asp-action="GetFinalResult">Завершить экзамен</a>
-                    }
-                    @if ((Context.Request.Method == "POST") && (Model.LessonType != LessonType.Exam))
-                    {
-                        <a id="returnonlistoflessons" style="max-width: 275px; " class="btn btn-gradient btn-submit-answers"
-                           asp-controller="UserProfile" asp-action="GetUserProfile">Выйти на список занятий</a>
-                    }
-                </div>
+                @if ((Context.Request.Method == "POST") && (Model.LessonType == LessonType.Exam))
+                {
+                    <a class="btn d-block br-40 bd-cyan-500 my-4 text-white w-50 mx-auto"
+                    asp-controller="FinalResult" asp-action="GetFinalResult">Завершить экзамен</a>
+                }
+                @if ((Context.Request.Method == "POST") && (Model.LessonType != LessonType.Exam))
+                {
+                    <a class="btn d-block br-40 bd-cyan-500 my-4 text-white w-50 mx-auto"
+                       asp-controller="UserProfile" asp-action="GetUserProfile" asp-route-userLogin="@User.Identity.Name">Выйти на список занятий</a>
+                }
                 <div class="tasks" align="justify">
                     <form autocomplete="off" asp-controller="Lesson" asp-action="PassLesson">
                         <div>
                             <input type="hidden"
                                    asp-for="LessonId" value="@Model.LessonId" />
                         </div>
-                        <h4 class="text-white mt-4" align="center">Начальный уровень</h4>
+                        <p class="text-white mt-4 fs-4" align="center">Начальный уровень</p>
                         <br />
                         <div align="justify">
                             @for (int i = 0; i < Model.Questions.Count; i++)
@@ -53,12 +52,12 @@
                                 <input type="hidden" asp-for="Questions[i].Number" value="@Model.Questions[i].Number" />
                                 if (Model.Questions[i].QuestionType == TaskType.Open && Model.Questions[i - 1].QuestionType == TaskType.Test)
                                 {
-                                    <h4 class="text-white mt-3" align="center">Средний уровень</h4>
+                                    <p class="text-white mt-4 fs-4" align="center">Средний уровень</p>
                                     <br />
                                 }
                                 <p><b>@Model.Questions[i].Number</b>. @Model.Questions[i].DisplayQuestion</p>
-                                <div align="center" style="display: none;" class="answrunright my-3">Неправильно! Правильный ответ: @Model.Questions[i].RightPageAnswer</div>
-                                <div align="center" style="display: none;" class="answrright my-3">Правильно!</div>
+                                <div align="center" style="display: none;" class="answrunright my-3 br-40 bd-red-700">Неправильно! Правильный ответ: @Model.Questions[i].RightPageAnswer</div>
+                                <div align="center" style="display: none;" class="answrright my-3 br-40 bd-green-600">Правильно!</div>
                                 if (Model.Questions[i].QuestionType == TaskType.Test)
                                 {
                                     for (int j = 1; j <= Model?.Questions[i]?.VariantsOfAnswer.Count; j++)
@@ -77,23 +76,25 @@
                         </div>
                         @if (Context.Request.Method == "GET")
                         {
-                            <button type="submit" id="sendanswers" class="btn btn-gradient btn-submit-answers mt-4 text-white border border-white fs-5">Завершить</button>
+                            <div class="text-center">
+                                <button type="submit" class="btn br-40 bd-green-600 mt-2 text-white fs-5 mb-4">Завершить</button>
+                            </div>
+                            
                         }
                     </form>
-                    <div class="text-center">
-                        @if ((Context.Request.Method == "POST") && (Model.LessonType == LessonType.Exam))
-                        {
-                            <a id="returnonlistoflessons" style="max-width: 275px; " class="btn btn-gradient btn-submit-answers my-4 text-white"
-                           asp-controller="FinalResult" asp-action="GetFinalResult">Завершить экзамен</a>
-                        }
-                        @if ((Context.Request.Method == "POST") && (Model.LessonType != LessonType.Exam))
-                        {
-                            <a id="returnonlistoflessons" style="max-width: 275px; " class="btn btn-gradient btn-submit-answers "
-                               asp-controller="UserProfile" asp-action="GetUserProfile">Выйти на список занятий</a>
-                        }
-                    </div>
+                    @if ((Context.Request.Method == "POST") && (Model.LessonType == LessonType.Exam))
+                    {
+                        <a class="btn d-block br-40 bd-cyan-500 my-4 text-white w-50 mx-auto"
+                        asp-controller="FinalResult" asp-action="GetFinalResult">Завершить экзамен</a>
+                    }
+                    @if ((Context.Request.Method == "POST") && (Model.LessonType != LessonType.Exam))
+                    {
+                        <a class="btn d-block br-40 bd-cyan-500 my-4 text-white w-50 mx-auto"
+                           asp-controller="UserProfile" asp-action="GetUserProfile" asp-route-userLogin="@User.Identity.Name">Выйти на список занятий</a>
+                    }
                 </div>
             </div>
+            <div class="col-md-2 hidden-sm"></div>
         </div>
     </div>
 </div>

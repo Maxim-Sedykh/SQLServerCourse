@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="~/css/main.css" />
     <link rel="stylesheet" href="~/css/personalAccount.css" />
     <link rel="stylesheet" href="~/css/review.css" />
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/css/font-awesome.css" />
+    <link href="/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
@@ -88,10 +91,15 @@
             {
                 <nav class="navbar" style="height:80px;">
                     <div class="admin-list-group mx-auto">
-                        <ul class="list-group list-group-horizontal list-group-rou">
-                            <li class="list-group-item admin-list-item bd-cyan-800" style="border-radius: 20px 0px 0px 20px"><a asp-controller="User" asp-action="GetUsers" class="d-block h-100 w-100 text-white text-decoration-none">Пользователи</a></li>
-                            <li class="list-group-item admin-list-item bd-cyan-800"><a asp-controller="Review" asp-action="GetReviews" class="d-block h-100 w-100 text-white text-decoration-none">Отзывы</a></li>
-                            <li class="list-group-item admin-list-item bd-cyan-800" style="border-radius: 0px 20px 20px 0px"><a asp-controller="Lesson" asp-action="Index" class="d-block h-100 w-100 text-white text-decoration-none">Уроки</a></li>
+                        <ul class="list-group list-group-horizontal border-bottom pb-2">
+                            <li class="list-group-item border-0 p-0"><a asp-controller="User" asp-action="GetUsers" class="btn d-block text-white text-decoration-none bd-cyan-800 br-40">Пользователи</a></li>
+                            <li class="list-group-item border-0 py-0 px-2"><a asp-controller="Review" asp-action="GetReviews" class="btn d-block text-white text-decoration-none bd-cyan-800 br-40">Отзывы</a></li>
+                            <li class="list-group-item border-0 p-0">
+                                <button type="button" align="center" class="btn text-white text-center br-40 bd-cyan-800" onclick="openModal({ url: '/UserProfile/GetLessonList', modalId: 'wideModalWindow'})"
+                                        data-toggle="ajax-modal" data-target="Modal">
+                                    Перейти к урокам
+                                </button>
+                            </li>
                         </ul>
                     </div>
                 </nav>
@@ -150,8 +158,10 @@
         </div>
     </footer>
 
+    <script src="/jquery.min.js"></script>
+
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-@*     <script src="~/js/JavaScript.js"></script> *@
+    <script src="~/js/lessonEdit.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://kit.fontawesome.com/1e1acde3d7.js" crossorigin="anonymous"></script>

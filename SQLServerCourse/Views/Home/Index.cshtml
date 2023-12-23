@@ -5,44 +5,40 @@
 <div class="container-fluid">
     <div class="container px-1 pb-2 mb-0">
         <div class="row p-4 main-bodyheader d-flex justify-content-between mt-4">
-            <h1 align="center" style="color:#ffffff; font-size:55px;">
-                Курс по языку SQL в среде СУБД MS SQL Server
-            </h1>
-            <div class="col-md-8 col-sm-12" style="padding-left:50px;">
-                <h3 align="center" style="color:#eff4ff ; font-weight:700; margin-top:10px;" class="fs-4">
-                    Практический курс для новичков в среде MS SQL Server
-                </h3>
-                <p style="color:#eff4ff; font-size:22px; font-weight:600; margin-top:35px;" align="justify">
+            <div class="col-md-9 col-sm-12 px-5">
+                <p class="text-white mt-2 fs-2">Курс по СУБД MS SQL Server c изучением основ языка запросов T-SQL</p>
+                <p class="text-white fs-5 my-4" align="justify">
                     Изучите работу с базами данных с СУБД MS SQL Server
-                    и языком запросов T-SQL: теория и практика с разборами практических заданий.
+                    и языком запросов T-SQL: теория и практика с разборами правильных ответов. 
+                    Наша система практических заданий позволит вам легко и доступно понять учебный материал
                     Учите T-SQL быстро и эффективно!
                 </p>
                 <div class="text-center">
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <a class="btn btn-mainnav margin-leftpart-mainpic" style="width:40%;" asp-controller="UserProfile" asp-action="GetUserProfile" asp-route-userLogin="@User.Identity.Name">
+                        <a class="btn d-block bd-cyan-500 br-40 w-50 mt-4 mb-3" asp-controller="UserProfile" asp-action="GetUserProfile" asp-route-userLogin="@User.Identity.Name">
                             Перейти к обучению
                         </a>
                     }
                     else
                     {
-                        <a class="btn btn-mainnav margin-leftpart-mainpic" asp-controller="Account" asp-action="Register">
+                        <a class="btn d-block bd-cyan-500 br-40 w-50 mt-4 mb-3" asp-controller="Account" asp-action="Register">
                             Перейти к обучению
                         </a>
                     }
                 </div>
             </div>
-            <div class="col-md-4 col-sm-12">
-                <h3 align="center" class="text-white fs-4">
+            <div class="col-md-3 col-sm-12">
+                <p class="text-center text-white fs-4 mt-3">
                     Курс содержит:
-                </h3>
-                <div class="about-course text-white mx-auto mt-4 px-3 py-2 fw-bold lh-lg" style="height:130px; width: 70%; font-size:18px;">
+                </p>
+                <div class="about-course text-white mx-auto mt-5 px-3 py-2 lh-lg w-100 fs-6" style="height:115px;">
                         Занятия: 10<br />
                     Всего заданий: 91<br />
                         Практические задания: 4
                 </div>
                 <div class="text-center">
-                    <button type="button" align="center" class="btn btn-mainnav mt-4" onclick="openModal({ url: '/Home/GetCoursePlan', modalId: 'modalWindow'})"
+                    <button type="button" align="center" class="btn bd-cyan-500 br-40 mt-4" onclick="openModal({ url: '/Home/GetCoursePlan', modalId: 'modalWindow'})"
                             data-toggle="ajax-modal" data-target="Modal">
                         План обучения
                     </button>
@@ -62,9 +58,9 @@
 <div class="container-fluid">
     <div class="container ps-0">
         <div class="row mt-5">
-            <h2 class="h-main text-black">
+            <p class="text-black fs-2">
                 Чему вы научитесь на этом курсе
-            </h2>
+            </p>
             <div class="col-md-4 col-sm-12">
                 <div class="about-course-part">
                     <div class="about-course-part-imgdiv"><img class="about-course-part-img" src="../images/MainPagePic2.jpg" /></div>

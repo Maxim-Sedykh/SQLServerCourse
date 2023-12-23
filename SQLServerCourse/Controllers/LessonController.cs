@@ -51,5 +51,16 @@ namespace SQLServerCourse.Controllers
             }
             return View("Error", $"{response.Description}");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> SaveLessonContent([FromBody] LessonContentViewModel model)
+        {
+            var response = await _lessonService.SaveLectureMarkup(model); //Дозаполнение последнего свойства
+            if (response.StatusCode == Domain.Enum.StatusCode.OK)
+            {
+                return Json(new { description = response.Description });
+            }
+            return View("Error", $"{response.Description}");
+        }
     }
 }
