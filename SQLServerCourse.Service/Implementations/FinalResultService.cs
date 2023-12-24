@@ -47,9 +47,9 @@ namespace SQLServerCourse.Service.Implementations
                     };
                 }
 
-                string analys = await CreateAnalys(profile);
+                var analys = await CreateAnalys(profile);
 
-                profile.Analys = analys;
+                profile.Analys = analys.UserAnalys;
                 profile.IsExamCompleted = true;
 
                 await _userProfileRepository.Update(profile);
@@ -91,9 +91,9 @@ namespace SQLServerCourse.Service.Implementations
 
         }
 
-        private async Task<string> CreateAnalys(UserProfile profile) // Создание анализа прохождения курса
+        private async Task<UserAnalysViewModel> CreateAnalys(UserProfile profile) // Создание анализа прохождения курса
         {
-            string analys = "Извините, данные вашего анализа были утеряны.";
+            var analys = new UserAnalysViewModel { UserAnalys = "Извините, данные вашего анализа были утеряны." };
 
             string firstPartOfAnalys = profile.CurrentGrade switch
             {
@@ -121,20 +121,20 @@ namespace SQLServerCourse.Service.Implementations
                  $" вы набрали {examLessonRecord.First().Mark} баллов по экзамену из 40б. " +
                  $"За одно тестовое задание можно было получить 1.5 балла, за открытое 3.5.";
 
-            return analys = firstPartOfAnalys + secondPartOfAnalys;
+            return new UserAnalysViewModel { UserAnalys = firstPartOfAnalys + secondPartOfAnalys };
         }
 
-        public IBaseResponse<string> GetUserAnalys(long id)
+        public async Task<IBaseResponse<UserAnalysViewModel>> GetUserAnalys(long id)
         {
             try
             {
-                var profile = _userProfileRepository.GetAll()
+                var profile = await _userProfileRepository.GetAll()
                     .Include(x => x.User)
-                    .FirstOrDefault(x => x.User.Id == id);
+                    .FirstOrDefaultAsync(x => x.User.Id == id);
 
                 if (profile is null)
                 {
-                    return new BaseResponse<string>()
+                    return new BaseResponse<UserAnalysViewModel>()
                     {
                         StatusCode = StatusCode.UserNotFound,
                         Description = "Пользователь не найден"
@@ -142,21 +142,21 @@ namespace SQLServerCourse.Service.Implementations
                 }
                 if (profile.Analys is null)
                 {
-                    return new BaseResponse<string>()
+                    return new BaseResponse<UserAnalysViewModel>()
                     {
                         Description = "Извините, мы не сумели обнаружить ваш анализ",
                         StatusCode = StatusCode.UserAnalysNotFound
                     };
                 }
-                return new BaseResponse<string>()
+                return new BaseResponse<UserAnalysViewModel>()
                 {
-                    Data = profile.Analys,
+                    Data = new UserAnalysViewModel { UserAnalys = profile.Analys },
                     StatusCode = StatusCode.OK
                 };
             }
             catch (Exception ex)
             {
-                return new BaseResponse<string>()
+                return new BaseResponse<UserAnalysViewModel>()
                 {
                     Description = $"Внутренняя ошибка : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError

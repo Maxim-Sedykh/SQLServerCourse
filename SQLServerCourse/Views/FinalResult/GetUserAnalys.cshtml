@@ -1,8 +1,10 @@
-﻿@model string
-
+﻿@using SQLServerCourse.Domain.ViewModels.FinalResult
+@model UserAnalysViewModel
 
 <div class="container-fluid">
-    <div class="row fs-5" align="justify">
-        @Model
+    <div class="row">
+        <div class="col-md-12 text-justify">
+            @Model.UserAnalys
+        </div>
     </div>
 </div>

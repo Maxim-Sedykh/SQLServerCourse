@@ -30,26 +30,38 @@
                 }
                 @if ((Context.Request.Method == "POST") && (Model.LessonType == LessonType.Exam))
                 {
-                    <a class="btn d-block br-40 bd-cyan-500 my-4 text-white w-50 mx-auto"
+                    <a class="btn d-block br-40 bd-cyan-500 my-4 text-white w-25 mx-auto"
                     asp-controller="FinalResult" asp-action="GetFinalResult">Завершить экзамен</a>
                 }
                 @if ((Context.Request.Method == "POST") && (Model.LessonType != LessonType.Exam))
                 {
-                    <a class="btn d-block br-40 bd-cyan-500 my-4 text-white w-50 mx-auto"
-                       asp-controller="UserProfile" asp-action="GetUserProfile" asp-route-userLogin="@User.Identity.Name">Выйти на список занятий</a>
+                    <a class="btn d-block br-40 bd-cyan-500 my-4 text-white w-25 mx-auto"
+                       asp-controller="UserProfile" asp-action="GetUserProfile" asp-route-userLogin="@User.Identity.Name">Перейти в профиль</a>
                 }
                 <div class="tasks" align="justify">
                     <form autocomplete="off" asp-controller="Lesson" asp-action="PassLesson">
                         <div>
                             <input type="hidden"
                                    asp-for="LessonId" value="@Model.LessonId" />
+                            <input type="hidden"
+                                   asp-for="LessonType" value="@Model.LessonType" />
                         </div>
                         <p class="text-white mt-4 fs-4" align="center">Начальный уровень</p>
                         <br />
                         <div align="justify">
                             @for (int i = 0; i < Model.Questions.Count; i++)
                             {
-                                <input type="hidden" asp-for="Questions[i].Number" value="@Model.Questions[i].Number" />
+                                <div>
+                                    <input type="hidden" asp-for="Questions[i].QuestionType" />
+                                    <input type="hidden" asp-for="Questions[i].Number" />
+                                    <input type="hidden" asp-for="Questions[i].DisplayQuestion">
+                                    <input type="hidden" asp-for="Questions[i].RightPageAnswer">
+                                    @for (int j = 0; j < Model.Questions[i].InnerAnswers.Count; j++)
+                                    {
+                                        <input type="hidden" asp-for="Questions[i].InnerAnswers[j]" />
+                                    }
+                                </div>
+                                
                                 if (Model.Questions[i].QuestionType == TaskType.Open && Model.Questions[i - 1].QuestionType == TaskType.Test)
                                 {
                                     <p class="text-white mt-4 fs-4" align="center">Средний уровень</p>
@@ -60,10 +72,17 @@
                                 <div align="center" style="display: none;" class="answrright my-3 br-40 bd-green-600">Правильно!</div>
                                 if (Model.Questions[i].QuestionType == TaskType.Test)
                                 {
-                                    for (int j = 1; j <= Model?.Questions[i]?.VariantsOfAnswer.Count; j++)
+                                    for (int j = 1; j <= Model?.Questions[i]?.VariantsOfAnswer?.Count; j++)
                                     {
+                                        <div>
+                                            <input type="hidden" asp-for="Questions[i].VariantsOfAnswer[j - 1].Id" />
+                                            <input type="hidden" asp-for="Questions[i].VariantsOfAnswer[j - 1].IsRight" />
+                                            <input type="hidden" asp-for="Questions[i].VariantsOfAnswer[j - 1].VariantNumber" />
+                                            <input type="hidden" asp-for="Questions[i].VariantsOfAnswer[j - 1].QuestionId" />
+                                            <input type="hidden" asp-for="Questions[i].VariantsOfAnswer[j - 1].Content">
+                                        </div>
                                         <input id="input-pointer-@j-@i" type="radio" asp-for="Questions[i].UserAnswer" value="v_@j" />
-                                        <label for="input-pointer-@j-@i">@Model?.Questions[i]?.VariantsOfAnswer[j - 1].Content</label>
+                                        <label for="input-pointer-@j-@i">@Model.Questions[i].VariantsOfAnswer[j - 1].Content</label>
                                         <br />
                                     }
                                 }
@@ -84,13 +103,13 @@
                     </form>
                     @if ((Context.Request.Method == "POST") && (Model.LessonType == LessonType.Exam))
                     {
-                        <a class="btn d-block br-40 bd-cyan-500 my-4 text-white w-50 mx-auto"
+                        <a class="btn d-block br-40 bd-cyan-500 my-4 text-white w-25 mx-auto"
                         asp-controller="FinalResult" asp-action="GetFinalResult">Завершить экзамен</a>
                     }
                     @if ((Context.Request.Method == "POST") && (Model.LessonType != LessonType.Exam))
                     {
-                        <a class="btn d-block br-40 bd-cyan-500 my-4 text-white w-50 mx-auto"
-                           asp-controller="UserProfile" asp-action="GetUserProfile" asp-route-userLogin="@User.Identity.Name">Выйти на список занятий</a>
+                        <a class="btn d-block br-40 bd-cyan-500 my-4 text-white w-25 mx-auto"
+                           asp-controller="UserProfile" asp-action="GetUserProfile" asp-route-userLogin="@User.Identity.Name">Перейти в профиль</a>
                     }
                 </div>
             </div>

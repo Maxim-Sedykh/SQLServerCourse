@@ -2,6 +2,7 @@
 using Microsoft.CodeAnalysis.Scripting;
 using ServiceStack;
 using SQLServerCourse.Domain.ViewModels.PersonalProfile;
+using SQLServerCourse.Service.Implementations;
 using SQLServerCourse.Service.Interfaces;
 using System.Text.Json;
 
@@ -54,9 +55,9 @@ namespace SQLServerCourse.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetLessonList()
+        public async Task<IActionResult> GetLessonList()
         {
-            var response = _profileService.GetLessonList();
+            var response = await _profileService.GetLessonList(User.Identity.Name);
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
                 return PartialView(response.Data);

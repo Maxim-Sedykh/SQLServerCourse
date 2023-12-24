@@ -32,7 +32,7 @@ namespace SQLServerCourse.Controllers
         [HttpGet]
         public IActionResult PassLesson(byte id)
         {
-            var response = _lessonService.GetQuestions(id); //Здесь заполняются 3 свойства у модели LessonPassViewModel
+            var response = _lessonService.GetQuestions(id);
 
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
@@ -42,9 +42,9 @@ namespace SQLServerCourse.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PassLesson(LessonPassViewModel model) //Предполагаемый возврат через post с той же моделью, заполненной уже 4-мя свойствами
+        public async Task<IActionResult> PassLesson(LessonPassViewModel model)
         {
-            var response = await _lessonService.PassLesson(model, User.Identity.Name); //Дозаполнение последнего свойства
+            var response = await _lessonService.PassLesson(model, User.Identity.Name);
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
                 return View(response.Data);

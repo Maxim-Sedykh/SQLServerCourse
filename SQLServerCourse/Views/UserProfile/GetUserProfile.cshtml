@@ -48,8 +48,8 @@
         <div class="personalArea-userinfo @profileCardColor text-white p-3 pt-3 me-0 my-3" style="font-size:20px; border-radius:40px;">
             @if (Model.IsExamCompleted)
             {
-                <div class="passed-course-info mx-auto mb-3">
-                    <p class="fs-5 fst-normal text-center m-auto">Вы закончили этот курс!</p>
+                <div class="w-25 border border-white br-40 mx-auto mb-3 fs-5 bd-cyan-800">
+                    <p class="fs-6 text-center mx-auto my-1">Вы закончили этот курс!</p>
                 </div>
             }
             <div class="row">
@@ -72,8 +72,7 @@
                                 Возраст: <input class="info-user-input profile-input text-black" asp-for="Age" placeholder="Введите возраст" class="form-control" type="number" disabled="@inputDisabled">
                             </div>
                             <div class="mb-3">
-                                <button type="submit" class="btn btn-gradient text-white @cannotChangeData" id='updateInfoId'
-                                        style="background: #0058b4; height: 40px;">
+                                <button type="submit" class="btn br-40 bd-blue-700 fs-6 text-white @cannotChangeData" id='updateInfoId'>
                                     Обновить информацию
                                 </button>
                             </div>
@@ -92,28 +91,28 @@
                                 <text>@Model.CurrentGrade баллов из 100</text>
                             }
                         </p>
-                        <button type="button" align="center" class="btn btn-gradient text-white mb-3 py-0"
+                        <button type="button" class="btn bd-blue-800 br-40 mb-2"
                                 onclick="openModal({ url: '/UserProfile/GetLessonRecords',  modalId: 'modalWindow', data: '@Model.Id'})"
                                 data-toggle="ajax-modal" data-target="Modal">
                             Список оценок
                         </button>
                         <br />
-                        <p >Лекций пройдено: <input asp-for="LessonsCompleted" class="personal-profile-input-disabled info-user-input" disabled="disabled" style="height:40px;"/> </p>
-                        <button class="btn btn-gradient text-white" id="showChangeButton" @anotherProfileDisabled style="background: #0058b4;">Изменить пароль</button>
+                        <p >Лекций пройдено: <input asp-for="LessonsCompleted" class="personal-profile-input-disabled info-user-input mt-2" disabled="disabled" style="height:40px;"/> </p>
+                        <button class="btn bd-blue-800 br-40" id="showChangeButton" @anotherProfileDisabled style="background: #0058b4;">Изменить пароль</button>
                         <form id="changePasswordFormId">
                             <div class="d-flex justify-content-between mt-3 pe-5 " style="display: none;" id="changeDiv">
-                                <input name="NewPassword" autocomplete="off" class="form-control profile-input profile-pass-hide mb-3 ps-3"
-                                       id="changeInput" type="password" style="width: 50%; " placeholder="Введите новый пароль...">
-                                <button type="submit" class="btn btn-gradient bd-indigo-800 text-white profile-pass-hide" @anotherProfileDisabled id='changePasswordButton'>Обновить пароль</button>
+                                <input name="NewPassword" autocomplete="off" class="form-control profile-input profile-pass-hide mb-3 ps-3 w-50"
+                                       id="changeInput" type="password" placeholder="Введите новый пароль...">
+                                <button type="submit" class="btn br-40 bd-blue-800 text-white profile-pass-hide" @anotherProfileDisabled id='changePasswordButton' style="height:38px;">Обновить пароль</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row mx-auto mb-4 mt-0" style="align-content:center;width: 80%; height:75px; background:#1ab1c9; border-radius:35px;">
+        <div class="row mx-auto mb-4 mt-0 align-content-center w-75 bd-cyan-500 br-40" style="min-height:75px;">
             <div class="@examRowStyle col-sm-12  text-center">
-                <button type="button" align="center" class="btn btn-gradient text-white text-center" @anotherProfileDisabled onclick="openModal({ url: '/UserProfile/GetLessonList', modalId: 'wideModalWindow'})"
+                <button type="button" align="center" class="btn br-40 bd-blue-800 text-white text-center" @anotherProfileDisabled onclick="openModal({ url: '/UserProfile/GetLessonList', modalId: 'wideModalWindow'})"
                         data-toggle="ajax-modal" data-target="Modal">
                     Перейти к урокам
                 </button>
@@ -121,7 +120,7 @@
             @if (Model.IsExamCompleted)
             {
                 <div class="col-md-6 col-sm-12 text-center">
-                    <button type="button" align="center" class="btn btn-gradient text-white text-center" onclick="openModal({ url: '/FinalResult/GetUserAnalys', modalId: 'modalWindow', data: '@Model.Id'})"
+                    <button type="button" align="center" class="btn br-40 bd-blue-800 text-white text-center" @anotherProfileDisabled onclick="openModal({ url: '/FinalResult/GetUserAnalys', modalId: 'wideModalWindow', data: '@Model.Id'})"
                             data-toggle="ajax-modal" data-target="Modal">
                         Посмотреть анализ
                     </button>

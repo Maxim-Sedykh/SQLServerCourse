@@ -6,34 +6,26 @@
 }
 
 <div class= "container-fluid">
-    <div class= "container">
-        <div id="fireworks"></div>
-        <div class= "row">
-            <div class= "col-md-3 col-sm-3">
+    <div class="container">
+        <div class="row my-5">
+            <div class="col-md-3 col-sm-3">
             </div>
-            <div class= "col-md-6 col-sm-6">
-                <div class= "congratulation-panel text-center">
-                    Поздравляем @(Model.Login)!!!
-                </div>
+            <div class="br-40 bd-red-700 col-md-6 col-sm-6 text-center py-5">
+                <p class="fs-4 fw-bolder">Поздравляем @Model.Login!!!</p>                <p class="fs-5">Уважаемый @Model.Name @Model.Surname, ваш окончательный результат:</p>
+                <p class="fs-5"> @Model.CurrentGrade баллов из 100 !!!</p>
             </div>
-            <div class= "col-md-3 col-sm-3">
+            <div class="col-md-3 col-sm-3">
             </div>
         </div>
-        <div class="row result-panel text-center">
-            <div align = "center" class= "text-center mx-auto">
-                Уважаемый @Model.Name @Model.Surname, ваш окончательный результат:
-                <br />
-                <p style="font-size:30px;  font-weight:700;"> @Model.CurrentGrade баллов из 100 !!!</p>
-            </div>
+        <div class="row text-center">
             <div class="col-md-6 col-sm-12">
-                <button type="button" class="btn-gradient text-white" style="width: 50%; background: var(--color-aqua);"
+                <button type="button" class="btn bd-blue-800 br-40 text-white mb-4 mx-auto"
                         onclick="openModal({ url: '/FinalResult/GetUserAnalys', modalId: 'modalWindow', data: '@Model.Id'})" data-toggle="ajax-modal" data-target="Modal">
                     Просмотреть анализ
                 </button>
             </div>
             <div class="col-md-6 col-sm-12">
-                <a class="btn btn-gradient btn-lg text-white mb-4 p-0 mx-auto" style="height:75px;  width:55%; line-height:75px;"
-                   asp-controller="Home" asp-action="Index">
+                <a class="btn bd-blue-800 br-40 text-white mb-4 mx-auto" asp-controller="Home" asp-action="Index">
                     На главную
                 </a>
             </div>

@@ -1,15 +1,20 @@
-﻿@model List<string>
+﻿@using SQLServerCourse.Domain.ViewModels.UserProfile
+@model LessonListViewModel
 
 <div class="container-fluid">
     <div class="container">
         <br />
-        @for (int i = 1; i < Model.Count; i++)
+        @for (int i = 1; i < Model.LessonNames.Count; i++)
         {
-            <a class="btn btn-lesson-link d-block mb-5 text-white mx-auto" asp-controller="Lesson" asp-action="ReadLesson" asp-route-id="@i">@i. @Model[i - 1]</a>
-            
+            string lessonDisabled = string.Empty;
+            if ((i - 1) > Model.LessonsCompleted)
+            {
+                lessonDisabled = "disabled";
+            }
+            <a class="btn btn-lesson-link d-block mb-5 text-white mx-auto @lessonDisabled" asp-controller="Lesson" asp-action="PassLesson" asp-route-id="@i">@i. @Model.LessonNames[i - 1]</a>
         }
         <div class="exam-link-container mb-4">
-            <a class="btn btn-exam-link d-block text-white mx-auto border border-white" asp-controller="Lesson" asp-action="PassLesson" asp-route-id="@Model.Count">Экзамен</a>
+            <a class="btn btn-exam-link d-block text-white mx-auto border border-white @(Model.LessonsCompleted < 4 ? "disabled" : "")" asp-controller="Lesson" asp-action="PassLesson" asp-route-id="@Model.LessonNames.Count">Экзамен</a>
         </div>
     </div>
 </div>

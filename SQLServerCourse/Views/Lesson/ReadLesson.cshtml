@@ -34,21 +34,21 @@
                 </a>
             </div>
         </div>
-        <div class="toolbar mt-5">
-            <a href="#" class="toolbar-b fas fa-bold" title="Жирный"></a>
-            <a href="#" class="toolbar-i fas fa-italic" title="Курсив"></a>
-            <a href="#" class="toolbar-u fas fa-underline" title="Подчёркнутый"></a>
-            <a href="#" class="toolbar-s fas fa-strikethrough" title="Зачёркнутый"></a>
-            <a href="#" class="toolbar-ul fas fa-list-ul" title="Маркированный список"></a>
-            <a href="#" class="toolbar-ol fas fa-list-ol" title="Нумерованный список"></a>
-            <a href="#" class="toolbar-img far fa-image" title="Изображение"></a>
-            <a href="#" class="toolbar-left fas fa-align-left" title="по левому краю"></a>
-            <a href="#" class="toolbar-center fas fa-align-center" title="по центру"></a>
-            <a href="#" class="toolbar-right fas fa-align-right" title="по правому краю"></a>
-            <a href="#" class="toolbar-justify fas fa-align-justify" title="по ширине"></a>
-        </div>
         @if (User.IsInRole("Admin"))
         {
+            <div class="toolbar mt-5">
+                <a href="#" class="toolbar-b fas fa-bold" title="Жирный"></a>
+                <a href="#" class="toolbar-i fas fa-italic" title="Курсив"></a>
+                <a href="#" class="toolbar-u fas fa-underline" title="Подчёркнутый"></a>
+                <a href="#" class="toolbar-s fas fa-strikethrough" title="Зачёркнутый"></a>
+                <a href="#" class="toolbar-ul fas fa-list-ul" title="Маркированный список"></a>
+                <a href="#" class="toolbar-ol fas fa-list-ol" title="Нумерованный список"></a>
+                <a href="#" class="toolbar-img far fa-image" title="Изображение"></a>
+                <a href="#" class="toolbar-left fas fa-align-left" title="по левому краю"></a>
+                <a href="#" class="toolbar-center fas fa-align-center" title="по центру"></a>
+                <a href="#" class="toolbar-right fas fa-align-right" title="по правому краю"></a>
+                <a href="#" class="toolbar-justify fas fa-align-justify" title="по ширине"></a>
+            </div>
             <p class="fw-bold">* Вы можете изменять содержимое лекции!</p>
             <div contenteditable="true" id="lessonMarkup" class="p-2">
                 @Model.LessonMarkup

@@ -50,7 +50,7 @@
                             <td>
                                 @if (Model[i].IsReviewLeft)
                                 {
-                                    <button type="button" class="btn bd-cyan-500 rounded-pill" onclick="openModal({ url: '/Review/GetUserReviews', modalId: 'wideModalWindow', data: '@Model[i].Id'})"
+                                    <button type="button" class="btn bd-cyan-500 br-40" onclick="openModal({ url: '/Review/GetUserReviews', modalId: 'wideModalWindow', data: '@Model[i].Id'})"
                                             data-toggle="ajax-modal" data-target="Modal">
                                         Отзывы пользователя
                                     </button>

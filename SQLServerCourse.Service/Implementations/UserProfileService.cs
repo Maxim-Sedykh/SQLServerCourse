@@ -5,6 +5,7 @@ using SQLServerCourse.Domain.Entity;
 using SQLServerCourse.Domain.Enum;
 using SQLServerCourse.Domain.Responce;
 using SQLServerCourse.Domain.ViewModels.PersonalProfile;
+using SQLServerCourse.Domain.ViewModels.UserProfile;
 using SQLServerCourse.Service.Interfaces;
 using System.Security.Claims;
 
@@ -150,29 +151,41 @@ namespace SQLServerCourse.Service.Implementations
         }
 
 
-        public IBaseResponse<List<string>> GetLessonList()
+        public async Task<IBaseResponse<LessonListViewModel>> GetLessonList(string userLogin)
         {
             try
             {
+                var profile = await _userProfileRepository.GetAll()
+                    .Include(x => x.User)
+                    .FirstOrDefaultAsync(x => x.User.Login == userLogin);
+                if (profile == null)
+                {
+                    return new BaseResponse<LessonListViewModel>()
+                    {
+                        StatusCode = StatusCode.UserNotFound,
+                        Description = "Пользователь не найден"
+                    };
+                }
+
                 var lessons = _lessonRepository.GetAll().Select(x => x.Name).ToList();
                 if (!lessons.Any())
                 {
-                    return new BaseResponse<List<string>>()
+                    return new BaseResponse<LessonListViewModel>()
                     {
                         Description = "Найдено 0 элементов",
                         StatusCode = StatusCode.OK
                     };
                 }
 
-                return new BaseResponse<List<string>>()
+                return new BaseResponse<LessonListViewModel>()
                 {
-                    Data = lessons,
+                    Data = new LessonListViewModel { LessonsCompleted = profile.LessonsCompleted, LessonNames = lessons },
                     StatusCode = StatusCode.OK
                 };
             }
             catch (Exception ex)
             {
-                return new BaseResponse<List<string>>()
+                return new BaseResponse<LessonListViewModel>()
                 {
                     Description = ex.Message,
                     StatusCode = StatusCode.InternalServerError

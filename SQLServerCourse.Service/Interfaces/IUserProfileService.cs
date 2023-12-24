@@ -1,6 +1,7 @@
 ﻿using SQLServerCourse.Domain.Entity;
 using SQLServerCourse.Domain.Responce;
 using SQLServerCourse.Domain.ViewModels.PersonalProfile;
+using SQLServerCourse.Domain.ViewModels.UserProfile;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,6 @@ namespace SQLServerCourse.Service.Interfaces
 
         Task<IBaseResponse<UserProfile>> UpdateInfo(UserProfileViewModel model);
 
-        IBaseResponse<List<string>> GetLessonList();
+        Task<IBaseResponse<LessonListViewModel>> GetLessonList(string userLogin);
     }
 }
