@@ -5,6 +5,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="wwwroot\images\tables\**" />
+    <Content Remove="wwwroot\images\tables\**" />
+    <EmbeddedResource Remove="wwwroot\images\tables\**" />
+    <None Remove="wwwroot\images\tables\**" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="FontAwesome" Version="4.7.0" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.2" />
     <PackageReference Include="NLog.Extensions.Logging" Version="5.3.5" />

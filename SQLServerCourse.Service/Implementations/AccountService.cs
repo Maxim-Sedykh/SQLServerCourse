@@ -71,7 +71,7 @@ namespace SQLServerCourse.Service.Implementations
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Внутренняя ошибка: {ex.Message}");
+                _logger.LogError(ex, $"[Register]: {ex.Message}");
                 return new BaseResponse<ClaimsIdentity>
                 {
                     Description = ex.Message,
@@ -110,7 +110,7 @@ namespace SQLServerCourse.Service.Implementations
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Внутренняя ошибка: {ex.Message}");
+                _logger.LogError(ex, $"[Login]: {ex.Message}");
                 return new BaseResponse<ClaimsIdentity>
                 {
                     Description = ex.Message,

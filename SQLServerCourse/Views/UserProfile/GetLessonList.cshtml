@@ -11,7 +11,7 @@
             {
                 lessonDisabled = "disabled";
             }
-            <a class="btn btn-lesson-link d-block mb-5 text-white mx-auto @lessonDisabled" asp-controller="Lesson" asp-action="PassLesson" asp-route-id="@i">@i. @Model.LessonNames[i - 1]</a>
+            <a class="btn btn-lesson-link d-block mb-5 text-white mx-auto @lessonDisabled" asp-controller="Lesson" asp-action="ReadLesson" asp-route-id="@i">@i. @Model.LessonNames[i - 1]</a>
         }
         <div class="exam-link-container mb-4">
             <a class="btn btn-exam-link d-block text-white mx-auto border border-white @(Model.LessonsCompleted < 4 ? "disabled" : "")" asp-controller="Lesson" asp-action="PassLesson" asp-route-id="@Model.LessonNames.Count">Экзамен</a>

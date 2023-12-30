@@ -17,8 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLServerCourse.DAL", "SQLS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLServerCourse.Service", "SQLServerCourse.Service\SQLServerCourse.Service.csproj", "{B2551DB4-5BBC-43E9-8663-7EBE0DB9AC56}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logs", "Logs", "{41E4767F-4F83-4297-8111-8CDFB7F0C34A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

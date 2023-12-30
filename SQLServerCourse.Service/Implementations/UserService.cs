@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Microsoft.Identity.Client;
 using SQLServerCourse.DAL.Interfaces;
 using SQLServerCourse.DAL.Repositories;
 using SQLServerCourse.Domain.Entity;
@@ -22,12 +24,14 @@ namespace SQLServerCourse.Service.Implementations
     {
         private readonly IBaseRepository<UserProfile> _userProfileRepository;
         private readonly IBaseRepository<User> _userRepository;
+        private readonly ILogger<UserService> _logger;
         private const string adminLogin = "Admin123";
 
-        public UserService(IBaseRepository<UserProfile> userProfileRepository, IBaseRepository<User> userRepository)
+        public UserService(IBaseRepository<UserProfile> userProfileRepository, IBaseRepository<User> userRepository, ILogger<UserService> logger)
         {
             _userProfileRepository = userProfileRepository;
             _userRepository = userRepository;
+            _logger = logger;
         }
 
         public async Task<IBaseResponse<User>> AddUser(UserAddingViewModel model)
@@ -75,6 +79,7 @@ namespace SQLServerCourse.Service.Implementations
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, $"[UserService.AddUser] error: {ex.Message}");
                 return new BaseResponse<User>()
                 {
                     StatusCode = StatusCode.InternalServerError,
@@ -117,6 +122,7 @@ namespace SQLServerCourse.Service.Implementations
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, $"[UserService.DeleteUser] error: {ex.Message}");
                 return new BaseResponse<bool>()
                 {
                     StatusCode = StatusCode.InternalServerError,
@@ -183,6 +189,7 @@ namespace SQLServerCourse.Service.Implementations
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, $"[UserService.GetUser] error: {ex.Message}");
                 return new BaseResponse<UserEditingViewModel>()
                 {
                     StatusCode = StatusCode.InternalServerError,
@@ -223,6 +230,7 @@ namespace SQLServerCourse.Service.Implementations
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, $"[UserService.GetUsers] error: {ex.Message}");
                 return new BaseResponse<List<UserViewModel>>()
                 {
                     StatusCode = StatusCode.InternalServerError,
@@ -278,6 +286,7 @@ namespace SQLServerCourse.Service.Implementations
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, $"[UserService.UpdateUserData] error: {ex.Message}");
                 return new BaseResponse<UserProfile>()
                 {
                     StatusCode = StatusCode.InternalServerError,

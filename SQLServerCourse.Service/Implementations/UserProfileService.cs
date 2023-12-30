@@ -17,14 +17,16 @@ namespace SQLServerCourse.Service.Implementations
         private readonly IBaseRepository<UserProfile> _userProfileRepository;
         private readonly IBaseRepository<LessonRecord> _lessonRecordRepository;
         private readonly IBaseRepository<Lesson> _lessonRepository;
+        private readonly ILogger<UserProfileService> _logger;
 
         public UserProfileService(IBaseRepository<User> userRepository, IBaseRepository<UserProfile> userProfileRepository,
-            IBaseRepository<LessonRecord> lessonRecordRepository, IBaseRepository<Lesson> lessonRepository)
+            IBaseRepository<LessonRecord> lessonRecordRepository, IBaseRepository<Lesson> lessonRepository, ILogger<UserProfileService> logger)
         {
             _userRepository = userRepository;
             _userProfileRepository = userProfileRepository;
             _lessonRecordRepository = lessonRecordRepository;
             _lessonRepository = lessonRepository;
+            _logger = logger;
         }
 
         public async Task<IBaseResponse<UserProfileViewModel>> GetUserProfile(string userLogin)
@@ -63,6 +65,7 @@ namespace SQLServerCourse.Service.Implementations
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, $"[UserProfileService.GetUserProfile] error: {ex.Message}");
                 return new BaseResponse<UserProfileViewModel>()
                 {
                     StatusCode = StatusCode.InternalServerError,
@@ -101,6 +104,7 @@ namespace SQLServerCourse.Service.Implementations
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, $"[UserProfileService.UpdateInfo] error: {ex.Message}");
                 return new BaseResponse<UserProfile>()
                 {
                     StatusCode = StatusCode.InternalServerError,

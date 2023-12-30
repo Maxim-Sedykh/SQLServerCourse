@@ -10,6 +10,6 @@ namespace SQLServerCourse.Domain.Enum
     {
         Test = 0,
         Open = 1,
-        Practical
+        Practical = 2,
     }
 }

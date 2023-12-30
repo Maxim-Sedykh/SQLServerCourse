@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,8 @@ namespace SQLServerCourse.Domain.ViewModels.Teaching
         public TaskType QuestionType { get; set; }
 
         public List<TestVariant>? VariantsOfAnswer { get; set; }
+
+        public DataTable QueryResult { get; set; }
 
         public string RightPageAnswer { get; set; }
 

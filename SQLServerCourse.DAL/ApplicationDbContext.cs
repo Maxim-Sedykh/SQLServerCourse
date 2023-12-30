@@ -155,7 +155,7 @@ namespace SQLServerCourse.DAL
 
                 builder.Property(x => x.Id).ValueGeneratedOnAdd();
                 builder.Property(r => r.DisplayQuestion).HasMaxLength(750).IsRequired();
-                builder.Property(r => r.Answer).HasMaxLength(70).IsRequired();
+                builder.Property(r => r.Answer).HasMaxLength(500).IsRequired();
 
                 builder.HasOne(q => q.Lesson)
                     .WithMany(l => l.Questions)

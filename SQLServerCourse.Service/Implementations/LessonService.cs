@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SQLServerCourse.DAL.Interfaces;
 using SQLServerCourse.DAL.Repositories;
+using SQLServerCourse.DAL.SqlHelper;
 using SQLServerCourse.Domain.Entity;
 using SQLServerCourse.Domain.Enum;
 using SQLServerCourse.Domain.Responce;
@@ -192,7 +193,7 @@ namespace SQLServerCourse.Service.Implementations
                                                                                        where testVariant.QuestionId == lessonQuestions[i].Id
                                                                                        select testVariant).ToList() : null,
                         InnerAnswers = new List<string> { lessonQuestions[i].Answer },
-                        RightPageAnswer = lessonQuestions[i].Type == TaskType.Open ? lessonQuestions[i].Answer : (from testVariant in lessonTestVariants
+                        RightPageAnswer = (lessonQuestions[i].Type == TaskType.Open) || (lessonQuestions[i].Type == TaskType.Practical) ? lessonQuestions[i].Answer : (from testVariant in lessonTestVariants
                                                                                                                   where testVariant.QuestionId == lessonQuestions[i].Id
                                                                                                                   where testVariant.IsRight
                                                                                                                   select testVariant.Content).First(),
@@ -217,19 +218,48 @@ namespace SQLServerCourse.Service.Implementations
                 bool isAnswerCorrect = false;
                 foreach (var answer in question.InnerAnswers)
                 {
-                    if (answer == question.UserAnswer)
+                    if (question.QuestionType == TaskType.Practical)
                     {
-                        isAnswerCorrect = true;
-                        tasksCorrectness.Add(true);
-                        if (question.QuestionType == TaskType.Test)
+                        try
                         {
-                            grade += 1.5f;
+                            var userResult = SqlHelper.ExecuteQuery(question.UserAnswer);
+                            var rightResult = SqlHelper.ExecuteQuery(question.InnerAnswers.First());
+
+                            DataTableComparer comparer = new DataTableComparer();
+                            int result = comparer.Compare(userResult, rightResult);
+
+                            if (result == 0)
+                            {
+                                grade = +5.75f;
+                                tasksCorrectness.Add(true);
+                            }
+                            else 
+                            {
+                                tasksCorrectness.Add(false);
+                            }
+                            question.QueryResult = userResult;
                         }
-                        else
+                        catch (Exception)
                         {
-                            grade += 3.5f;
+                            tasksCorrectness.Add(false);
                         }
-                        break;
+                    }
+                    else
+                    {
+                        if (answer == question.UserAnswer)
+                        {
+                            isAnswerCorrect = true;
+                            tasksCorrectness.Add(true);
+                            if (question.QuestionType == TaskType.Test)
+                            {
+                                grade += 1f;
+                            }
+                            else
+                            {
+                                grade += 2f;
+                            }
+                            break;
+                        }
                     }
                 }
                 if (!isAnswerCorrect)
