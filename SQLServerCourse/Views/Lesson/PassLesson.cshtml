@@ -57,6 +57,7 @@
                                     <input type="hidden" asp-for="Questions[i].Number" />
                                     <input type="hidden" asp-for="Questions[i].DisplayQuestion">
                                     <input type="hidden" asp-for="Questions[i].RightPageAnswer">
+                                    <input type="hidden" asp-for="Questions[i].Id">
                                     @for (int j = 0; j < Model.Questions[i].InnerAnswers.Count; j++)
                                     {
                                         <input type="hidden" asp-for="Questions[i].InnerAnswers[j]" />
@@ -175,6 +176,13 @@
                                 <p><b>@Model.Questions[i].Number</b>. @Model.Questions[i].DisplayQuestion</p>
                                 <div align="center" style="display: none;" class="answrunright my-3 br-40 bd-red-700 p-2">Неправильно! Правильный ответ: @Model.Questions[i].RightPageAnswer</div>
                                 <div align="center" style="display: none;" class="answrright my-3 br-40 bd-green-600">Правильно!</div>
+                                if (Model.Questions[i].Remarks != null)
+                                {
+                                    foreach (var remark in Model.Questions[i].Remarks)
+                                    {
+                                        <div align="center" class="my-3 br-40 bd-red-700 p-2">@remark</div>
+                                    }
+                                }
                                 if (Model.Questions[i].QuestionType == TaskType.Test)
                                 {
                                     for (int j = 1; j <= Model?.Questions[i]?.VariantsOfAnswer?.Count; j++)
@@ -197,21 +205,25 @@
                                     {
                                         <div class="table-responsive mx-auto">
                                             <table class="table table-dark">
-                                                <tr>
-                                                    @foreach (System.Data.DataColumn col in Model.Questions[i].QueryResult.Columns)
-                                                    {
-                                                        <th>@col.ColumnName</th>
-                                                    }
-                                                </tr>
-                                                @foreach (System.Data.DataRow row in Model.Questions[i].QueryResult.Rows)
-                                                {
+                                                <thead>
                                                     <tr>
-                                                        @foreach (var cell in row.ItemArray)
+                                                        @foreach (System.Data.DataColumn col in Model.Questions[i].QueryResult.Columns)
                                                         {
-                                                            <td>@cell</td>
+                                                            <th>@col.ColumnName</th>
                                                         }
                                                     </tr>
-                                                }
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (System.Data.DataRow row in Model.Questions[i].QueryResult.Rows)
+                                                    {
+                                                        <tr>
+                                                            @foreach (var cell in row.ItemArray)
+                                                            {
+                                                                <td>@cell</td>
+                                                            }
+                                                        </tr>
+                                                    }
+                                                </tbody>
                                             </table>
                                         </div>
                                     } 

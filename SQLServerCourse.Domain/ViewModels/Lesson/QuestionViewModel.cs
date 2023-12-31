@@ -13,6 +13,8 @@ namespace SQLServerCourse.Domain.ViewModels.Teaching
 {
     public class QuestionViewModel
     {
+        public byte Id { get; set; }
+
         public byte Number { get; set; }
 
         public string DisplayQuestion { get; set; }
@@ -21,7 +23,9 @@ namespace SQLServerCourse.Domain.ViewModels.Teaching
 
         public List<TestVariant>? VariantsOfAnswer { get; set; }
 
-        public DataTable QueryResult { get; set; }
+        public DataTable? QueryResult { get; set; }
+
+        public List<string>? Remarks { get; set; }
 
         public string RightPageAnswer { get; set; }
 

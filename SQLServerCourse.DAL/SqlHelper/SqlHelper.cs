@@ -7,7 +7,9 @@ using System.Diagnostics;
 using System.Dynamic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SQLServerCourse.DAL.SqlHelper
 {
@@ -29,6 +31,7 @@ namespace SQLServerCourse.DAL.SqlHelper
             DataTable table = new DataTable();
             List<string> prohibitedWords = new List<string> { "lessonrecords", "users", "lessons", 
                 "reviews", "questions", "testvariants", "userprofiles" };
+            sqlQuery = Regex.Replace(sqlQuery, @"\s+", " ").ToLower();
 
             foreach (var word in prohibitedWords)
             {

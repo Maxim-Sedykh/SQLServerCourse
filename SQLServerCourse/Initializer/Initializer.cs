@@ -18,6 +18,8 @@ namespace SQLServerCourse.Initializer
             services.AddScoped<IBaseRepository<Review>, ReviewRepository>();
             services.AddScoped<IBaseRepository<LessonRecord>, LessonRecordRepository>();
             services.AddScoped<IBaseRepository<UserProfile>, UserProfileRepository>();
+            services.AddScoped<IBaseRepository<Keyword>, KeywordRepository>();
+            services.AddScoped<IBaseRepository<QueryWord>, QueryWordRepository>();
         }
 
         public static void InitializeServices(this IServiceCollection services)

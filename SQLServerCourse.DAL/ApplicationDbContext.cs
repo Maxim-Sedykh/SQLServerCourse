@@ -38,6 +38,10 @@ namespace SQLServerCourse.DAL
 
         public DbSet<UserProfile> UserProfiles { get; set; }
 
+        public DbSet<Keyword> Keywords { get; set; }
+
+        public DbSet<QueryWord> QueryWords { get; set; }
+
         //Ниже таблицы для практических занятий курса, чтобы делать по ним запросы:
 
         public DbSet<Film> Films { get; set; }
@@ -183,6 +187,26 @@ namespace SQLServerCourse.DAL
                 builder.Property(l => l.Id).ValueGeneratedOnAdd();
                 builder.Property(l => l.Name).HasMaxLength(75).IsRequired();
                 builder.Property(l => l.LectureMarkup).HasMaxLength(5000).IsRequired(false);
+            });
+
+            modelBuilder.Entity<Keyword>(builder =>
+            {
+                builder.ToTable("Keywords").HasKey(x => x.Id);
+
+                builder.Property(l => l.Id).ValueGeneratedOnAdd();
+                builder.Property(l => l.Word).HasMaxLength(50).IsRequired();
+            });
+
+            modelBuilder.Entity<QueryWord>(builder =>
+            {
+                builder.ToTable("QueryWords").HasKey(x => x.Id);
+
+                builder.Property(l => l.Id).ValueGeneratedOnAdd();
+
+                builder.HasOne(q => q.Keyword)
+                    .WithMany(k => k.QueryWords)
+                    .HasForeignKey(q => q.KeywordId)
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             // Таблицы для практических заданий

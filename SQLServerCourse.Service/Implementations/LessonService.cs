@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Html;
 using Microsoft.EntityFrameworkCore;
+using QuickGraph;
 using SQLServerCourse.DAL.Interfaces;
 using SQLServerCourse.DAL.Repositories;
 using SQLServerCourse.DAL.SqlHelper;
@@ -31,16 +32,19 @@ namespace SQLServerCourse.Service.Implementations
         private readonly IBaseRepository<Lesson> _lessonRepository;
         private readonly IBaseRepository<Question> _questionRepository;
         private readonly IBaseRepository<TestVariant> _testVariantRepository;
+        private readonly IBaseRepository<QueryWord> _queryWordsRepository;
 
-        public LessonService(IBaseRepository<LessonRecord> lessonRecordRepository, 
+        public LessonService(IBaseRepository<LessonRecord> lessonRecordRepository,
             IBaseRepository<Lesson> lessonRepository, IBaseRepository<UserProfile> userProfileRepository,
-            IBaseRepository<Question> questionRepository, IBaseRepository<TestVariant> pageAnswerRepository)
+            IBaseRepository<Question> questionRepository, IBaseRepository<TestVariant> pageAnswerRepository,
+            IBaseRepository<QueryWord> queryWordsRepository)
         {
             _lessonRecordRepository = lessonRecordRepository;
             _lessonRepository = lessonRepository;
             _userProfileRepository = userProfileRepository;
             _questionRepository = questionRepository;
             _testVariantRepository = pageAnswerRepository;
+            _queryWordsRepository = queryWordsRepository;
         }
 
         public IBaseResponse<LessonLectureViewModel> GetLecture(byte lessonId)
@@ -186,6 +190,7 @@ namespace SQLServerCourse.Service.Implementations
                 {
                     questionViewModels.Add(new QuestionViewModel
                     {
+                        Id = lessonQuestions[i].Id,
                         Number = lessonQuestions[i].Number,
                         DisplayQuestion = lessonQuestions[i].DisplayQuestion,
                         QuestionType = lessonQuestions[i].Type,
@@ -220,6 +225,7 @@ namespace SQLServerCourse.Service.Implementations
                 {
                     if (question.QuestionType == TaskType.Practical)
                     {
+                        var remarks = new List<string>();
                         try
                         {
                             var userResult = SqlHelper.ExecuteQuery(question.UserAnswer);
@@ -230,18 +236,27 @@ namespace SQLServerCourse.Service.Implementations
 
                             if (result == 0)
                             {
+                                isAnswerCorrect = true;
                                 grade = +5.75f;
                                 tasksCorrectness.Add(true);
                             }
-                            else 
+                            else
                             {
-                                tasksCorrectness.Add(false);
+                                ParseAnswer(question.UserAnswer.ToLower(), question.Id, out grade, out remarks);
+                                question.Remarks = remarks;
                             }
-                            question.QueryResult = userResult;
+                            if (userResult != null)
+                            {
+                                question.QueryResult = userResult;
+                            }
                         }
                         catch (Exception)
                         {
-                            tasksCorrectness.Add(false);
+                            if (question.UserAnswer != null)
+                            {
+                                ParseAnswer(question.UserAnswer.ToLower(), question.Id, out grade, out remarks);
+                                question.Remarks = remarks;
+                            }
                         }
                     }
                     else
@@ -268,6 +283,83 @@ namespace SQLServerCourse.Service.Implementations
                 }
             }
             return new Tuple<float, List<bool>>(grade, tasksCorrectness);
+        }
+
+        public void ParseAnswer(string sqlQuery, byte questionId, out float grade, out List<string> remarks)
+        {
+            grade = 0f;
+            remarks = new List<string>();
+            if (sqlQuery == null)
+                return;
+
+            var getQuestionKeywords = _queryWordsRepository.GetAll()
+                .Where(x => x.QuestionId == questionId)
+                .OrderBy(x => x.Number)
+                .Include(x => x.Keyword)
+                .Select(x => x.Keyword.Word).ToList();
+
+            AdjacencyGraph<string, Edge<string>> graph = CreateGraph(getQuestionKeywords);
+            float gradeForeachCategory = (float)Math.Round(5.75f / (getQuestionKeywords.Count + 2), 2);
+
+            var words = sqlQuery.Split(new[] { ' ', ',', '.', '(', ')', ';' }, StringSplitOptions.RemoveEmptyEntries);
+            var keywordIndexes = new List<int>();
+
+            bool isFirstIteration = true;
+            foreach (var edge in graph.Edges)
+            {
+                if (isFirstIteration)
+                {
+                    keywordIndexes.Add(sqlQuery.IndexOf(edge.Source));
+                    keywordIndexes.Add(sqlQuery.IndexOf(edge.Target));
+                    isFirstIteration = false;
+                }
+                else
+                {
+                    keywordIndexes.Add(sqlQuery.IndexOf(edge.Target));
+                }
+            }
+
+            foreach (var keyword in graph.Vertices)
+            {
+                keywordIndexes.Add(sqlQuery.IndexOf(keyword));
+            }
+
+            if (keywordIndexes.SequenceEqual(keywordIndexes.OrderBy(x => x)))
+            {
+                grade += gradeForeachCategory;
+            }
+            else
+            {
+                remarks.Add("Служебные слова расположены не в правильном порядке");
+            }
+
+            foreach (var keyword in graph.Vertices)
+            {
+                if (words.Contains(keyword))
+                {
+                    grade += gradeForeachCategory;
+                }
+                else
+                {
+                    remarks.Add($"Вы не добавили с свой запрос служебное слово {keyword.ToUpper()}");
+                }
+            }
+
+           grade  = (float)Math.Round(grade, 2);
+        }
+
+        private AdjacencyGraph<string, Edge<string>> CreateGraph(IEnumerable<string> keywords)
+        {
+            var graph = new AdjacencyGraph<string, Edge<string>>();
+            foreach (var keyword in keywords)
+            {
+                graph.AddVertex(keyword);
+            }
+            for (int i = 0; i < keywords.Count() - 1; i++)
+            {
+                graph.AddEdge(new Edge<string>(keywords.ElementAt(i), keywords.ElementAt(i + 1)));
+            }
+            return graph;
         }
 
         public async Task<IBaseResponse<LessonLectureViewModel>> SaveLectureMarkup(LessonContentViewModel model)

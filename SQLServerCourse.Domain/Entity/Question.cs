@@ -24,5 +24,7 @@ namespace SQLServerCourse.Domain.Entity
         public string Answer { get; set; }
 
         public List<TestVariant> TestVariants { get; set; }
+
+        public List<QueryWord> QueryWords { get; set; }
     }
 }
