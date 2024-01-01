@@ -8,7 +8,7 @@
 
 <div class="container px-0">
     <div class="row w-100 m-0">
-        <div class="col-md-12 col-sm-12 page-title-container text-center px-1 text-white mt-3 mx-auto lh-lg fs-5 pt-3">
+        <div class="col-md-12 col-sm-12 bd-cyan-700 text-center px-1 text-white mt-3 mx-auto lh-lg fs-5 pt-3 br-40">
             <p>
                 Ниже находятся отзывы учеников, прошедших весь курс. <br />Оставьте свой отзыв после прохождения
                 полного курса MS SQL и T-SQL<br />
@@ -19,39 +19,39 @@
         <div class="col-md-12 col-sm-12 text-center">
             @if (User.Identity.IsAuthenticated)
             {
-                <button type="button" align="center" class="btn btn-gradient btn-create-review mt-4 text-white"
+                <button type="button" align="center" class="btn bd-cyan-500 br-40 mt-4 text-white"
                         onclick="openModal({ url: '/Review/CreateReview', modalId: 'wideModalWindow'})" data-toggle="ajax-modal" data-target="Modal">
                     Создать отзыв
                 </button>
             }
             else
             {
-                <a id="anothercourse" class="btn btn-create-review"
+                <a class="btn bd-cyan-500 br-40 mt-4"
                 asp-controller="Account" asp-action="Login">
                     Войдите чтобы оставить отзыв
                 </a>
             }
         </div>
     </div>
-    <div class="row sort-div my-5 fs-6">
+    <div class="row my-5 fs-6">
         <div class="col-md-5 col-sm-12 d-flex justify-content-between border-bottom px-5">
-            <p>
+            <p class="fs-6">
                 Сортировать по:
             </p>
-            <button class="btn btn-sort" onclick="sortByNewest()">Сначала новые</button>
+            <button class="btn br-40 bd-cyan-700 mb-2" onclick="sortByNewest()">Сначала новые</button>
             @if (User.Identity.IsAuthenticated)
             {
-                <button class="btn btn-sort" onclick="sortByOwn()">Сначала свои</button>
+                <button class="btn br-40 bd-cyan-700 mb-2" onclick="sortByOwn()">Сначала свои</button>
             }
         </div>
-        <div class="col-md-7 col-sm-12" style="padding-left:25%;">
+        <div class="col-md-7 col-sm-12">
         </div>
     </div>
     <div id="review-list">
         @for (int i = 0; i < Model.Count; i++)
         {
-            <div class="row review mb-5 mx-auto p-2">
-                <div class="col-md-2 text-center">
+            <div class="row review mb-5 mx-auto p-2 bd-gray-300 br-40" style="#d7d7d7">
+                <div class="col-md-2 text-center my-2">
                     <p class="review-user-name text-center fs-5 fw-bolder mb-1">
                         @Model[i].Login
                     </p>
@@ -69,7 +69,7 @@
                 {
                     <div class="col-md-2 d-flex justify-content-center">
                         <form asp-controller="Review" asp-action="DeleteReview" asp-route-id="@Model[i].Id" asp-route-referrer="GetReviews" method="post">
-                            <button type="submit" class="btn btn-gradient text-white mt-2">Удалить</button>
+                            <button type="submit" class="btn bd-red-700 br-40 text-white mt-2">Удалить</button>
                         </form>
                     </div>
                 }

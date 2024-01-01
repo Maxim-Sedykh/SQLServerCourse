@@ -13,7 +13,7 @@
     <div class="container">
         <p class="fs-2 text-center my-3">@Model.LessonName</p>
         <div class="row">
-            <div class="@columnCountState col-sm-12 text-center">
+            <div class="@columnCountState col-sm-12 text-center mb-2">
                 <a class="btn d-block br-40 bd-cyan-500 text-white text-center fs-6 w-25 mx-auto" asp-controller="UserProfile"
                    asp-action="GetUserProfile" asp-route-userLogin="@User.Identity.Name">
                     Назад
@@ -21,7 +21,7 @@
             </div>
             @if (User.IsInRole("Admin"))
             {
-                <div class="@columnCountState col-sm-12 text-center">
+                <div class="@columnCountState col-sm-12 text-center mb-2">
                     <btn id="saveLectureChange" class="btn br-40 bd-cyan-800 text-white text-center fs-6 w-50 mx-auto">
                         Сохранить изменения
                     </btn>
@@ -59,13 +59,13 @@
             @Model.LessonMarkup
         }
         <div class="row mt-3">
-            <div class="col-md-6 col-sm-12 text-center">
+            <div class="col-md-6 col-sm-12 text-center mb-2">
                 <a class="btn d-block br-40 bd-cyan-500 text-white text-center fs-6 w-25 mx-auto" asp-controller="UserProfile"
                    asp-action="GetUserProfile" asp-route-userLogin="@User.Identity.Name">
                     Назад
                 </a>
             </div>
-            <div class="col-md-6 col-sm-12 text-center">
+            <div class="col-md-6 col-sm-12 text-center mb-2">
                 <a class="btn d-block br-40 bd-blue-700 text-white text-center fs-6 w-50 mx-auto" asp-controller="Lesson"
                    asp-action="PassLesson" asp-route-id="@Model.Id">
                     Перейти к практике

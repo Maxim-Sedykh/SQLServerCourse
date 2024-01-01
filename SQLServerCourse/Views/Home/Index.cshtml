@@ -4,8 +4,8 @@
 
 <div class="container-fluid">
     <div class="container px-1 pb-2 mb-0">
-        <div class="row p-4 main-bodyheader d-flex justify-content-between mt-4">
-            <div class="col-md-9 col-sm-12 px-5">
+        <div class="row p-4 main-bodyheader d-flex justify-content-between mt-4 br-40 border border-bottom border-white">
+            <div class="col-md-9 col-sm-12 px-3">
                 <p class="text-white mt-2 fs-2">Курс по СУБД MS SQL Server c изучением основ языка запросов T-SQL</p>
                 <p class="text-white fs-5 my-4" align="justify">
                     Изучите работу с базами данных с СУБД MS SQL Server
@@ -32,7 +32,7 @@
                 <p class="text-center text-white fs-4 mt-3">
                     Курс содержит:
                 </p>
-                <div class="about-course text-white mx-auto mt-5 px-3 py-2 lh-lg w-100 fs-6" style="height:115px;">
+                <div class="border border-white br-40 w-100 text-white mx-auto mt-5 px-3 py-2 lh-lg w-100 fs-6" style="height:115px;">
                         Занятия: 10<br />
                     Всего заданий: 91<br />
                         Практические задания: 4
@@ -47,9 +47,9 @@
         </div>
         <div class="row ms-4 mt-0">
             <div class="col-md-12 col-sm-12 text-center">
-                <ul class="list-group list-group-horizontal  text-center list-itd">
-                    <li style="border-left: 1px solid white; border-right: 1px solid white; border-radius: 0px 0px 0px 20px;" class="list-group-item"><a class="link" href="#section-2">После обучения вы сможете</a></li>
-                    <li style="border-radius: 0px 0px 20px 0px" class="list-group-item"><a class="link" href="#section-3">В курсе вы будете...</a></li>
+                <ul class="list-group list-group-horizontal text-center list-itd">
+                    <li style="border-radius: 0px 0px 0px 20px;" class="list-group-item border border-white"><a class="link text-white" href="#section-2">После обучения вы сможете</a></li>
+                    <li style="border-radius: 0px 0px 20px 0px" class="list-group-item border border-white"><a class="link text-white" href="#section-3" style="background:#030305;">В курсе вы будете...</a></li>
                 </ul>
             </div>
         </div>
@@ -62,44 +62,50 @@
                 Чему вы научитесь на этом курсе
             </p>
             <div class="col-md-4 col-sm-12">
-                <div class="about-course-part">
-                    <div class="about-course-part-imgdiv"><img class="about-course-part-img" src="../images/MainPagePic2.jpg" /></div>
-                    <div class="about-course-part-text">Cоздавать так называемые «программы» внутри базы данных и управлять алгоритмами бизнес-логики</div>
+                <div>
+                    <div class="about-course-part-imgdiv mx-auto mb-3">
+                        <img class="img-fluid rounded-circle w-100 h-100" src="../images/MainPagePic2.jpg" />
+                    </div>
+                    <p class="">Cоздавать так называемые «программы» внутри базы данных и управлять алгоритмами бизнес-логики</p>
                 </div>
             </div>
             <div class="col-md-4 col-sm-12">
-                <div class="about-course-part">
-                    <div class="about-course-part-imgdiv"><img class="about-course-part-img" src="../images/MainPagePic3.jpg" /></div>
-                    <div class="about-course-part-text">Основам работы с языком SQL в Среде СУБД Microsoft SQL Server</div>
+                <div>
+                    <div class="about-course-part-imgdiv mx-auto mb-3">
+                        <img class="img-fluid rounded-circle w-100 h-100" src="../images/MainPagePic3.jpg" />
+                    </div>
+                    <p class="">Основам работы с языком SQL в Среде СУБД Microsoft SQL Server</p>
                 </div>
             </div>
             <div class="col-md-4 col-sm-12">
-                <div class="about-course-part">
-                    <div class="about-course-part-imgdiv"><img class="about-course-part-img" src="../images/MainPagePic4.jpg" /></div>
-                    <div class="about-course-part-text">Формулировать, создавать и отлаживать различные типы запросов T-SQL</div>
+                <div>
+                    <div class="about-course-part-imgdiv mx-auto mb-3">
+                        <img class="img-fluid rounded-circle w-100 h-100" src="../images/MainPagePic4.jpg" />
+                    </div>
+                    <p class="">Формулировать, создавать и отлаживать различные типы запросов T-SQL</p>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <h2 class="h-main text-black mt-5">
+        <div class="row mt-5">
+            <p class="text-black fs-2">
                 О курсе
-            </h2>
+            </p>
             <div class="col-md-7 col-sm-12">
-                <div class="about-p-div">
+                <div class="card px-5 mt-3 br-40 lh-lg" style="min-height:350px;">
                     <p class="fs-5 m-auto">
                         В этом курсе вы научитесь работать: с базой данных, путём создания и чтения различных запросов к базам данных
                         в системе управления базами данных (СУБД) "Microsoft SQL Server 2019" и с основами языка запросов T-SQL.
                         <div class="text-center">
                             @if (User.Identity.IsAuthenticated)
                             {
-                                <a class="btn btn-mainnav margin-leftpart-mainpic fs-5" style="background: var(--color-aqua); height:45px;"
+                                <a class="btn br-40 bd-cyan-500 fs-5"
                                    asp-controller="UserProfile" asp-action="GetUserProfile" asp-route-userLogin="@User.Identity.Name">
                                     Продолжите обучение!
                                 </a>
                             }
                             else
                             {
-                                <a class="btn btn-mainnav margin-leftpart-mainpic fs-5" style="background: var(--color-aqua); height:45px;" asp-controller="Account" asp-action="Register">
+                                <a class="btn br-40 bd-cyan-500 fs-5" asp-controller="Account" asp-action="Register">
                                     Зарегистрируйтесь и начните обучение!
                                 </a>
                             }
@@ -107,30 +113,30 @@
                     </p>
                 </div>
             </div>
-            <div class="col-md-5 col-sm-12">
-                <div class="about-imgdiv">
-                    <img class="about-img" src="../images/MainPagePic5.jpg" />
+            <div class="col-md-5 col-sm-12 p-3" style="height:350px;">
+                <div>
+                    <img class="img-fluid h-100 br-40" style="height:350px;" src="../images/MainPagePic5.jpg" />
                 </div>
             </div>
          </div>
-        <div class="row">
-            <h2 id="section-1" class="h-main text-black mt-5">
-                        Для кого этот курс
-            </h2>
+        <div class="row mt-5">
+            <p id="section-1" class="text-black fs-2">
+                Для кого этот курс
+            </p>
             <p class="fs-5 mt-4 lh-base">
                 Этот курс для новичков в SQL и для людей, которые имеют некоторые знания в сфере работы с данными, в частности языка SQL
                 Если вы новичок в изучении БД, то для прохождения этого курса рекомендуется ознакомиться со справочным материалом.
             </p>
-            <button type="button" align="center" class="btn btn-mainnav text-white my-3 ms-4" style="border:none; max-width:200px;"
+            <button type="button" align="center" class="btn br-40 bd-cyan-500 text-white my-3 ms-4" style="border:none; max-width:200px;"
                     data-bs-toggle="modal" data-bs-target="#documentaryModal" onclick="openModal({ url: '/Home/Documentary', modalId: 'documentaryModal'})">
                 Документация
             </button>
         </div>
-        <div class="row">
-            <h2 id="section-2" class="h-main text-black mt-5">
+        <div class="row mt-5">
+            <p id="section-2" class="text-black fs-2">
                 После обучения вы сможете
-            </h2>
-            <ul class="ul-after-teach mt-3 ms-5">
+            </p>
+            <ul class="mt-3 ms-5">
                 <li>Работать в среде СУБД "MS SQL Server"</li>
                 <li>Писать сложные расширенные запросы используя различные функции языка T-SQL</li>
                 <li>Создавать запросы для выполнения операций над таблицами</li>
@@ -139,23 +145,11 @@
                 <li>Писать запросы, используя локальные переменные</li>
             </ul>
         </div>
-        <div class="row">
-            <h2 id="section-3" class="h-main text-black mt-5 lh-lg">
-                В курсе вы будете
-            </h2>
-            <ol class="main-ul-willdo">
-                <li>Выполнять транзакции</li>
-                <li>Писать хранимые процедуры</li>
-                <li>Использовать функции агрегирования для выполнения операции с набором значений</li>
-                <li>Писать сложные запросы используя различные функции языка T-SQL</li>
-                <li>Создавать запросы для выполнения операций над таблицами</li>
-            </ol>
-        </div>
-        <div class="row">
-            <h2 class="h-main text-black">
+        <div class="row my-5">
+            <p class="text-black fs-2">
                 Дополнительная литература
-            </h2>
-            <ul class="ul-lit ms-5 mt-3 lh-lg">
+            </p>
+            <ul class="ms-5 mt-3 lh-lg">
                 <li><a href="https://learn.microsoft.com/ru-ru/sql/t-sql/language-reference?view=sql-server-ver15">Справочник по Transact-SQL | Microsoft Learn</a></li>
                 <li><a href="https://info-comp.ru/programmirovanie/412-directory-transact-sql.html">Справочник Transact-SQL – основы для новичков | info-comp.ru</a></li>
                 <li>Microsoft SQL Server 2012, основы T-SQL, Бен-Ган И., Райтман М.А., 2015.</li>

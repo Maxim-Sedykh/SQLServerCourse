@@ -1,27 +1,15 @@
 ﻿.personalArea-userinfo {
     min-height: 140px;
-    margin: auto;
 }
 
 .personalArea-lessons-references {
     height: 325px;
     width: 250px;
-    text-decoration: none;
-    font-size: 18px;
-    border-radius: 40px;
-    margin: 50px auto;
-    background: #002d7a;
-    padding: 10px;
-    color: white;
 }
 
 .personalArea-analysis-text {
     min-height: 150px;
     width: 80%;
-    padding: 20px;
-    background: var(--color-blue);
-    border-radius: 40px;
-    color: white;
 }
 
 .btn-lesson {
@@ -32,64 +20,20 @@
 .passed-course-info {
     height: 40px;
     width: 35%;
-    background: var(--color-darkaqua);
-    line-height: 40px;
-    border-radius: 20px;
-    border: 1px solid white;
-}
-
-.personal-profile-input-disabled {
-    all: unset;
-    max-width: 200px;
 }
 
 .profile-input {
-    outline: none;
-    border-radius:40px;
-    border: none;
-    font-size: 18px;
     height: 40px;
-    padding-left: 7px;
 }
 
 .update-pass-button {
     height: 40px;
 }
 
-    .update-pass-button:hover {
-        color: white;
-        background: #1974d3;
-    }
-
 .personalProfileCard {
-    border: 1px solid white;
-    border-radius: 40px;
     min-height:225px;
 }
 
 .profile-pass-hide {
     display: none;
 }
-
-.btn-lesson-link {
-    max-width:80%;
-    min-height:40px;
-    background: var(--color-aqua);
-    border-radius:40px;
-}
-
-    .btn-lesson-link:hover {
-        background: #048581;
-        color:white;
-    }
-
-.btn-exam-link {
-    max-width: 50%;
-    min-height: 40px;
-    background: #3b076a;
-    border-radius: 40px;
-}
-
-    .btn-exam-link:hover {
-        background: #520894;
-    }

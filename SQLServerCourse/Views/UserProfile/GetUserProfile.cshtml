@@ -45,7 +45,7 @@
                 class="my-3 fs-5 text-black" >Вернуться к себе</a>
             }
         </div>
-        <div class="personalArea-userinfo @profileCardColor text-white p-3 pt-3 me-0 my-3" style="font-size:20px; border-radius:40px;">
+        <div class="personalArea-userinfo @profileCardColor text-white p-3 me-0 my-3" style="font-size:20px; border-radius:40px;">
             @if (Model.IsExamCompleted)
             {
                 <div class="w-25 border border-white br-40 mx-auto mb-3 fs-5 bd-cyan-800">
@@ -53,25 +53,26 @@
                 </div>
             }
             <div class="row">
-                <div class="col-md-6 col-sm-12 text-white p" style="padding-left:80px;">
-                    <div class="personalProfileCard ps-4 pt-2">
+                <div class="col-md-6 col-sm-12 text-white">
+                    <div class="personalProfileCard pt-4 p-3 mb-2 border border-white br-40">
                         <form id="personalProfileFormId">
-                            <input class="info-user-input" asp-for="Id" hidden="hidden" />
-                            <input class="info-user-input" asp-for="IsExamCompleted" hidden="hidden" />
-                            <input class="info-user-input" asp-for="CurrentGrade" hidden="hidden" />
-                            <div class="mb-3">
-                                Логин : <input class="info-user-input personal-profile-input-disabled" asp-for="Login" type="text">
+                            <input asp-for="Id" hidden="hidden" />
+                            <input asp-for="IsExamCompleted" hidden="hidden" />
+                            <input asp-for="CurrentGrade" hidden="hidden" />
+                            <input asp-for="LessonsCompleted" hidden="hidden" />
+                            <div class="mb-3 d-flex">
+                                <label>Логин</label>  <input class="form-control br-40 w-50 ms-2" asp-for="Login" type="text" disabled readonly>
                             </div>
-                            <div class="mb-3">
-                                Имя: <input class="info-user-input profile-input text-black" asp-for="Name" placeholder="Введите имя" class="form-control" type="text" disabled="@inputDisabled">
+                            <div class="mb-3  d-flex">
+                                <label>Имя</label> <input class="form-control br-40 text-black w-50 ms-2" asp-for="Name" placeholder="Введите имя" class="form-control" type="text" disabled="@inputDisabled">
                             </div>
-                            <div class="mb-3">
-                                Фамилия: <input class="info-user-input profile-input text-black" asp-for="Surname" placeholder="Введите фамилию" class="form-control" type="text" disabled="@inputDisabled">
+                            <div class="mb-3  d-flex">
+                                <label>Фамилия</label> <input class="form-control br-40 text-black w-50  ms-2" asp-for="Surname" placeholder="Введите фамилию" class="form-control" type="text" disabled="@inputDisabled">
                             </div>
-                            <div class="mb-3">
-                                Возраст: <input class="info-user-input profile-input text-black" asp-for="Age" placeholder="Введите возраст" class="form-control" type="number" disabled="@inputDisabled">
+                            <div class="mb-3 d-flex">
+                                <label>Возраст</label> <input class="form-control br-40 text-black w-50  ms-2" asp-for="Age" placeholder="Введите возраст" class="form-control" type="number" disabled="@inputDisabled">
                             </div>
-                            <div class="mb-3">
+                            <div>
                                 <button type="submit" class="btn br-40 bd-blue-700 fs-6 text-white @cannotChangeData" id='updateInfoId'>
                                     Обновить информацию
                                 </button>
@@ -79,8 +80,8 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-12" style="padding-right:80px;">
-                    <div class="personalProfileCard ps-4 pt-2 pb-0">
+                <div class="col-md-6 col-sm-12">
+                    <div class="personalProfileCard ps-4 pt-4 pb-0 mb-2  border border-white br-40">
                         <p class="mb-3">
                             Окончательный результат: @if (Model.IsExamCompleted == false)
                             {
@@ -97,13 +98,13 @@
                             Список оценок
                         </button>
                         <br />
-                        <p >Лекций пройдено: <input asp-for="LessonsCompleted" class="personal-profile-input-disabled info-user-input mt-2" disabled="disabled" style="height:40px;"/> </p>
-                        <button class="btn bd-blue-800 br-40" id="showChangeButton" @anotherProfileDisabled style="background: #0058b4;">Изменить пароль</button>
+                        <p >Лекций пройдено: @Model.LessonsCompleted </p>
+                        <button class="btn bd-blue-800 br-40 bd-blue-500" id="showChangeButton" @anotherProfileDisabled">Изменить пароль</button>
                         <form id="changePasswordFormId">
                             <div class="d-flex justify-content-between mt-3 pe-5 " style="display: none;" id="changeDiv">
-                                <input name="NewPassword" autocomplete="off" class="form-control profile-input profile-pass-hide mb-3 ps-3 w-50"
+                                <input name="NewPassword" autocomplete="off" class="form-control profile-pass-hide mb-3 ps-3 w-50 br-40"
                                        id="changeInput" type="password" placeholder="Введите новый пароль...">
-                                <button type="submit" class="btn br-40 bd-blue-800 text-white profile-pass-hide" @anotherProfileDisabled id='changePasswordButton' style="height:38px;">Обновить пароль</button>
+                                <button type="submit" class="btn br-40 bd-blue-800 text-white profile-pass-hide mb-4" @anotherProfileDisabled id='changePasswordButton'>Обновить пароль</button>
                             </div>
                         </form>
                     </div>

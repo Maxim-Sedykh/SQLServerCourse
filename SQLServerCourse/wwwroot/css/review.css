@@ -1,35 +1,8 @@
 ﻿.page-title-container {
-    background-color: #076f8b;
     min-height: 110px;
     border-radius: 40px;
     width: 90%;
 }
-
-.btn-create-review {
-    border-radius: 15px;
-    margin-top: 25px;
-    background: var(--color-darkblue2);
-    color: white;
-}
-
-    .btn-createreview:hover {
-        background: var(--color-blue);
-        color: white;
-    }
-
-.btn-sort {
-    height: 40px;
-    font-size: 17px;
-    color: black;
-    background: var(--color-darkaqua);
-    border-radius:15px;
-    color:white;
-}
-
-    .btn-sort:hover {
-        color: white;
-        background: var(--color-aqua);
-    }
 
 .sort-div {
     height: 50px;
@@ -43,22 +16,10 @@
 }
 
 .review-text-container {
-    min-height:130px;
-    border-radius:40px;
-    background:#333;
+    min-height: 130px;
+    border-radius: 40px;
+    background: #333;
 }
-
-.btn-review-submit {
-    margin-top: 7px;
-    background: var(--color-aqua);
-    border-radius: 20px;
-    color: white;
-}
-
-    .btn-review-submit:hover {
-        background: var(--color-darkblue1);
-        color: white;
-    }
 
 .textarea-review-text {
     outline: none;

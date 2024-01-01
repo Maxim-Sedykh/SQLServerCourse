@@ -60,37 +60,6 @@
     background: #fff;
 }
 
-.lesson-container {
-    min-height: 700px;
-    padding: 25px;
-    border-radius: 40px;
-    color: white;
-    font-size: 18px;
-    margin: 10px auto;
-    width: 1000px;
-}
-
-.input-for-lessons {
-    margin: 10px 0px;   
-    border: none;
-    border-radius: 20px;
-    outline: none;
-    height: 35px;
-    padding-left: 10px;
-}
-
-
-.btn-submit-answers {
-    display: block;
-    color: white;
-    align-items: center;
-    margin: 15px auto;
-}
-
-    .btn-submit-answers:hover {
-        color: white;
-    }
-
 .answrright {
     min-height: 40px;
     background: #05bb12;
@@ -106,68 +75,5 @@
     font-size: 20px;
     border-radius: 20px;
 }
-
-.variants_ofanswers {
-    margin: 10px;
-    color: #c2c9c9;
-}
-
-    .variants_ofanswers:hover {
-        color: white;
-    }
-
-.btn-center {
-    display: block;
-    color: white;
-    align-items: center;
-    margin: 15px auto;
-    background: var(--color-aqua);
-    min-width: 100px;
-}
-
-.textarea-for-lessons {
-    width: 90%;
-    height: 110px;
-    font-size: 24px;
-    padding: 20px;
-    margin-left: 10px;
-    border: none;
-    outline: none;
-    resize: none;
-    background: #3b3a3a;
-    color: white;
-    font-family: Consolas;
-    margin-top: 15px;
-}
-
-.congratulation-panel {
-    height: 400px;
-    line-height: 400px;
-    font-size: 25px;
-    color: white;
-    background: #990101;
-    margin-top: 67px;
-    border-radius: 50px;
-    font-weight: 700;
-    letter-spacing: 3px;
-}
-
-.result-panel {
-    display: flex;
-    align-items: center;
-    margin-top: 50px;
-    height: 195px;
-    background: var(--color-darkblue1);
-    color: white;
-    border-radius: 50px;
-    vertical-align: middle;
-    font-size: 22px;
-    padding: 30px 0px 30px 0px;
-}
-
-.darkblue {
-    background: #190d8a;
-}
-
 
 

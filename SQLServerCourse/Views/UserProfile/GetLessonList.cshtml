@@ -11,10 +11,10 @@
             {
                 lessonDisabled = "disabled";
             }
-            <a class="btn btn-lesson-link d-block mb-5 text-white mx-auto @lessonDisabled" asp-controller="Lesson" asp-action="ReadLesson" asp-route-id="@i">@i. @Model.LessonNames[i - 1]</a>
+            <a class="btn br-40 bd-cyan-500 d-block mb-5 text-white mx-auto w-75 @lessonDisabled" asp-controller="Lesson" asp-action="ReadLesson" asp-route-id="@i">@i. @Model.LessonNames[i - 1]</a>
         }
-        <div class="exam-link-container mb-4">
-            <a class="btn btn-exam-link d-block text-white mx-auto border border-white @(Model.LessonsCompleted < 4 ? "disabled" : "")" asp-controller="Lesson" asp-action="PassLesson" asp-route-id="@Model.LessonNames.Count">Экзамен</a>
+        <div class="mb-4">
+            <a class="btn bd-indigo-800 d-block text-white mx-auto border border-white w-50 br-40 @(Model.LessonsCompleted < 4 ? "disabled" : "")" asp-controller="Lesson" asp-action="PassLesson" asp-route-id="@Model.LessonNames.Count">Экзамен</a>
         </div>
     </div>
 </div>

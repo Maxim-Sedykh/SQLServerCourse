@@ -2,11 +2,11 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12 text-center text-white" style="color:white; font-size:18px;">
+        <div class="col-md-12 text-center text-white">
             @for (int i = 0; i < Model.Count() - 1; i++)
             {
                 <br />
-                <p class="text-white" style="font-size:21px;">Урок @(i + 1). @Model[i]</p>
+                <p class="text-white fs-5">Урок @(i + 1). @Model[i]</p>
             }
         </div>
     </div>

@@ -10,34 +10,28 @@
             <div class="col-md-4 col-sm-3">
             </div>
             <div class="col-md-4 col-sm-6 main-content-login">
-                <div class="login-panel">
-                    <div class="login-panel-content py-5 mb-1">
-                        <div class="login-panel-content-label">
-                            <h2 class="text-white" align="center">
-                                Вход | SQLCourse
-                            </h2>
-                        </div>
-                        <div class="login-panel-content-form">
-                            <form id="login-panel-content-form" autocomplete="on" method="post" asp-controller="Account" asp-action="Login">
-                                <div asp-validation-summary="All" style="font-size:20px;margin-bottom: 10px; min-height:20px; " class="text-black text-center "></div>
-                                <div class="login-form-part">
-                                    <input asp-for="Login" type="text" class="inputs-in-login" placeholder="Логин" id="login-form-part-login">
-                                </div>
-                                <div class="login-form-part">
-                                    <input autocomplete="new-password" asp-for="Password" type="password" class="inputs-in-login" placeholder="Пароль" id="login-form-part-password">
-                                </div>
+                <div class="login-panel br-bottom-40 mt-5">
+                    <div class="py-5 mb-1 px-4">
+                        <p class="text-white fs-2" align="center">
+                            Вход | SQLCourse
+                        </p>
+                        <div>
+                            <form autocomplete="on" method="post" asp-controller="Account" asp-action="Login">
+                                <div asp-validation-summary="All" style="min-height:20px;" class="text-black text-center mb-2 fs-5"></div>
+                                <input asp-for="Login" type="text" class="form-control br-40 my-3" placeholder="Логин">
+                                <input autocomplete="new-password" asp-for="Password" type="password" class="form-control br-40 my-3" placeholder="Пароль">
                                 <div class="text-center">
-                                    <button class="login-form-part-subminfo-button">
+                                    <button class="btn br-40 bd-blue-500">
                                         Войти
                                     </button>
                                 </div>
                             </form>
                         </div>
-                        <div align="center" style="margin-top:60px;">
-                            <p class="login-panel-content-footer-parag" style="color:white; font-size:18px; font-weight:400;">
+                        <div align="center" class="mt-5">
+                            <p class="fs-5 text-white">
                                 У вас нет аккаунта SQLCourse? <br />
                             </p>
-                            <a asp-controller="Account" asp-action="Register" style="color:white; font-size:20px; font-weight:400;">
+                            <a asp-controller="Account" asp-action="Register" class="fs-5 text-white fs-5 fw-bold">
                                 Зарегистрируйтесь Бесплатно!
                             </a>
                         </div>

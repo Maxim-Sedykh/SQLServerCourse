@@ -39,7 +39,7 @@
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <a class="nav-link active px-0 @textColor" aria-current="page" href="/">На главную</a>
-                            <div class="navItemRight" style="margin-left:auto;">
+                            <div class="ms-auto" style="margin-left:auto;">
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-white">
                                     @if (!User.IsInRole("Admin"))
                                     {
@@ -59,7 +59,7 @@
                                             <a class="nav-link my-auto" style="color:#868da5; font-size:14px;">@User.Identity.Name</a>
                                         </li>
                                     }
-                                    <li class="nav-item dropdown navItemRight">
+                                    <li class="nav-item dropdown">
 
                                         @if (User.Identity.IsAuthenticated)
                                         {
@@ -68,7 +68,7 @@
                                             </a>
                                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
 
-                                                <li><a class="dropdown-item " asp-controller="UserProfile" asp-action="GetUserProfile" asp-route-userLogin="@User.Identity.Name">Личный кабинет</a></li>
+                                                <li><a class="dropdown-item" asp-controller="UserProfile" asp-action="GetUserProfile" asp-route-userLogin="@User.Identity.Name">Личный кабинет</a></li>
                                                 <li>
                                                     <form method="post" asp-controller="Account" asp-action="Logout">
                                                         <button class="dropdown-item">Выйти</button>
@@ -144,13 +144,13 @@
     </div>
 
     <footer id="footer" class="footer">
-        <div class="container-fluid h100perc text-black">
+        <div class="container-fluid text-black">
             <div class="container border-top">
                 <div class="row text-center">
-                    <div class="col-md-6 col-sm-12 h100perc">
+                    <div class="col-md-6 col-sm-12">
                         SQLCourse In MSSQL© +79493597126
                     </div>
-                    <div class="col-md-6 col-sm-12  h100perc">
+                    <div class="col-md-6 col-sm-12">
                         m.sedykh@mail.ru 2023-2024
                     </div>
                 </div>

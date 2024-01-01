@@ -20,7 +20,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-2 hidden-sm"></div>
-            <div class="col-md-8 col-sm-12 @lessonContainerColor my-3 br-40 px-4">
+            <div class="col-md-8 col-sm-12 @lessonContainerColor my-5 br-40 px-4">
                 @if (Model.LessonType == LessonType.Exam)
                 {
                     <p class="text-center text-white text-uppercase fs-2 mt-3">э к з а м е н</p>
@@ -31,12 +31,12 @@
                 }
                 @if ((Context.Request.Method == "POST") && (Model.LessonType == LessonType.Exam))
                 {
-                    <a class="btn d-block br-40 bd-cyan-500 my-4 text-white w-25 mx-auto"
+                    <a class="btn d-block br-40 bd-cyan-500 my-4 text-white mx-auto"
                     asp-controller="FinalResult" asp-action="GetFinalResult">Завершить экзамен</a>
                 }
                 @if ((Context.Request.Method == "POST") && (Model.LessonType != LessonType.Exam))
                 {
-                    <a class="btn d-block br-40 bd-cyan-500 my-4 text-white w-25 mx-auto"
+                    <a class="btn d-block br-40 bd-cyan-500 my-4 text-white mx-auto"
                        asp-controller="UserProfile" asp-action="GetUserProfile" asp-route-userLogin="@User.Identity.Name">Перейти в профиль</a>
                 }
                 <div class="tasks" align="justify">
@@ -156,19 +156,19 @@
                                         <p>
                                             Со следующими записями:<br /><br />
                                             Films<br /><br />
-                                            <img src="~/images/filmTable.jpg" />
+                                            <img class="img-fluid" src="~/images/filmTable.jpg" />
                                             <br /><br />
                                             HallRows<br /><br />
-                                            <img src="~/images/hallRowTable.jpg" />
+                                            <img class="img-fluid" src="~/images/hallRowTable.jpg" />
                                             <br /><br />
                                             Halls<br /><br />
-                                            <img src="~/images/hallTable.jpg" />
+                                            <img class="img-fluid" src="~/images/hallTable.jpg" />
                                             <br /><br />
                                             Screenings<br /><br />
-                                            <img src="~/images/screeningTable.jpg" />
+                                            <img class="img-fluid" src="~/images/screeningTable.jpg" />
                                             <br /><br />
                                             Tickets<br /><br />
-                                            <img src="~/images/ticketTable.jpg" />
+                                            <img class="img-fluid" src="~/images/ticketTable.jpg" />
                                             <br /><br />
                                         </p>
                                     }
@@ -229,7 +229,7 @@
                                     } 
                                     if (Model.Questions[i].QuestionType == TaskType.Open)
                                     {
-                                        <input class="form-control br-40 w-25" type="text" asp-for="Questions[i].UserAnswer" placeholder="Ответ...">
+                                        <input class="form-control br-40 w-50" type="text" asp-for="Questions[i].UserAnswer" placeholder="Ответ...">
                                     }
                                     else
                                     {
@@ -249,12 +249,12 @@
                     </form>
                     @if ((Context.Request.Method == "POST") && (Model.LessonType == LessonType.Exam))
                     {
-                        <a class="btn d-block br-40 bd-cyan-500 my-4 text-white w-25 mx-auto"
+                        <a class="btn d-block br-40 bd-cyan-500 my-4 text-white mx-auto"
                         asp-controller="FinalResult" asp-action="GetFinalResult">Завершить экзамен</a>
                     }
                     @if ((Context.Request.Method == "POST") && (Model.LessonType != LessonType.Exam))
                     {
-                        <a class="btn d-block br-40 bd-cyan-500 my-4 text-white w-25 mx-auto"
+                        <a class="btn d-block br-40 bd-cyan-500 my-4 text-white mx-auto"
                            asp-controller="UserProfile" asp-action="GetUserProfile" asp-route-userLogin="@User.Identity.Name">Перейти в профиль</a>
                     }
                 </div>

@@ -61,16 +61,6 @@ input[type=number]::-webkit-outer-spin-button {
     border-radius: 0px 40px 40px 0px;
 }
 
-:root {
-    --color-darkblue1: #061c42;
-    --color-darkblue2: #001f5e;
-    --color-blue: #1469c2;
-    --color-darkaqua: #0f6270;
-    --color-aqua: #1ab1c9;
-    --color-sea: #15c488;
-    --color-green: #30b318;
-}
-
 body {
     margin-bottom:0px;
 }
@@ -117,19 +107,6 @@ body {
     background: red;
 }
 
-.btn-gradient {
-    background: #002d7a;
-    border-radius: 30px;
-    font-size: 20px;
-    border: none;
-    color: red;
-    height: 40px;
-    line-height: 40px;
-    padding-top: 0px;
-    padding-bottom: 0px;
+.text-decoration-none {
+    text-decoration: none;
 }
-
-    .btn-gradient:hover {
-        background: var(--color-blue);
-        color: white;
-    }

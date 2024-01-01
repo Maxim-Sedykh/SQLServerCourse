@@ -6,8 +6,8 @@
     {
         for (int i = 0; i < Model.Count; i++)
         {
-            <div class="row review mb-4 mx-auto p-2 text-black ">
-                <div class="col-md-3 text-center">
+            <div class="row review mb-4 mx-auto p-2 pb-0 text-black ">
+                <div class="col-md-3 text-center mb-2">
                     <p class="text-center review-user-name fs-6 fw-bolder mb-1 text-break">
                         @Model[i].Login
                     </p>
@@ -16,7 +16,7 @@
                     </p>
                     <a class="btn d-inline br-40 bd-blue-800 mt-3" asp-controller="UserProfile" asp-action="GetUserProfile" asp-route-userLogin="@Model[i].Login">Профиль</a>
                 </div>
-                <div class="col-md-7 my-auto">
+                <div class="col-md-7 my-auto mb-2">
                     <div class="review-text-container px-3 py-2 my-1">
                         <p class="text-white fs-6">@Model[i].Text</p>
                     </div>
@@ -25,7 +25,7 @@
                 {
                     <div class="col-md-2 d-flex justify-content-center">
                         <form asp-controller="Review" asp-action="DeleteReview" asp-route-id="@Model[i].Id" asp-route-referrer="GetUserReviews" method="post">
-                            <button type="submit" class="btn btn-gradient text-white mt-2">Удалить</button>
+                            <button type="submit" class="btn bd-red-700 br-40 text-white my-2">Удалить</button>
                         </form>
                     </div>
                 }

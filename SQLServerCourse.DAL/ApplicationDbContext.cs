@@ -103,6 +103,7 @@ namespace SQLServerCourse.DAL
                     Id = 1,
                     IsEditAble = true,
                     UserId = 1,
+                    LessonsCompleted = 5
                 },
                 new UserProfile
                 {
