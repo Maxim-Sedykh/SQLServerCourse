@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using SQLServerCourse.Initializer;
 using NLog.Web;
 using System.Text.Json.Serialization;
-using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,9 +17,7 @@ builder.Services.AddControllersWithViews()
                 .Add(new JsonStringEnumConverter()));
 
 var connection = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connection,
-    b => b.MigrationsAssembly("SQLServerCourse")));
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
