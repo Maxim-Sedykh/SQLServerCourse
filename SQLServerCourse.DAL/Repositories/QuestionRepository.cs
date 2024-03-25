@@ -1,4 +1,5 @@
-﻿using SQLServerCourse.DAL.Interfaces;
+﻿using SQLServerCourse.DAL.Contexts;
+using SQLServerCourse.DAL.Interfaces;
 using SQLServerCourse.Domain.Entity;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,9 @@ namespace SQLServerCourse.DAL.Repositories
 {
     public class QuestionRepository: IBaseRepository<Question>
     {
-        private readonly ApplicationDbContext _db;
+        private readonly CourseDbContext _db;
 
-        public QuestionRepository(ApplicationDbContext db)
+        public QuestionRepository(CourseDbContext db)
         {
             _db = db;
         }

@@ -1,9 +1,10 @@
-using SQLServerCourse.DAL;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using SQLServerCourse.Initializer;
 using NLog.Web;
 using System.Text.Json.Serialization;
+using System.Configuration;
+using SQLServerCourse.DAL.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,8 +17,15 @@ builder.Services.AddControllersWithViews()
             options.JsonSerializerOptions.Converters
                 .Add(new JsonStringEnumConverter()));
 
-var connection = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
+var courseDBConnectionString = builder.Configuration.GetConnectionString("CourseDbConnection");
+var filmDBConnectionString = builder.Configuration.GetConnectionString("FilmDbConnection");
+
+builder.Services.AddDbContext<CourseDbContext>(options =>
+    options.UseSqlServer(courseDBConnectionString));
+
+builder.Services.AddDbContext<FilmDbContext>(options =>
+    options.UseMySql(filmDBConnectionString,
+            new MySqlServerVersion(new Version(8, 0, 25))));
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>

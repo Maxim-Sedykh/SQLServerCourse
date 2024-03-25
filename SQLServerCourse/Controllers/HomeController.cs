@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SQLServerCourse.DAL;
+using SQLServerCourse.DAL.Contexts;
 using SQLServerCourse.DAL.Interfaces;
 using SQLServerCourse.DAL.Repositories;
 using SQLServerCourse.Domain.Entity;
@@ -11,12 +11,14 @@ namespace SQLServerCourse.Controllers
     public class HomeController : Controller
     {
         private readonly IHomeService _homeService;
-        private readonly ApplicationDbContext _db;
+        private readonly CourseDbContext _db;
+        private readonly FilmDbContext _dbFilm;
 
-        public HomeController(IHomeService homeService, ApplicationDbContext db)
+        public HomeController(IHomeService homeService, CourseDbContext db, FilmDbContext dbrr)
         {
             _homeService = homeService;
             _db = db;
+            _dbFilm = dbrr;
         }
 
         public IActionResult Index() => View();

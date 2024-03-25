@@ -13,15 +13,15 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SQLServerCourse.DAL
+namespace SQLServerCourse.DAL.Contexts
 {
-    public class ApplicationDbContext : DbContext
+    public class CourseDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        public CourseDbContext(DbContextOptions<CourseDbContext> options) : base(options)
         {
             Database.EnsureCreated();
         }
-      
+
         public DbSet<User> Users { get; set; }
 
         public DbSet<Lesson> Lessons { get; set; }
@@ -40,21 +40,10 @@ namespace SQLServerCourse.DAL
 
         public DbSet<QueryWord> QueryWords { get; set; }
 
-        public DbSet<Film> Films { get; set; }
-
-        public DbSet<Hall> Halls { get; set; }
-
-        public DbSet<HallRow> HallRows { get; set; }
-
-        public DbSet<Screening> Screenings { get; set; }
-
-        public DbSet<Ticket> Tickets { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Системные таблицы
-
-            modelBuilder.Entity<User>(builder => 
+            modelBuilder.Entity<User>(builder =>
             {
                 builder.ToTable("Users").HasKey(u => u.Id);
 
@@ -177,7 +166,7 @@ namespace SQLServerCourse.DAL
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
-            modelBuilder.Entity<Lesson>(builder => 
+            modelBuilder.Entity<Lesson>(builder =>
             {
                 builder.ToTable("Lessons").HasKey(x => x.Id);
 
@@ -203,66 +192,6 @@ namespace SQLServerCourse.DAL
                 builder.HasOne(q => q.Keyword)
                     .WithMany(k => k.QueryWords)
                     .HasForeignKey(q => q.KeywordId)
-                    .OnDelete(DeleteBehavior.Cascade);
-            });
-
-            // Таблицы для практических заданий
-
-            modelBuilder.Entity<Film>(builder =>
-            {
-                builder.ToTable("Films").HasKey(x => x.Id);
-
-                builder.Property(x => x.Id).ValueGeneratedOnAdd();
-                builder.Property(l => l.Name).HasMaxLength(50).IsRequired();
-                builder.Property(l => l.Description).HasMaxLength(200).IsRequired(false);
-            });
-
-            modelBuilder.Entity<Hall>(builder =>
-            {
-                builder.ToTable("Halls").HasKey(x => x.Id);
-
-                builder.Property(x => x.Id).ValueGeneratedOnAdd();
-                builder.Property(l => l.Name).HasMaxLength(50).IsRequired();
-            });
-
-            modelBuilder.Entity<Screening>(builder =>
-            {
-                builder.ToTable("Screenings").HasKey(x => x.Id);
-
-                builder.Property(x => x.Id).ValueGeneratedOnAdd();
-
-                builder.HasOne(tv => tv.Hall)
-                    .WithMany(q => q.Screenings)
-                    .HasForeignKey(tv => tv.HallId)
-                    .OnDelete(DeleteBehavior.Cascade);
-
-                builder.HasOne(tv => tv.Film)
-                    .WithMany(q => q.Screenings)
-                    .HasForeignKey(tv => tv.FilmId)
-                    .OnDelete(DeleteBehavior.Cascade);
-            });
-
-            modelBuilder.Entity<Ticket>(builder =>
-            {
-                builder.ToTable("Tickets").HasKey(x => x.Id);
-
-                builder.Property(x => x.Id).ValueGeneratedOnAdd();
-
-                builder.HasOne(tv => tv.Screening)
-                    .WithMany(q => q.Tickets)
-                    .HasForeignKey(tv => tv.ScreeningId)
-                    .OnDelete(DeleteBehavior.Cascade);
-            });
-
-            modelBuilder.Entity<HallRow>(builder =>
-            {
-                builder.ToTable("HallRows").HasKey(x => x.Id);
-
-                builder.Property(x => x.Id).ValueGeneratedOnAdd();
-
-                builder.HasOne(tv => tv.Hall)
-                    .WithMany(q => q.HallRows)
-                    .HasForeignKey(tv => tv.HallId)
                     .OnDelete(DeleteBehavior.Cascade);
             });
         }

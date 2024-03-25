@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SQLServerCourse.DAL.Contexts;
 using SQLServerCourse.DAL.Interfaces;
 using SQLServerCourse.Domain.Entity;
 using System;
@@ -11,9 +12,9 @@ namespace SQLServerCourse.DAL.Repositories
 {
     public class ReviewRepository : IBaseRepository<Review>
     {
-        private readonly ApplicationDbContext _db;
+        private readonly CourseDbContext _db;
 
-        public ReviewRepository(ApplicationDbContext db)
+        public ReviewRepository(CourseDbContext db)
         {
             _db = db;
         }
