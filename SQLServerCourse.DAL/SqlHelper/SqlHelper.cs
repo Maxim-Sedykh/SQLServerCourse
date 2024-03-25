@@ -27,7 +27,7 @@ namespace SQLServerCourse.DAL.SqlHelper
 
         public static DataTable ExecuteQuery(string sqlQuery)
         {
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            var connectionString = configuration.GetConnectionString("FilmDbConnection");
             DataTable table = new DataTable();
             List<string> prohibitedWords = new List<string> { "lessonrecords", "users", "lessons", 
                 "reviews", "questions", "testvariants", "userprofiles" };
