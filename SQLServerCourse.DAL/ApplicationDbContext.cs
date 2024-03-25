@@ -21,8 +21,6 @@ namespace SQLServerCourse.DAL
         {
             Database.EnsureCreated();
         }
-
-        //Системные таблицы
       
         public DbSet<User> Users { get; set; }
 
