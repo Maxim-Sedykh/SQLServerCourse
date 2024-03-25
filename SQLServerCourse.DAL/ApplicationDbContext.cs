@@ -40,8 +40,6 @@ namespace SQLServerCourse.DAL
 
         public DbSet<QueryWord> QueryWords { get; set; }
 
-        //Ниже таблицы для практических занятий курса, чтобы делать по ним запросы:
-
         public DbSet<Film> Films { get; set; }
 
         public DbSet<Hall> Halls { get; set; }
