@@ -9,13 +9,13 @@ namespace SQLServerCourse.Domain.Entity
 {
     public class Question
     {
-        public byte Id { get; set; }
+        public int Id { get; set; }
 
-        public byte LessonId { get; set; }
+        public int LessonId { get; set; }
 
         public Lesson Lesson { get; set; }
 
-        public byte Number { get; set; }
+        public int Number { get; set; }
 
         public TaskType Type { get; set; }
 

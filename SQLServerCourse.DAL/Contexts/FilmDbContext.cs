@@ -13,6 +13,7 @@ namespace SQLServerCourse.DAL.Contexts
     {
         public FilmDbContext(DbContextOptions<FilmDbContext> options) : base(options)
         {
+            //Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 

@@ -8,13 +8,13 @@ namespace SQLServerCourse.Domain.Entity
 {
     public class TestVariant
     {
-        public byte Id { get; set; }
+        public int Id { get; set; }
 
-        public byte QuestionId { get; set; }
+        public int QuestionId { get; set; }
 
         public Question Question { get; set; }
 
-        public byte VariantNumber { get; set; }
+        public int VariantNumber { get; set; }
 
         public string Content { get; set; }
 

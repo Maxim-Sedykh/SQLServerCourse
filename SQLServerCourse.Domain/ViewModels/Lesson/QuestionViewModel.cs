@@ -13,9 +13,9 @@ namespace SQLServerCourse.Domain.ViewModels.Teaching
 {
     public class QuestionViewModel
     {
-        public byte Id { get; set; }
+        public int Id { get; set; }
 
-        public byte Number { get; set; }
+        public int Number { get; set; }
 
         public string DisplayQuestion { get; set; }
 

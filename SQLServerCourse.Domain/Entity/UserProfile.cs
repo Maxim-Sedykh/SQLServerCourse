@@ -14,13 +14,13 @@ namespace SQLServerCourse.Domain.Entity
 
         public string Surname { get; set; }
 
-        public byte Age { get; set; }
+        public int Age { get; set; }
 
         public bool IsExamCompleted { get; set; }
 
         public float CurrentGrade { get; set; }
 
-        public byte LessonsCompleted { get; set; }
+        public int LessonsCompleted { get; set; }
 
         public string? Analys { get; set; }
 

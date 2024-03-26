@@ -10,13 +10,13 @@ namespace SQLServerCourse.Domain.Entity
     {
         public long Id { get; set; }
 
-        public byte Number { get; set; }
+        public int Number { get; set; }
 
         public int KeywordId { get; set; }
 
         public Keyword Keyword { get; set; }
 
-        public byte QuestionId { get; set; }
+        public int QuestionId { get; set; }
 
         public Question Question { get; set; }
     }

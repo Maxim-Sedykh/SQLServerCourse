@@ -8,7 +8,7 @@ namespace SQLServerCourse.Domain.ViewModels.UserProfile
 {
     public class LessonListViewModel
     {
-        public byte LessonsCompleted { get; set; }
+        public int LessonsCompleted { get; set; }
 
         public List<string> LessonNames { get; set; }
     }

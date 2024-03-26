@@ -13,7 +13,7 @@ namespace SQLServerCourse.Domain.Entity
     {
         public long Id { get; set; }
 
-        public byte LessonId { get; set; }
+        public int LessonId { get; set; }
 
         public long UserId { get; set; }
 

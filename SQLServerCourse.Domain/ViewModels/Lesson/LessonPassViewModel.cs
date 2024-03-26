@@ -13,7 +13,7 @@ namespace SQLServerCourse.Domain.ViewModels.Lesson
 {
     public class LessonPassViewModel
     {
-        public byte LessonId { get; set; }
+        public int LessonId { get; set; }
 
         public LessonType LessonType { get; set; }
 

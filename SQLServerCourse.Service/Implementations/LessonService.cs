@@ -285,7 +285,7 @@ namespace SQLServerCourse.Service.Implementations
             return new Tuple<float, List<bool>>(grade, tasksCorrectness);
         }
 
-        public void ParseAnswer(string sqlQuery, byte questionId, out float grade, out List<string> remarks)
+        public void ParseAnswer(string sqlQuery, int questionId, out float grade, out List<string> remarks)
         {
             grade = 0f;
             remarks = new List<string>();

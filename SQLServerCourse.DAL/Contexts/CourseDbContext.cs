@@ -1,6 +1,7 @@
 ﻿using Funq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using ServiceStack.Html;
 using SQLServerCourse.Domain.Entity;
 using SQLServerCourse.Domain.Entitys_for_lesson;
 using SQLServerCourse.Domain.Enum;
@@ -9,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +21,7 @@ namespace SQLServerCourse.DAL.Contexts
     {
         public CourseDbContext(DbContextOptions<CourseDbContext> options) : base(options)
         {
+            //Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 

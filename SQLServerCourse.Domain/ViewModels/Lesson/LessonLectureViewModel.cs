@@ -9,7 +9,7 @@ namespace SQLServerCourse.Domain.ViewModels.Teaching
 {
     public class LessonLectureViewModel
     {
-        public byte Id { get; set; }
+        public int Id { get; set; }
 
         public string LessonName { get; set; }
 
