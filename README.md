@@ -22,6 +22,22 @@
 9. Частичное использование ADO.NET, для практических запросов пользователей в другую БД
 10. Библиотека QuickGraph для работы с графами
 
+В плане сделать: - 
+Переписать проект с использованием следующих технологий:
+ASP.NET Web API
+Angular/React (Хотелось бы React)
+EF Core/Dapper
+JWT Bearer
+MS SQL Server и MySQL
+Data Annotation для валидации моделей/Может быть что-то другое
+Docker
+Kafka/RabbitMQ
+Redis
+Unit Tests
+Mapster
+Serilog
+
+
 Для использования полного функционала приложения нужно авторизоваться под именем админа: Login: Admin123 Password: 1234567
 
 ## Интерфейс проекта 
